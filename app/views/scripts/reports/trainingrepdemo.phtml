@@ -138,6 +138,28 @@ if( $this->criteria['aggregate_method']=="view_part_names"){
                                   resizable: false,
                                       }); 
                                 
+                                $("#region_c_id").on('change', function (event) {
+                     check_buttons();
+                 });
+                 $("#province_id").on('change', function (event) {
+                     check_buttons();
+                 });
+                
+                $("#district_id").on('change', function (event) {
+                    check_buttons();
+                });
+                
+                $("#aggreg_region_c_id").on('change', function (event) {
+                     check_buttons();
+                 });
+                 $("#aggreg_province_id").on('change', function (event) {
+                     check_buttons();
+                 });
+                
+                $("#aggreg_district_id").on('change', function (event) {
+                    check_buttons();
+                });
+               
 			} );
                         
                        
@@ -213,16 +235,16 @@ div#dialog-certification-message {
             function check_verify(id){
                 
                 var val = document.getElementById(id).value;
-               
+               changeLocationBars(val);
                 //alert('This is the value '+val);
                 if(val=="view_individual_train" || val=="view_aggregate_train"){
-                    document.getElementById("province_id").disabled=true;
-                    document.getElementById("district_id").disabled=true;
+                    document.getElementById("province_id").disabled=false;
+                    document.getElementById("district_id").disabled=false;
                     document.getElementById("region_c_id").disabled=true;
                     document.getElementById("facility_id").disabled = true;
                     
-                    document.getElementById("aggreg_province_id").disabled=true;
-                    document.getElementById("aggreg_district_id").disabled=true;
+                    document.getElementById("aggreg_province_id").disabled=false;
+                    document.getElementById("aggreg_district_id").disabled=false;
                     document.getElementById("aggreg_region_c_id").disabled=true;
                     document.getElementById("aggreg_facility_id").disabled = true;
                     
@@ -261,14 +283,17 @@ div#dialog-certification-message {
             }
             function check_buttons(){
                var val =   forms.aggregate_method.value;
+               changeLocationBars(val);
                 if(val=="view_individual_train" || val=="view_aggregate_train"){
-                    document.getElementById("province_id").disabled=true;
-                    document.getElementById("district_id").disabled=true;
+       
+       
+                    document.getElementById("province_id").disabled=false;
+                    document.getElementById("district_id").disabled=false;
                     document.getElementById("region_c_id").disabled=true;
                     document.getElementById("facility_id").disabled = true;
                     
-                    document.getElementById("aggreg_province_id").disabled=true;
-                    document.getElementById("aggreg_district_id").disabled=true;
+                    document.getElementById("aggreg_province_id").disabled=false;
+                    document.getElementById("aggreg_district_id").disabled=false;
                     document.getElementById("aggreg_region_c_id").disabled=true;
                     document.getElementById("aggreg_facility_id").disabled = true;
                     
@@ -282,23 +307,12 @@ div#dialog-certification-message {
                     document.getElementById("dob-end-day").disabled = true;
                     document.getElementById("dob-end-month").disabled = true;
                     document.getElementById("dob-end-year").disabled = true;
+                    
+       
                 }else{
                     //alert(val);
-                    if(val=="view_part_names"){
-       document.getElementById("geoSelectionMenu").style.display = 'block';
-       document.getElementById("geoSelectionMenu").style.visibile = 'show';
-       
-       document.getElementById("geoSelectionMenuAggregate").style.display = 'none';
-       document.getElementById("geoSelectionMenuAggregate").style.visibile = 'hidden';
-       
-      }else{
-       document.getElementById("geoSelectionMenu").style.display = 'none';
-       document.getElementById("geoSelectionMenu").style.visibile = 'hidden';
-       
-       document.getElementById("geoSelectionMenuAggregate").style.display = 'block';
-       document.getElementById("geoSelectionMenuAggregate").style.visibile = 'show';
- }
- 
+                    
+                        
                     document.getElementById("province_id").disabled=false;
                     document.getElementById("district_id").disabled=false;
                     document.getElementById("region_c_id").disabled=false;
@@ -319,6 +333,22 @@ div#dialog-certification-message {
                     document.getElementById("dob-end-month").disabled = false;
                     document.getElementById("dob-end-year").disabled = false;
                 }
+            }
+            function changeLocationBars(val){
+                if(val=="view_part_names"){
+       document.getElementById("geoSelectionMenu").style.display = 'block';
+       document.getElementById("geoSelectionMenu").style.visibile = 'show';
+       
+       document.getElementById("geoSelectionMenuAggregate").style.display = 'none';
+       document.getElementById("geoSelectionMenuAggregate").style.visibile = 'hidden';
+       
+      }else{
+       document.getElementById("geoSelectionMenu").style.display = 'none';
+       document.getElementById("geoSelectionMenu").style.visibile = 'hidden';
+       
+       document.getElementById("geoSelectionMenuAggregate").style.display = 'block';
+       document.getElementById("geoSelectionMenuAggregate").style.visibile = 'show';
+ }
             }
             </script>
            <style type="text/css">
@@ -412,6 +442,7 @@ $('#submitTrainingData').click(function() {
              //alert("successful");
            //alert(data);
            
+          
              var responseData =   jQuery.parseJSON(data);
              var locationName = responseData['locationName'];
              
@@ -672,7 +703,7 @@ echo "<option value=''  >--choose--</option>";
                                                         <div class="col-md-2" >
 							<p align="center"><?php echo t('Professional Qualification'); ?></p>
 							
-							<p align="center"><select name="cadre" style="width:95%;" id="cadre"/>
+							<p align="center"><select name="cadre[]" style="width:95%;" id="cadre" multiple/>
 	<?php
        
         echo "<option value=''  ".$disbaled.">--choose--</option>";

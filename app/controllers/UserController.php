@@ -23,13 +23,317 @@ class UserController extends ReportFilterHelpers {
 	}
 
 	public function init() {
+            $burl = Settings::$COUNTRY_BASE_URL;
+	        if (substr($burl, -1) != '/' && substr($burl, -1) != '\\')
+	            $this->baseUrl = $burl . '/';
 	}
 
 	public function preDispatch() {
 		parent::preDispatch ();
 
 	}
+        
+        public function requestaccessAction(){
+            if ((! $user_id = $this->isLoggedIn ()) or (! $this->hasACL ( 'add_edit_users' ))) {
+			$this->doNoAccessError ();
+		}
+                
+            require_once("models/table/requestUser.php");
+            require_once("models/table/Report.php");
+            $report = new Report();
+            $reqUser = new requestUser();
+            
+           
+            $currDate = new Zend_Db_Expr('CURDATE()');
+             $data = array();
+             $data['status'] = -1;
+             $data['timestamp_modified'] = $currDate;
+             $req_id = $this->getSanParam('decline'); 
+              if(!empty($req_id)){
+                $where = 'req_id = '.$req_id.'';
+                $userData = $reqUser->selectRequestUser("request_access",$where);
+                if($userData[0]['status']==1){
+                    $this->viewAssignEscaped("statusMessage","User\'s access can\'t be declined, this user\'s has been approved earlier");
+                }
+                else if($userData[0]['status']==-1){
+                    $this->viewAssignEscaped("statusMessage","User has been declined access earlier");
+                }else{
+                    $res = $reqUser->updateRequestUser("request_access", $data, $where);
+                 if(!empty($res)){
+                     $this->viewAssignEscaped("statusMessage","User's access request has been declined...");
+                 }
+                }
+                
+                  }
+                  
+            
+            $users = $reqUser->selectRequestUser("request_access","");
+            $headers = array("ID","Designation","First Name","Last Name","Pref. Username","email","Zone","State","LGA","Status");
+            $outputs = array();
+            $this->viewAssignEscaped("baseUrl",$this->baseUrl);
+            
+            foreach($users as $user){
+                $output = array();
+                $id = $user['req_id'];
+                
+                $output['req_id'] = $id;
+                $output['designation'] = $user['designation'];
+                $output['first_name'] = $user['first_name'];
+                $output['last_name'] = $user['last_name'];
+                $output['username'] = $user['username'];
+                $output['email'] = $user['email'];
+                $output['province_id'] = $report->get_location_name($user['province_id']);
+                $output['district_id'] = $report->get_location_name($user['district_id']);
+                $output['region_c_id'] = $report->get_location_name($user['region_c_id']);
+                $output['status'] = $user['status'];
+                
+                $outputs[] = $output;
+            }
+            $this->viewAssignEscaped("outputs", $outputs);
+            $this->viewAssignEscaped("headers", $headers);
+        }
+        
+       
+        public function approveAction(){
+          if ((! $user_id = $this->isLoggedIn ()) or (! $this->hasACL ( 'add_edit_users' ))) {
+			$this->doNoAccessError ();
+		}
+                //$auth = Zend_Auth::getInstance ();
+                //$read = $auth->getStorage()->read();
+            require_once("models/table/requestUser.php");
+            
+            
+                $reqUser = new requestUser();
+                $report = new Report();
+		$request = $this->getRequest ();
+		$validateOnly = $request->isXmlHttpRequest ();
+		if ($validateOnly)
+		$this->setNoRenderer ();
 
+		$userObj = new User ( );
+		$userRow = $userObj->createRow ();
+
+		$status = ValidationContainer::instance ();
+		$userArray = $userRow->toArray ();
+		$userArray['acls'] = User::getACLs ( $user_id ); //set acls
+		$this->viewAssignEscaped ( 'user', $userArray );
+                
+                $locations = Location::getAll();
+		$this->viewAssignEscaped('locations', $locations);
+                //var_dump($locations); exit;
+                
+		if ($request->isPost()) {
+                    //echo 'post requesttttt'; exit;
+                    
+                    $province_id = $this->getSanParam('province_id');
+                    $province_id = $report->formatSelection($province_id);
+                    $zone = $report->explodeGeogArray($province_id,"1");
+                    
+                    $district_id = $this->getSanParam('district_id');
+                    $district_id = $report->formatSelection($district_id);
+                    $state = $report->explodeGeogArray($district_id, "2");
+                    
+                    $region_c_id = $this->getSanParam('region_c_id');
+                    $region_c_id = $report->formatSelection($region_c_id);
+                    $localgovernment = $report->explodeGeogArray($region_c_id, "3");
+               
+                    
+                    
+                    $role = $this->getSanParam('role');
+                    
+                    //validate
+                    $status->checkRequired ( $this, 'first_name', 'First name' );
+                    $status->checkRequired ( $this, 'last_name', 'Surname' );
+                    $status->checkRequired ( $this, 'username', 'Login' );
+                    $status->checkRequired ( $this, 'email', 'Email' );
+                    $status->checkRequired ( $this, 'role', 'Role');
+                    
+
+			//valid email?
+			$validator = new Zend_Validate_EmailAddress ( );
+
+			if (!$validator->isValid ( $this->_getParam ( 'email' ) )) {
+				$status->addError ( 'email', 'That email address does not appear to be valid.' );
+			}
+
+			if (strlen ( $this->_getParam ( 'username' ) ) < 3) {
+				$status->addError ( 'username', 'Usernames should be at least 3 characters in length.' );
+			}
+                        if($role==""){
+                                $status->addError ( 'role', 'You need to select the role of the user you are about to create' );
+			
+                        }
+			$status->checkRequired ( $this, 'password', 'Password' );
+			//check unique username and email
+			if ($uniqueArray = User::isUnique ( $this->getSanParam ( 'username' ), $this->_getParam ( 'email' ) )) {
+				if (isset ( $uniqueArray ['email'] ))
+				$status->addError ( 'email', 'That email address is already in use. Please choose another one.' );
+				if (isset ( $uniqueArray ['username'] ))
+				$status->addError ( 'username', 'That username is already in use. Please choose another one.' );
+			}
+
+			if (strlen ( $this->_getParam ( 'password' ) ) < 6) {
+				$status->addError ( 'password', 'Passwords should be at least 6 characters in length.' );
+			}
+                        
+                       /* if($province_id=="" && empty($district_id) && empty($region_c_id)){
+                            $status->addError ( 'province_id', 'The Location of the user must be completely filled' );
+                        
+                            
+                        }*/
+                         if($role=="3" && empty($province_id)){
+                            $status->addError ( 'province_id', 'Geo Zone is a required field for user with role Partner' );
+                        
+                        }
+                        else if($role=="4" && empty($district_id)){
+                           $status->addError ( 'district_c_id', 'State is a required field for user with role State' );
+                         
+                        }
+                        else if($role=="5" && empty($region_c_id)){
+                           $status->addError ( 'region_c_id', 'LGA is a required field for user with role LGA' );
+                         
+                        }
+                        
+			if ($status->hasError ()) {
+				$status->setStatusMessage ( 'The user could not be saved.' );
+			} else {
+                            
+                           
+                            
+                          
+                            $details = $this->_getAllParams ();
+                            if(!empty($district_id)){
+                            $partnerLocation = json_encode($district_id);
+                            }
+                             $details['password'] = md5($this->getSanParam('password'));
+                            
+                            if($role=="3" || $role ==3 ){
+                            $details['province_id'] = ($zone[0]!="")?$zone[0] : 0; 
+                               
+                            $details['district_id'] = ($state[0]!="")?$state[0] : 0; 
+                            
+                            
+                            $details['region_c_id'] = ($localgovernment[0]!="")?$localgovernment[0] : 0; 
+                            
+                            if($partnerLocation!=""){
+                            $details['multiple_locations_id'] = $partnerLocation;
+                            }else{
+                                $details['multiple_locations_id'] = "";
+                            }
+                            }else{
+                            $details['province_id'] = ($zone[0]!="")?$zone[0] : 0;
+                            $details['district_id'] = ($state[0]!="")?$state[0] : 0; 
+                            $details['region_c_id'] = ($localgovernment[0]!="")?$localgovernment[0] : 0;  
+                            $details['multiple_locations_id']  ="";
+                            }
+                            
+                            $currDate = new Zend_Db_Expr('CURDATE()');
+                            
+                            $details['timestamp_updated'] = $currDate;
+                            $details['timestamp_created'] = $currDate;
+                            $details['timestamp_last_login'] = $currDate;
+                                    
+                            $data = array();
+                            $data['status'] = 1;
+                            $data['timestamp_modified'] = $currDate;
+                            $req_id = $this->getSanParam('req_id');
+                             if(!empty($req_id) ){
+                                 $where = 'req_id = '.$req_id.'';
+                                 $id = $reqUser->updateRequestUser("request_access", $data, $where);
+                                 //mail will be sent to the admin
+                             }
+                         //print_r($details);exit;
+                           //print_r($userRow);exit;
+                            //echo $zone.' state '.$details.' lga '.$lga;exit;
+                             //print_r($this->_getAllParams ());exit;
+//				if ($this->_getParam ( 'send_email' )) {
+//
+//					$view = new Zend_View ( );
+//					$view->setScriptPath ( Globals::$BASE_PATH . '/app/views/scripts/email' );
+//					$view->assign ( 'first_name', $this->_getParam ( 'first_name' ) );
+//					$view->assign ( 'username', $this->_getParam ( 'username' ) );
+//					$view->assign ( 'password', $this->_getParam ( 'password' ) );
+//					$text = $view->render ( 'text/new_account.phtml' );
+//					$html = $view->render ( 'html/new_account.phtml' );
+//
+//					try {
+//						$mail = new Zend_Mail ( );
+//						$mail->setBodyText ( $text );
+//						$mail->setBodyHtml ( $html );
+//						$mail->setFrom ( Settings::$EMAIL_ADDRESS, Settings::$EMAIL_NAME );
+//						$mail->addTo ( $this->_getParam ( 'email' ), $this->_getParam ( 'first_name' ) . " " . $this->_getParam ( 'last_name' ) );
+//						$mail->setSubject ( 'New Account Created' );
+//						$mail->send ();
+//					} catch (Exception $e) {
+//
+//					}
+//
+//				}
+
+                               
+				self::fillFromArray ( $userRow, $details );
+                               //print_r($userRow->toArray());exit;
+				$userRow->is_blocked = 0;
+//                                //echo ( $userRow->save ());exit;
+                                $id = $reqUser->insertRequestUser("user",$userRow->toArray());
+                                       $url = $this->baseUrl."/user/requestaccess";
+				if (!empty($id)) {
+                                    $this->saveAclCheckboxes ( $id );
+				        $status->setStatusMessage ( 'The new user was created.<a href="'.$url.'">Go back</a>' );
+					
+				} else {
+					$status->setStatusMessage ( 'The user could not be saved.' );
+				}
+
+			}
+		}
+
+		if ($validateOnly) {
+			//$this->sendData ( $status );
+                        $data = array();
+			$data['status'] = $status;
+                        $jsonData = json_encode($data);
+                          
+                        echo $jsonData;
+                        
+		} else {
+                    
+                    if(!empty($this->getSanParam("req_id"))){
+                         require_once("models/table/requestUser.php");
+            require_once("models/table/Report.php");
+            $report = new Report();
+            $reqUser = new requestUser();
+            $reqId = $this->getSanParam("req_id");
+            $where = "req_id = $reqId";
+            $usersRequestDetails = $reqUser->selectRequestUser("request_access",$where);
+            $this->viewAssignEscaped('userAccount',$usersRequestDetails[0]);
+            
+                    }
+			$training_organizer_array = MultiOptionList::choicesList ( 'user_to_organizer_access', 'user_id', 0, 'training_organizer_option', 'training_organizer_phrase', false, false );
+			$this->viewAssignEscaped ( 'training_organizer', $training_organizer_array );
+
+			$this->view->assign ( 'status', $status );
+
+			if ($this->hasACL ( 'pre_service' )) {
+				$helper = new Helper();
+				$this->view->assign ('showinstitutions',true);
+				$this->view->assign ('institutions',$helper->getInstitutions());
+
+ 				$this->view->assign('showprograms', true);
+                $this->view->assign('programs', $helper->getPrograms());
+
+				// Getting current credentials
+				$auth = Zend_Auth::getInstance ();
+				$identity = $auth->getIdentity ();
+
+				$this->view->assign ('userinstitutions',$helper->getUserInstitutions($user_id));
+                $this->view->assign('userprograms', $helper->getUserPrograms($user_id));
+			} else {
+				$this->view->assign ('showinstitutions',false);
+          		$this->view->assign('showprograms', false);
+			}
+		}
+        }
 	public function addAction() {
 
             
@@ -136,6 +440,7 @@ class UserController extends ReportFilterHelpers {
                             
                           
                             $details = $this->_getAllParams ();
+                            $details['password'] = md5($this->getSanParam('password'));
                             if(!empty($district_id)){
                             $partnerLocation = json_encode($district_id);
                             }

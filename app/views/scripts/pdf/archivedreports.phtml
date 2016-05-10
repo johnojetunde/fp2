@@ -69,11 +69,9 @@ h2,h3{
                                      <?php 
                                                     // print_r($this->criteria['error']);
                                      if(isset($_POST['go'])){
-                                         if(isset($this->criteria['error'])){
                                                      foreach($this->criteria['error'] as $error){
                                                          echo '<h3 align="center" style="color:red;"><b>* '.$error.'</b></h3>';
                                                      }
-                                         }
                                      }
                                                      ?>
                                     </div>
@@ -135,7 +133,7 @@ h2,h3{
 							<div class="row" style="height : 30px;">
                                                              <div class="col-md-11">
 							<div  style="float : right;" >
-								<input type="submit" name="go" value="<?php tp('Preview');?>" class="submitNoArrow" />
+								<input type="submit" name="go" value="<?php tp('Preview');?>" class="submitNoArrow"  onClick="_gaq.push(['_trackEvent', 'Click', 'Search Pdf reports via archival', 'PDf report show up']);"/>
 							</div>
 							
                                                              </div>
@@ -171,6 +169,7 @@ if (isset($this->outputs)) {
 		echo "					</tbody>\n";
 		echo "				</table>\n";
 	} else {
+		if(!empty($this->outputs)){
 ?>
 
 				
@@ -178,15 +177,17 @@ if (isset($this->outputs)) {
                                     <table cellpadding="0" cellspacing="0" border="0" class="display tablegrid" id="" style="width:100%">
 					<thead>
 						<tr>
-<?php
+<?php if(!empty($this->headers)){
 		foreach ($this->headers as $key=>$value){
 			echo "							<th>" . $value . "</th>\n";
 		}
+	}
 ?>
 						</tr>
 					</thead>
 					<tbody>
 <?php
+ 	if(!empty($this->outputs)){
 		foreach ($this->outputs as $row){
 			echo "						<tr style=\"cursor : pointer;\" class=\"GradeA\">\n";
 			foreach ($row as $key=>$value){
@@ -194,12 +195,14 @@ if (isset($this->outputs)) {
 			}
 			echo "						</tr>\n";
 		}
+	}
 ?>
 					</tbody>
 				</table>
 				
 <?php
 	}
+}
 }
 ?>
                                     </div>

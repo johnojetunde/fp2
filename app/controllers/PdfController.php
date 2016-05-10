@@ -1604,7 +1604,7 @@ Director of Family Health Division, FMOH";
     }
     public function archivedreportsAction () {
         $this->_countrySettings = array();
-        
+        //ini_set("display_errors",true);
          $request = $this->getRequest()->getMethod();
 if($this->getSanParam('go')){
   if($request!="POST"){

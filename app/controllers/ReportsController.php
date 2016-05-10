@@ -10174,7 +10174,7 @@ if($this->getSanParam('go')){
 		$this->viewAssignEscaped ( 'qualifications', $qualificationsArray );
                 $sql = "SELECT COUNT(*) FROM facility";
                 $rowArray = $db->fetchAll($sql);
-                $number = $rowArray['COUNT(*)'];
+                //$number = $rowArray['COUNT(*)'];
 		//facilities list
 		$csql = "SELECT id,facility_name as name,location_id as parent_id,tier FROM facility_location_view ORDER BY facility_name ASC";
                 $facilitiesArray = $db->fetchAll($csql);
@@ -10230,9 +10230,15 @@ if($this->getSanParam('go')){
                 }
                 * */
                 $facility = array();
+                $details = array();
+                $details_facility = array();
                 $facility_location = explode("_",$facilities_new);
+                if(isset($facility_location[3])){
                 $facility[] = $facility_location[3];
+                
                 $details = $this->facility_location_summary_details($facility_location[3]);
+                }
+                
                // print_r($details);exit;
                
                 $error = array();
@@ -10393,6 +10399,7 @@ array_push($outputs,$out);
 //print_r($months);
 //print_r($values);
 //exit;
+
 $criteria = array();
 $criteria['province_id'] = $zone;
  $criteria['district_id'] = $state;
@@ -10771,7 +10778,425 @@ public function trainingrepdemoAction(){
 return $this->trainingrepAction();
 	
 }
+public function allqueriesresultAction(){
+     if ($this->getRequest()->isXmlHttpRequest()){
+         
+        $reports = new Report();
+	$db = Zend_Db_Table_Abstract::getDefaultAdapter ();
+        $helper = new Helper2();
+	require_once ('models/table/TrainingLocation.php');
+	require_once('views/helpers/TrainingViewHelper.php');
+        
+        //----------------------------------------------------------------------collecting the parameters sent down here -------------------------------------------------------//
+        $national = $this->getSanParam('national');
+        $zone = $this->getSanParam('province_id');
+        $state  = $this->getSanParam('district_id');
+        $localgovernment  = $this->getSanParam('region_c_id');
+        
+//        //training id data catch
+//        $trainingId = $this->getSanParam('training_id');
+        //training ids
+        $trainingIDs = $this->getSanParam("jqTraining");
+        
+        //echo $trainingIDs;exit;
+        //facility data catch
+        $facilitiesNew  = $this->getSanParam('facility_id');
+        $facilitiesNew = $reports->formatSelection($facilitiesNew);
+        $facility = array();
+        if(isset($facilitiesNew) && !empty($facilitiesNew)){
+        foreach($facilitiesNew as $fac){
+             $facility_location = explode("_",$fac);
+             $facility[] = $facility_location[3];
+              }
+        }
+          
+        
+        //training type data catch
+        $trainingType = array();
+        $trainingType = $this->getSanParam('training_type');
+        
+        //training organizer trainingorganizer data catch
+        $trainingOrganizer = array();
+        $trainingOrganizer = $this->getSanParam("trainingorganizer");
+        
+        //consumption data catch
+        $consumption = array();
+        $consumption = $this->getSanParam('consumption');
+        
+        //providing data catch
+        $providing = array();
+        $providing = $this->getSanParam('providing');
+        
+        //stock out data catch
+        $stockOut = array();
+        $stockOut = $this->getSanParam('stock_out');
+        
+        //time period display data catch
+        $period = $this->getSanParam('period');
+        
+        //date range data catch
+        $startMonth = $this->getSanParam('StartMonth');
+        $startYear = $this->getSanParam('StartYear');
+        
+        $endMonth = $this->getSanParam('EndMonth');
+        $endYear = $this->getSanParam('EndYear');
+        
+        
+        $startYears = array();
+        $endYears = array();
+        //duration data catch
+        $duration = $this->getSanParam("duration");
+        
+        //aggregate method data catch
+        $aggregateMethod = $this->getSanParam("aggregate_method");
+        
+        //-------------------------------------------------------------------------------------------formatting inputs--------------------------------------------------------------------------//
+        
+        //striping empty values from the location arrays - formatting values
+        $zone = $reports->formatSelection($zone);
+        $state = $reports->formatSelection($state);
+        $localgovernment = $reports->formatSelection($localgovernment);
+        $facility = $reports->formatSelection($facility);
+        $trainingType = $reports->formatSelection($trainingType);
+        $trainingOrganizer = $reports->formatSelection($trainingOrganizer);
+        $consumption = $reports->formatSelection($consumption);
+        $providing = $reports->formatSelection($providing);
+        $stockOut = $reports->formatSelection($stockOut);
+        
+        
+        
+        if(!empty($startMonth)){
+        $startMonthName = $this->return_the_month_name($startMonth);
+        $startMonthName = substr($startMonthName,0,3);
+        }
+        
+        if(!empty($endMonth)){
+        $endMonthName = $this->return_the_month_name($endMonth);
+        $endMonthName = substr($endMonthName,0,3);
+        }
+        
+        $locations = array();
+        //get the lowest tier of locations
+        list($filter,$locations) = $reports->lowestSelectedGeog($localgovernment,$state,$zone);
+         if($aggregateMethod=="aggreg_data"){                               
+        if(isset($national) && $national=="0"){
+            $locations[] = 0;
+        }
+         }
+         
+         //---------------------------------------------------------------------------------------------------Check and return Error Documents------------------------------------------
+        
+        //print_r($locations);exit;
+        //----------------------------------------------------------------------------------------------------implode array parameters to be used in result----------------------------------
+        
+        $implodeProviding = "";
+        $implodeFacility = "";
+        $implodeTrainingType = "";
+        $implodeTrainingOrganizer = "";
+        $implodeConsumption = "";
+        $implodeProviding == "";
+        $implodeStockOut = "";
+        //implode the arrays that exists
+        if(!empty($facility)){
+        $implodeFacility = implode(",",$facility);
+        //$sqlFacility = "";
+        }
+        if(!empty($trainingType)){
+        $implodeTrainingType = implode(",",$trainingType);
+        //$sqlTrainingType = "";
+        }
+        if(!empty($trainingOrganizer)){
+        $implodeTrainingOrganizer = implode(",",$trainingOrganizer);
+        //$sqlTrainingOrganizer ="";
+        }
+        if(!empty($consumption)){
+        $implodeConsumption = implode(",",$consumption);
+        $sqlStockOut = "";
+        }
+        if(!empty($providing)){
+        $implodeProviding = implode(",",$providing);
+        //$sqlProviding = "";
+        }
+        if(!empty($stockOut)){
+        $implodeStockOut = implode(",",$stockOut);
+        //$sqlStockOut = " AND ";
+        }
+        
+        if(!empty($locations)){
+        $implodeLocations = implode(",",$locations);
+       // $sqlLocations = " AND ";
+        }
+        
+       
+       
+        
+        
+        
+        //-------------------------------------------------------------------------------------------------------development and query proper will start here-------------------------------------------
+        $criteria['error'] = array();
+        $outputData = array();
+        $headers = array();
+        $whereClause = array();
+        $whereTraining  = array();
+        $startmonth = "";
+        $startyear = "";
+        $endmonth = "";
+        $endyear = "";
+        if($duration=="custom"){
+        $criteria['error'] = $reports->validatPeriodTimeRange($period,$startMonth,$startYear,$endMonth,$endYear);
+        }
+        else if(empty($duration) && $period!="total"){
+            $criteria['error'][] = "Please kindly fill in the appropriate duration or date range for this period selection";
+        }
+        //print_r($criteria['error']);exit;
+        if(empty($criteria['error'])){
+            
+        list($startYears,$endYears,$startmonth,$startyear,$endmonth,$endyear) = $reports->getStartDateEndDateWithPeriod($period,$startMonth,$startYear,$endMonth,$endYear,$duration);
+       
+        $sizeof = sizeof($startYears);
+         ini_set('max_execution_time', 0); 
+         ini_set('memory_limit', '-1');
+       
+        if($aggregateMethod=="aggreg_data"){
+          
+          $headers = $reports->createAggregateHeaders($trainingType,$trainingOrganizer,$providing,$consumption,$stockOut,$period);
+         
+        ini_set('max_execution_time', 0); 
+        ini_set('memory_limit', '-1');
+        for($i=0;$i<$sizeof;$i++){
+            ini_set('max_execution_time', 0); 
+            ini_set('memory_limit', '-1');
+          //internal initialization
+          
+          $tempStartDate = $startYears[$i];
+          $tempEndDate = $endYears[$i];
+          
+           
+           $locations = array_unique($locations);
+           //echo sizeof($locations);exit;
+           //--------------------loop through each location to get the result for the current period-------------------------------------------------
+            foreach($locations as $loc){
+                $provData = array();
+                $resultArray = array();
+                $consumptionData = array();
+                $whereTraining  = array();
+                $whereClause = array();
+                $trainingResult= array();
+                
+                $whereStatement = "";
+                $whereStatementConsumption = "";
+                $whereClause = $reports->createWhereClauseArrayFromParameters($tempStartDate,$tempEndDate,$implodeConsumption,$implodeStockOut,"");
+                $whereTraining = $reports->createWheretrainingArrayFromParameters($implodeTrainingType,$implodeTrainingOrganizer,$tempStartDate,$tempEndDate);
+                if($loc!=0){
+                $whereClause[] = "(flv.geo_parent_id ='$loc' OR flv.parent_id='$loc' OR flv.location_id='$loc')";
+               
+                }
+               // print_r($whereClause);exit;
+                $whereStatementConsumption = implode(" AND ",$whereClause);
+                
+                //Helper2::jLog( "Helloer");exit;
+                      
+//                $facilities = $reports->getFacilitiesWithLocation($loc);
+//                $facilityCount = sizeof($facilities);
+//                $facility_ids = implode(",",$facilities);
+                
+                if($loc!=0){
+                    
+                  $whereTraining[] = "(flv.geo_parent_id IN ($loc) OR flv.parent_id IN ($loc) OR flv.location_id IN ($loc))"; 
+                 
+                  $facilitiesReporting = $reports->get_all_facilities_reporte_rate_aggregate($loc,$tempStartDate,$tempEndDate);
+                   }else{
+                       $nationalLocations = $helper->getLocationTierIDs("1");
+                       $implodedLocations = implode(",", $nationalLocations);
+                       $whereTraining[] = "(flv.geo_parent_id IN ($implodedLocations) OR flv.parent_id IN ($implodedLocations) OR flv.location_id IN ($implodedLocations))"; 
+                       $facilitiesReporting = $reports->get_all_facilities_reporte_rate_aggregate($loc,$tempStartDate,$tempEndDate);
+                   }
+              
+                  $whereStatement = implode(" AND ",$whereTraining);
+                
+                
+                $totalFacilities = $reports->countAllFacilities($loc);
+                if(!empty($consumption) || !empty($stockOut)){
+                   Helper2::jLog("We are here to work things out  before consumption and providing"); 
+                $result = $reports->getAggregateConsumptionResult($whereStatementConsumption);
+                Helper2::jLog("We are here to work things out  after consumption and providing");
+                list($provData,$consumptionData) = $reports->getSumConsumption($result);
+                }
+                if(!empty($trainingType) || !empty($trainingOrganizer) ){
+                $trainingResult = $reports->countHWsResult($whereStatement,$trainingType,$trainingOrganizer);
+                }
+               
+               // print_r($consumptionData);
+                $resultArray = $reports->createAggregateResultData($loc,$trainingType,$trainingOrganizer,$providing,$consumption,$stockOut,$period,$totalFacilities,$facilitiesReporting,$trainingResult,$provData,$consumptionData,$tempStartDate);
+         //($resultArray);exit;
+                    $outputData[] = $resultArray;
+            }
+           
+            
+            
+            
+          }
+          
+       
+        }
+        else if($aggregateMethod=="facility_geog"){
+             //ini_set('max_execution_time', 0); 
+            for($i=0;$i<$sizeof;$i++){
+            ini_set('max_execution_time', 0); 
+          //internal initialization
+          
+          $tempStartDate = $startYears[$i];
+          $tempEndDate = $endYears[$i];
+          
+           
+           $locations = array_unique($locations);
+           $implodeLocations = implode(",",$locations);
+           $facility = $reports->getFacilitiesWithLocationAndFacilities($implodeFacility,$implodeLocations);
+           $headers = $reports->createFacAloneHeaders($trainingType,$trainingOrganizer,$providing,$consumption,$stockOut,$period);
+           foreach($facility as $fac){
+               $provData = array();
+               $resultArray = array();
+               $consumptionData = array();
+               $whereTraining  = array();
+               $whereClause = array();
+               $whereStatementTraining = "";
+               $whereStatementConsumption = "";
+               
+               $facility_id = $fac['id'];
+               $zoneName = $fac['geo_zone'];
+               $stateName = $fac['state'];
+               $stateName = str_replace(",", "@", $stateName);
+               $lgaName = $fac['lga'];
+               $lgaName = str_replace(",", "@", $lgaName);
+               $facilityName = $fac['facility_name'];
+               $facilityName = str_replace(",", "@", $facilityName);
+               
+               $whereClause = $reports->createWhereClauseArrayFromParameters($tempStartDate,$tempEndDate,$implodeConsumption,$implodeStockOut,$facility_id);
+               $whereTraining = $reports->createWheretrainingArrayFromParameters($implodeTrainingType,$implodeTrainingOrganizer,$tempStartDate,$tempEndDate);
+               $whereTraining[] = "facility_id IN ($facility_id)"; 
+               
+               $whereStatementConsumption = implode(" AND ",$whereClause);
+               $whereStatementTraining = implode(" AND ",$whereTraining);
+               $result = $reports->getAggregateConsumptionResult($whereStatementConsumption);
+               list($provData,$consumptionData) = $reports->getSumConsumption($result);
+//               print_r($provData);
+              // print_r($consumptionData);exit;
+               $trainingResult = $reports->countHWsResult($whereStatementTraining,$trainingType,$trainingOrganizer);
+               
+               $facilitiesReporting = $reports->get_all_facilities_reporte_rates($facility_id,$tempStartDate,$tempEndDate);
+              // print_r($trainingResult);exit;
+               $resultArray = $reports->createFacilityResultData($stateName,$lgaName,$facilityName,$trainingType,$trainingOrganizer,$trainingResult,$consumption,$consumptionData,$providing,$provData,$stockOut,$tempStartDate,$tempEndDate,$period,$facilitiesReporting);
+               
+            $outputData[] = $resultArray;    
+           //print_r($resultArray); exit;
+           }
+           //echo sizeof($locations);exit;
+           //--------------------loop through each location to get the result for the current period-------------------------------------------------
+            
+            }
+            
+        }
+        else if($aggregateMethod=="facility_training"){
+            //$criteria['error'][] = "Selection module still undergoing development";
+            for($i=0;$i<$sizeof;$i++){
+            ini_set('max_execution_time', 0); 
+            
+          //internal initialization
+          
+          $tempStartDate = $startYears[$i];
+          $tempEndDate = $endYears[$i];
+          
+           
+           $locations = array_unique($locations);
+           $implodeLocations = implode(",",$locations);
+           
+           $facility = $reports->selectAggregateFacDataWithTrainingID($trainingIDs,$tempStartDate,$tempEndDate,$implodeLocations);
+           
+           $headers = $reports->createFacWithTrainingHeaders($providing,$consumption,$stockOut,$period);
+           foreach($facility as $fac){
+               $provData = array();
+               $resultArray = array();
+               $consumptionData = array();
+               $whereTraining  = array();
+               $whereClause = array();
+               $whereStatementTraining = "";
+               $whereStatementConsumption = "";
+               
+               $facility_id = $fac['facility_id'];
+               
+               $stateName = $fac['state'];
+               $stateName = str_replace(",", "@", $stateName);
+               $lgaName = $fac['lga'];
+               $lgaName = str_replace(",", "@", $lgaName);
+               $facilityName = $fac['facility_name'];
+               $facilityName = str_replace(",", "@", $facilityName);
+               $hwcount = $fac['hwcount'];
+               $trainingOrganizerPhrase = $fac['training_organizer_phrase'];
+               $trainingOrganizerPhrase = str_replace(",", "@", $trainingOrganizerPhrase);
+               
+               $trainingTitlePhrase = $fac['training_title_phrase'];
+               $trainingTitlePhrase = str_replace(",", "@", $trainingTitlePhrase);
+               
+               $training_id = $fac['training_id'];
+               $whereClause = $reports->createWhereClauseArrayFromParameters($tempStartDate,$tempEndDate,$implodeConsumption,$implodeStockOut,$facility_id);
+              
+               $whereStatementConsumption = implode(" AND ",$whereClause);
+               
+               $result = $reports->getAggregateConsumptionResult($whereStatementConsumption);
+               list($provData,$consumptionData) = $reports->getSumConsumption($result);
+ 
+               $facilitiesReporting = $reports->get_all_facilities_reporte_rates($facility_id,$tempStartDate,$tempEndDate);
+              
+               $resultArray = $reports->createFacilityWithtrainingResultData($stateName,$lgaName,$facilityName,$hwcount,$training_id,$trainingOrganizerPhrase,$trainingTitlePhrase,$consumption,$consumptionData,$providing,$provData,$stockOut,$tempStartDate,$tempEndDate,$period,$facilitiesReporting);
+               
+            $outputData[] = $resultArray;    
+           //print_r($resultArray); exit;
+           }
+           //echo sizeof($locations);exit;
+           //--------------------loop through each location to get the result for the current period-------------------------------------------------
+            
+            }
+            
+        }
+        }
+        $startDate = "01-".$startmonth."-".$startyear;
+        $endDate = "31-".$endmonth."-".$endyear;
+        $data['zone'] = $zone;
+        $data['state'] = $state;
+        $data['localgovernment'] = $localgovernment;
+        $data['training_id'] = $trainingIDs;
+        $data['facility'] = $facility;
+        $data['training_type'] = $trainingType;
+        $data['trainingOrganizer'] = $trainingOrganizer;
+        $data['consumption'] = $consumption;
+        $data['providing'] = $providing;
+        $data['stock_out'] = $stockOut;
+        $data['period'] = $period;
+        $data['StartMonth'] = $startMonth;
+        $data['StartYear'] = $startYear;
+        $data['EndMonth'] = $endMonth;
+        $data['EndYear'] = $endYear;
+        $data['duration'] = $duration;
+        $data['startDate'] = $startDate;
+        $data['endDate'] = $endDate;
+        $data['startYears']  = $startYears;
+        $data['endYears'] = $endYears;
+        $data['aggregate_method'] = $aggregateMethod;
+        $data['headers'] = $headers;
+        $data['error'] = $criteria['error'];
+        $data['output'] = json_encode($outputData);
+       // print_r($data);exit;
+        echo json_encode($data);
+        
+        
+        
+     }
+     else{
+         return true;
+     }
+}
 public function alldataAction(){
+   
     $this->_countrySettings = array();
 		$this->_countrySettings = System::getAll();
                 
@@ -10802,18 +11227,16 @@ if($this->getSanParam('go') || $this->getSanParam('download') ){
                 $criteria['facility_id'] = "";
                 $criteria['consumption'] = array();
                 $quickLocation = new Location();
-                
+                $lastPullDate = $helper->getLatestPullDate();
+                $critera['lastPullDate'] = $lastPullDate;
 		$where = array ();
-		$display_training_partner = ( isset($this->_countrySettings
-['display_training_partner']) && $this->_countrySettings['display_training_partner'] == 1 ) 
-? true : false;
+		$display_training_partner = ( isset($this->_countrySettings['display_training_partner']) && $this->_countrySettings['display_training_partner'] == 1 ) ? true : false;
                 $trainingLocation = new TrainingLocation();
                 $allTrainingIDs = $trainingLocation->getTrainingPlusLocation();
                 $this->viewAssignEscaped ( 'trainingIDs', $allTrainingIDs );
 		//find the first date in the database
 		$db = Zend_Db_Table_Abstract::getDefaultAdapter ();
-		$qualificationsArray = OptionList::suggestionList ( 
-'person_qualification_option', array('qualification_phrase','id'), false, 30 );
+		$qualificationsArray = OptionList::suggestionList ('person_qualification_option', array('qualification_phrase','id'), false, 30 );
 		$this->viewAssignEscaped ( 'qualifications', $qualificationsArray );
                 $sql = "SELECT COUNT(*) FROM facility";
                 $rowArray = $db->fetchAll($sql);
@@ -10847,10 +11270,6 @@ if($this->getSanParam('go') || $this->getSanParam('download') ){
                 }
                 $this->viewAssignEscaped('locations', $locations);
                 $this->viewAssignEscaped('locationsPerGeo',$locationsPerUserGeo);
-               //exit;
-               //print_r($locations); exit;
-		
-		//course
                 $tsql = "SELECT * FROM `training_title_option` WHERE is_deleted='0' ORDER BY `training_title_phrase`  ASC";
                 
                 $trainingtypes = $db->fetchAll($tsql);
@@ -10868,16 +11287,13 @@ if($this->getSanParam('go') || $this->getSanParam('download') ){
                 $commodity_name = $db->fetchAll($csql);
                 $this->viewAssignEscaped ( 'commodity_name_option', $commodity_name );
                 
-                $imploded = "31,32,38";
+                $imploded = "31,32,38,39";
                 $commodityStockOut = $this->selectStockOutsCommodity($imploded);
                 $this->viewAssignEscaped('stock_out_commodity_name_option',$commodityStockOut);
                 
 		$courseArray = TrainingTitleOption::suggestionList ( false, 10000 );
 		$this->viewAssignEscaped ( 'courses', $courseArray );
-		//location
-		// location drop-down
-		$tlocations = TrainingLocation::selectAllLocations ($this->setting
-('num_location_tiers'));
+		$tlocations = TrainingLocation::selectAllLocations ($this->setting('num_location_tiers'));
 		$this->viewAssignEscaped ( 'tlocations', $tlocations );
 		
                 $output = array();
@@ -10886,56 +11302,392 @@ if($this->getSanParam('go') || $this->getSanParam('download') ){
                 $locationName =  $quickLocation->getUserLocationName();
                 
                 //-----------------------------------------the query is here now.----------------------------------------------//
-                $agrregate_method = $this->getSanParam('aggregate_method');
-                if($agrregate_method=="view_part_names"){
-                $zone = $this->getSanParam('province_id');
-                $state  = $this->getSanParam('district_id');
-                $localgovernment  = $this->getSanParam('region_c_id');
-                
-                }else{
-                $zone = $this->getSanParam('aggreg_province_id');
-                $state  = $this->getSanParam('aggreg_district_id');
-                $localgovernment  = $this->getSanParam('aggreg_region_c_id'); 
-                }
+             
                 
                 
-                $zone = $reports->formatSelection($zone);
-                $state = $reports->formatSelection($state);
-                $localgovernment = $reports->formatSelection($localgovernment);
-                //$LGA = $localgovernment;
-               // print_r($localgovernment);
-               
                 
-                
-                //print_r($localgovernment);exit;
-                //print_r($LGA);exit;
-                //print_r($localgovernment);echo '<br/><br/>';
-               //$localgovernment = $reports->removeSelected($this->getSanParam('region_c_id'));
-                //print_r($localgovernment); exit;
-               // $facility  = $this->getSanParam('facility_id');
-                $facilities_new  = array();
-                $facilities_new  = $this->getSanParam('facility_id');
-                $facilities_new = $reports->removeSelected($facilities_new);
-                $facility = array();
-                if(isset($facilities_new) && is_array($facilities_new)){
-                foreach($facilities_new as $fac){
-                $facility_location = explode("_",$fac);
-                $facility[] = $facility_location[3];
-                }
-                }
-                $facility = $reports->formatSelection($facility);
-                $training_type = $this->getSanParam('training_type');
-                 $training_type = $reports->formatSelection($training_type);
-                
-                $training_type2 = $this->getSanParam('cumu');
-                $training_type2 = $reports->formatSelection($training_type2); 
-                $stock_out = $this->getSanParam('stock_out');
-                
-                 $preview = $this->getSanParam('go');
-                $locations = array();
-                                
-                $date_format = "yyyy-mm-dd";
+//------------------------------------------------------------------------------------this is manily for the download of the excel template for each document -----------------------------------
+                $reports = new Report();
+	$db = Zend_Db_Table_Abstract::getDefaultAdapter ();
+        $helper = new Helper2();
+	require_once ('models/table/TrainingLocation.php');
+	require_once('views/helpers/TrainingViewHelper.php');
+        
+        //----------------------------------------------------------------------collecting the parameters sent down here -------------------------------------------------------//
+        $national = $this->getSanParam('national');
+        $zone = $this->getSanParam('province_id');
+        $state  = $this->getSanParam('district_id');
+        $localgovernment  = $this->getSanParam('region_c_id');
+        
+//        //training id data catch
+//        $trainingId = $this->getSanParam('training_id');
+        //training ids
+        $trainingIDs = $this->getSanParam("jqTraining");
+        
+        //echo $trainingIDs;exit;
+        //facility data catch
+        $facilitiesNew  = $this->getSanParam('facility_id');
+        $facilitiesNew = $reports->formatSelection($facilitiesNew);
+        $facility = array();
+        if(isset($facilitiesNew) && !empty($facilitiesNew)){
+        foreach($facilitiesNew as $fac){
+             $facility_location = explode("_",$fac);
+             $facility[] = $facility_location[3];
+              }
+        }
+          
+        
+        //training type data catch
+        $trainingType = array();
+        $trainingType = $this->getSanParam('training_type');
+        
+        //training organizer trainingorganizer data catch
+        $trainingOrganizer = array();
+        $trainingOrganizer = $this->getSanParam("trainingorganizer");
+        
+        //consumption data catch
+        $consumption = array();
+        $consumption = $this->getSanParam('consumption');
+        
+        //providing data catch
+        $providing = array();
+        $providing = $this->getSanParam('providing');
+        
+        //stock out data catch
+        $stockOut = array();
+        $stockOut = $this->getSanParam('stock_out');
+        
+        //time period display data catch
+        $period = $this->getSanParam('period');
+        
+        //date range data catch
+        $startMonth = $this->getSanParam('StartMonth');
+        $startYear = $this->getSanParam('StartYear');
+        
+        $endMonth = $this->getSanParam('EndMonth');
+        $endYear = $this->getSanParam('EndYear');
+        
+        
+        $startYears = array();
+        $endYears = array();
+        //duration data catch
+        $duration = $this->getSanParam("duration");
+        
+        //aggregate method data catch
+        $aggregateMethod = $this->getSanParam("aggregate_method");
+        
+        //-------------------------------------------------------------------------------------------formatting inputs--------------------------------------------------------------------------//
+        
+        //striping empty values from the location arrays - formatting values
+        $zone = $reports->formatSelection($zone);
+        $state = $reports->formatSelection($state);
+        $localgovernment = $reports->formatSelection($localgovernment);
+        $facility = $reports->formatSelection($facility);
+        $trainingType = $reports->formatSelection($trainingType);
+        $trainingOrganizer = $reports->formatSelection($trainingOrganizer);
+        $consumption = $reports->formatSelection($consumption);
+        $providing = $reports->formatSelection($providing);
+        $stockOut = $reports->formatSelection($stockOut);
+        
+        
+        
+        if(!empty($startMonth)){
+        $startMonthName = $this->return_the_month_name($startMonth);
+        $startMonthName = substr($startMonthName,0,3);
+        }
+        
+        if(!empty($endMonth)){
+        $endMonthName = $this->return_the_month_name($endMonth);
+        $endMonthName = substr($endMonthName,0,3);
+        }
+        
+        $locations = array();
+        //get the lowest tier of locations
+        list($filter,$locations) = $reports->lowestSelectedGeog($localgovernment,$state,$zone);
+         if($aggregateMethod=="aggreg_data"){                               
+        if(isset($national) && $national=="0"){
+            $locations[] = 0;
+        }
+         }
+         
+         //---------------------------------------------------------------------------------------------------Check and return Error Documents------------------------------------------
+        
+        //print_r($locations);exit;
+        //----------------------------------------------------------------------------------------------------implode array parameters to be used in result----------------------------------
+        
+        $implodeProviding = "";
+        $implodeFacility = "";
+        $implodeTrainingType = "";
+        $implodeTrainingOrganizer = "";
+        $implodeConsumption = "";
+        $implodeProviding == "";
+        $implodeStockOut = "";
+        //implode the arrays that exists
+        if(!empty($facility)){
+        $implodeFacility = implode(",",$facility);
+        //$sqlFacility = "";
+        }
+        if(!empty($trainingType)){
+        $implodeTrainingType = implode(",",$trainingType);
+        //$sqlTrainingType = "";
+        }
+        if(!empty($trainingOrganizer)){
+        $implodeTrainingOrganizer = implode(",",$trainingOrganizer);
+        //$sqlTrainingOrganizer ="";
+        }
+        if(!empty($consumption)){
+        $implodeConsumption = implode(",",$consumption);
+        $sqlStockOut = "";
+        }
+        if(!empty($providing)){
+        $implodeProviding = implode(",",$providing);
+        //$sqlProviding = "";
+        }
+        if(!empty($stockOut)){
+        $implodeStockOut = implode(",",$stockOut);
+        //$sqlStockOut = " AND ";
+        }
+        
+        if(!empty($locations)){
+        $implodeLocations = implode(",",$locations);
+       // $sqlLocations = " AND ";
+        }
+        
        
+       
+        
+        
+        
+        //-------------------------------------------------------------------------------------------------------development and query proper will start here-------------------------------------------
+        $criteria['error'] = array();
+        $outputData = array();
+        $headers = array();
+        $whereClause = array();
+        $whereTraining  = array();
+        $startmonth = "";
+        $startyear = "";
+        $endmonth = "";
+        $endyear = "";
+        if($duration=="custom"){
+        $criteria['error'] = $reports->validatPeriodTimeRange($period,$startMonth,$startYear,$endMonth,$endYear);
+        }
+        else if(empty($duration) && $period!="total"){
+            $criteria['error'][] = "Please kindly fill in the appropriate duration or date range for this period selection";
+        }
+        //print_r($criteria['error']);exit;
+        if(empty($criteria['error'])){
+            
+        list($startYears,$endYears,$startmonth,$startyear,$endmonth,$endyear) = $reports->getStartDateEndDateWithPeriod($period,$startMonth,$startYear,$endMonth,$endYear,$duration);
+       
+        $sizeof = sizeof($startYears);
+         ini_set('max_execution_time', 0); 
+         ini_set('memory_limit', '-1');
+       
+        if($aggregateMethod=="aggreg_data"){
+          
+          $headers = $reports->createAggregateHeaders($trainingType,$trainingOrganizer,$providing,$consumption,$stockOut,$period);
+         
+        ini_set('max_execution_time', 0); 
+        ini_set('memory_limit', '-1');
+        for($i=0;$i<$sizeof;$i++){
+            ini_set('max_execution_time', 0); 
+            ini_set('memory_limit', '-1');
+          //internal initialization
+          
+          $tempStartDate = $startYears[$i];
+          $tempEndDate = $endYears[$i];
+          
+           
+           $locations = array_unique($locations);
+           //echo sizeof($locations);exit;
+           //--------------------loop through each location to get the result for the current period-------------------------------------------------
+            foreach($locations as $loc){
+                $provData = array();
+                $resultArray = array();
+                $consumptionData = array();
+                $whereTraining  = array();
+                $whereClause = array();
+                $trainingResult= array();
+                
+                $whereStatement = "";
+                $whereStatementConsumption = "";
+                $whereClause = $reports->createWhereClauseArrayFromParameters($tempStartDate,$tempEndDate,$implodeConsumption,$implodeStockOut,"");
+                $whereTraining = $reports->createWheretrainingArrayFromParameters($implodeTrainingType,$implodeTrainingOrganizer,$tempStartDate,$tempEndDate);
+                if($loc!=0){
+                $whereClause[] = "(flv.geo_parent_id ='$loc' OR flv.parent_id='$loc' OR flv.location_id='$loc')";
+               
+                }
+               // print_r($whereClause);exit;
+                $whereStatementConsumption = implode(" AND ",$whereClause);
+                
+                //Helper2::jLog( "Helloer");exit;
+                      
+//                $facilities = $reports->getFacilitiesWithLocation($loc);
+//                $facilityCount = sizeof($facilities);
+//                $facility_ids = implode(",",$facilities);
+                
+                if($loc!=0){
+                    
+                  $whereTraining[] = "(flv.geo_parent_id IN ($loc) OR flv.parent_id IN ($loc) OR flv.location_id IN ($loc))"; 
+                 
+                  $facilitiesReporting = $reports->get_all_facilities_reporte_rate_aggregate($loc,$tempStartDate,$tempEndDate);
+                   }else{
+                       $nationalLocations = $helper->getLocationTierIDs("1");
+                       $implodedLocations = implode(",", $nationalLocations);
+                       $whereTraining[] = "(flv.geo_parent_id IN ($implodedLocations) OR flv.parent_id IN ($implodedLocations) OR flv.location_id IN ($implodedLocations))"; 
+                       $facilitiesReporting = $reports->get_all_facilities_reporte_rate_aggregate($loc,$tempStartDate,$tempEndDate);
+                   }
+              
+                  $whereStatement = implode(" AND ",$whereTraining);
+                
+                
+                $totalFacilities = $reports->countAllFacilities($loc);
+                if(!empty($consumption) || !empty($stockOut)){
+                   Helper2::jLog("We are here to work things out  before consumption and providing"); 
+                $result = $reports->getAggregateConsumptionResult($whereStatementConsumption);
+                Helper2::jLog("We are here to work things out  after consumption and providing");
+                list($provData,$consumptionData) = $reports->getSumConsumption($result);
+                }
+                if(!empty($trainingType) || !empty($trainingOrganizer) ){
+                $trainingResult = $reports->countHWsResult($whereStatement,$trainingType,$trainingOrganizer);
+                }
+               
+               // print_r($consumptionData);
+                $resultArray = $reports->createAggregateResultData($loc,$trainingType,$trainingOrganizer,$providing,$consumption,$stockOut,$period,$totalFacilities,$facilitiesReporting,$trainingResult,$provData,$consumptionData,$tempStartDate);
+         //($resultArray);exit;
+                    $outputData[] = $resultArray;
+            }
+           
+            
+            
+            
+          }
+          
+       
+        }
+        else if($aggregateMethod=="facility_geog"){
+             //ini_set('max_execution_time', 0); 
+            for($i=0;$i<$sizeof;$i++){
+            ini_set('max_execution_time', 0); 
+          //internal initialization
+          
+          $tempStartDate = $startYears[$i];
+          $tempEndDate = $endYears[$i];
+          
+           
+           $locations = array_unique($locations);
+           $implodeLocations = implode(",",$locations);
+           $facility = $reports->getFacilitiesWithLocationAndFacilities($implodeFacility,$implodeLocations);
+           $headers = $reports->createFacAloneHeaders($trainingType,$trainingOrganizer,$providing,$consumption,$stockOut,$period);
+           foreach($facility as $fac){
+               $provData = array();
+               $resultArray = array();
+               $consumptionData = array();
+               $whereTraining  = array();
+               $whereClause = array();
+               $whereStatementTraining = "";
+               $whereStatementConsumption = "";
+               
+               $facility_id = $fac['id'];
+               $zoneName = $fac['geo_zone'];
+               $stateName = $fac['state'];
+               $stateName = str_replace(",", "@", $stateName);
+               $lgaName = $fac['lga'];
+               $lgaName = str_replace(",", "@", $lgaName);
+               $facilityName = $fac['facility_name'];
+               $facilityName = str_replace(",", "@", $facilityName);
+               
+               $whereClause = $reports->createWhereClauseArrayFromParameters($tempStartDate,$tempEndDate,$implodeConsumption,$implodeStockOut,$facility_id);
+               $whereTraining = $reports->createWheretrainingArrayFromParameters($implodeTrainingType,$implodeTrainingOrganizer,$tempStartDate,$tempEndDate);
+               $whereTraining[] = "facility_id IN ($facility_id)"; 
+               
+               $whereStatementConsumption = implode(" AND ",$whereClause);
+               $whereStatementTraining = implode(" AND ",$whereTraining);
+               $result = $reports->getAggregateConsumptionResult($whereStatementConsumption);
+               list($provData,$consumptionData) = $reports->getSumConsumption($result);
+//               print_r($provData);
+              // print_r($consumptionData);exit;
+               $trainingResult = $reports->countHWsResult($whereStatementTraining,$trainingType,$trainingOrganizer);
+               
+               $facilitiesReporting = $reports->get_all_facilities_reporte_rates($facility_id,$tempStartDate,$tempEndDate);
+              // print_r($trainingResult);exit;
+               $resultArray = $reports->createFacilityResultData($stateName,$lgaName,$facilityName,$trainingType,$trainingOrganizer,$trainingResult,$consumption,$consumptionData,$providing,$provData,$stockOut,$tempStartDate,$tempEndDate,$period,$facilitiesReporting);
+               
+            $outputData[] = $resultArray;    
+           //print_r($resultArray); exit;
+           }
+           //echo sizeof($locations);exit;
+           //--------------------loop through each location to get the result for the current period-------------------------------------------------
+            
+            }
+            
+        }
+        else if($aggregateMethod=="facility_training"){
+            $criteria['error'][] = "Selection module still undergoing development";
+//            for($i=0;$i<$sizeof;$i++){
+//            ini_set('max_execution_time', 0); 
+//            
+//          //internal initialization
+//          
+//          $tempStartDate = $startYears[$i];
+//          $tempEndDate = $endYears[$i];
+//          
+//           
+//           $locations = array_unique($locations);
+//           $implodeLocations = implode(",",$locations);
+//           
+//           $facility = $reports->selectAggregateFacDataWithTrainingID($trainingIDs,$tempStartDate,$tempEndDate,$implodeLocations);
+//           
+//           $headers = $reports->createFacWithTrainingHeaders($providing,$consumption,$stockOut,$period);
+//           foreach($facility as $fac){
+//               $provData = array();
+//               $resultArray = array();
+//               $consumptionData = array();
+//               $whereTraining  = array();
+//               $whereClause = array();
+//               $whereStatementTraining = "";
+//               $whereStatementConsumption = "";
+//               
+//               $facility_id = $fac['facility_id'];
+//               
+//               $stateName = $fac['state'];
+//               $stateName = str_replace(",", "@", $stateName);
+//               $lgaName = $fac['lga'];
+//               $lgaName = str_replace(",", "@", $lgaName);
+//               $facilityName = $fac['facility_name'];
+//               $facilityName = str_replace(",", "@", $facilityName);
+//               $hwcount = $fac['hwcount'];
+//               $trainingOrganizerPhrase = $fac['training_organizer_phrase'];
+//               $trainingOrganizerPhrase = str_replace(",", "@", $trainingOrganizerPhrase);
+//               
+//               $trainingTitlePhrase = $fac['training_title_phrase'];
+//               $trainingTitlePhrase = str_replace(",", "@", $trainingTitlePhrase);
+//               
+//               $training_id = $fac['training_id'];
+//               $whereClause = $reports->createWhereClauseArrayFromParameters($tempStartDate,$tempEndDate,$implodeConsumption,$implodeStockOut,$facility_id);
+//              
+//               $whereStatementConsumption = implode(" AND ",$whereClause);
+//               
+//               $result = $reports->getAggregateConsumptionResult($whereStatementConsumption);
+//               list($provData,$consumptionData) = $reports->getSumConsumption($result);
+// 
+//               $facilitiesReporting = $reports->get_all_facilities_reporte_rates($facility_id,$tempStartDate,$tempEndDate);
+//              
+//               $resultArray = $reports->createFacilityWithtrainingResultData($stateName,$lgaName,$facilityName,$hwcount,$training_id,$trainingOrganizerPhrase,$trainingTitlePhrase,$consumption,$consumptionData,$providing,$provData,$stockOut,$tempStartDate,$tempEndDate,$period,$facilitiesReporting);
+//               
+//            $outputData[] = $resultArray;    
+//           //print_r($resultArray); exit;
+//           }
+//           //echo sizeof($locations);exit;
+//           //--------------------loop through each location to get the result for the current period-------------------------------------------------
+//            
+//            }
+            
+        }
+        }
+$this->viewAssignEscaped ('headers',$headers);
+$this->viewAssignEscaped ('output',$outputData);
+$this->viewAssignEscaped ('crtiteria',$criteria);
 
 
 //$status->setStatusMessage($stat);
@@ -10945,11 +11697,11 @@ public function allQueriesDataLoad(){
     
 }
 public function trainingresultAction(){
-    if ($this->getRequest()->isXmlHttpRequest()){
+    if ($this->getRequest()->isXmlHttpRequest()) {
   $this->_countrySettings = array();
 		$this->_countrySettings = System::getAll();
                 
-                    $reports = new Report();
+                $reports = new Report();
 		$this->view->assign ( 'mode', 'search' );
                 $helper = new Helper2();
 		require_once ('models/table/TrainingLocation.php');
@@ -11072,7 +11824,7 @@ public function trainingresultAction(){
                 $state  = $this->getSanParam('aggreg_district_id');
                 $localgovernment  = $this->getSanParam('aggreg_region_c_id'); 
                 }
-                
+                Helper2::jLog(print_r($zone,true));
                 
                 $zone = $reports->formatSelection($zone);
                 $state = $reports->formatSelection($state);
@@ -11106,7 +11858,7 @@ public function trainingresultAction(){
                 
                  $preview = $this->getSanParam('go');
                 $locations = array();
-               
+               Helper2::jLog(print_r($state,true));
                // echo sizeof($state);
              // print_r($state);
                 if($agrregate_method!="view_aggregate_part" && $agrregate_method!="view_part_names"){
@@ -11160,23 +11912,9 @@ else{
     
    unset($locations);
 }
-                }else{
-                    if(!empty($localgovernment)){
-                    
-                foreach($localgovernment as $state){
-                  $state_gen =   explode("_",$state);
-                  $parent_id = $state_gen[0];
-                $district = $state_gen[1];
-                $location_id = $state_gen[2];
-                if($location_id!=""){
-                array_push($locations,$location_id);
                 }
-                }
-                    
-                $filter = "location_id";
-                //echo 'na here i dey';
-}
-                    else if(!empty($state)){
+                else{
+                    if(!empty($state)){
  // echo 'hi';
     
     foreach($state as $states){
@@ -11217,17 +11955,15 @@ $consump_loc = array();
         $consump_loc[$loc] = ""; 
          
      }    
-     
-     if(!isset($locations) || empty($locations)){
-         $locations = $helper->getLocationTierIDs("1");
-         
-     }
+   
      
      //print_r($locations);exit;
                 $messageAlert = "";
                 $list = implode(',', $locations);
                 $trainingorganizer = $this->getSanParam('trainingorganizer');
                 $trainingorganizer = $reports->formatSelection($trainingorganizer);
+                $trainingOrgTemp = $trainingorganizer;
+               
                 $cadre = $this->getSanParam('cadre');
                 $stock_out = $this->getSanParam('stock_out');
                 
@@ -11313,6 +12049,18 @@ $consump_loc = array();
               }else{
                   $dob_query = "";
               }
+         $implodedLocations = "";
+              if(isset($locations)){
+       $implodedLocations = implode(",",$locations);
+              }
+              
+              $locationQuery = "";
+                      if(!empty($implodedLocations)){
+                          $locationQuery = "AND (loc.parent_id IN($implodedLocations) OR loc.id IN ($implodedLocations))";
+                      }
+                      Helper2::jLog("THis is the location query data ".$locationQuery);
+                      Helper2::jLog(print_r($locations,true));
+                      Helper2::jLog(print_r($zone,true));
               //echo $dob_query;exit;
    // echo 'The size of the locations is what you will see now '.$sizeof($locations);
     if($agrregate_method=="view_individual_train"){
@@ -11348,24 +12096,26 @@ $consump_loc = array();
                   $trainingtypequery = "AND training_title_option_id IN (".$trainingtypes.")";
               }
              // echo $start_date;exit;
-              $records = $this->get_training_records_from_db( $trainingorganizerquery,$trainingtypequery,$start_date,$end_date);
+              $records = $this->get_training_records_from_db( $trainingorganizerquery,$trainingtypequery,$start_date,$end_date,$locationQuery);
              $start_month_name = $this->return_the_month_name($start_month);
                     $start_month_name = substr($start_month_name,0,3);
                $end_month_name = $this->return_the_month_name($end_month);
                     $end_month_name = substr($end_month_name,0,3);
                     $word = "Training $start_day $start_month_name $start_year to $end_day $end_month_name $end_year";
                     
-              $headers = array($word,"Training Partner","Start Date","End Date","Participants");
+              $headers = array("ID",$word,"Training Partner","Start Date","End Date","Participants");
                $output = array();
               foreach($records as $record){
                   $data_collector  = array();
+                  
                  $training_id = $record['id'];
+                  $link = "<a href='../training/view/id/$training_id'>$training_id</a>";
                  $trainingtitle = $record['training_title_phrase'];
                  $training_organizer = $record['training_organizer_phrase'];
                  $training_start_date = $record['training_start_date'];
                  $training_end_date = $record['training_end_date'];
                  $participants = $this->get_counter_person_trainings($training_id,$facilityq);
-                 $data_collector = array($trainingtitle,$training_organizer,$training_start_date,$training_end_date,$participants);
+                 $data_collector = array($link,$trainingtitle,$training_organizer,$training_start_date,$training_end_date,$participants);
              
                  array_push($output,$data_collector);
              }
@@ -11373,9 +12123,9 @@ $consump_loc = array();
           }
           else if($agrregate_method=="view_aggregate_train"){
               $start_month_name = $this->return_the_month_name($start_month);
-                    $start_month_name = substr($start_month_name,0,3);
-               $end_month_name = $this->return_the_month_name($end_month);
-                    $end_month_name = substr($end_month_name,0,3);
+              $start_month_name = substr($start_month_name,0,3);
+              $end_month_name = $this->return_the_month_name($end_month);
+              $end_month_name = substr($end_month_name,0,3);
                     
                     $total_trainings = 0;
                     if(empty($trainingorganizer)){
@@ -11392,7 +12142,7 @@ $consump_loc = array();
                   foreach($training_type as $type){
                       
                       $data_collector = array();
-                     $trainings =  $this->get_total_number_of_trainings($training_org,$type,$start_date,$end_date);
+                     $trainings =  $this->get_total_number_of_trainings($training_org,$type,$start_date,$end_date,$locationQuery);
                       if($trainings<=0 ){
                           continue;
                       }
@@ -11400,6 +12150,7 @@ $consump_loc = array();
                       $training_organizer = $this->get_training_organizer_phrase($training_org);
                       $training_title = $this->get_training_title_option($type);
                       $data_collector = array($trainings,$training_title,$training_organizer);
+                      
                       array_push($output,$data_collector);
                   }
               }
@@ -11487,15 +12238,20 @@ $consump_loc = array();
                     //echo '';
                       $training_organizer = $training_org;
                  $trainingtypes = $trainingtype;
-           if($cadre==""){
+           if(empty($cadre)){
                   $cadrequery = "";
               }else{
-                  $cadrequery = "AND p.primary_qualification_option_id='".$cadre."'";
+                  $cadreImplode = implode(",",$cadre);
+                  $cadrequery = "AND p.primary_qualification_option_id IN ($cadreImplode)";
               }
               
               if($training_organizer==""){
-                  $trainingorganizerquery=="";
-              }else{
+                  $trainingorganizerquery="";
+              }
+               else if(empty($trainingOrgTemp)){
+                  $trainingorganizerquery="";
+              }
+              else{
                   //$training_organizer = implode(",",$trainingorganizer);
                   $trainingorganizerquery = "AND t.training_organizer_option_id ='$training_organizer'";
               }
@@ -11522,7 +12278,8 @@ $consump_loc = array();
              // echo $facer;exit;
               if($trainingtypes==""){
                   $trainingtypequery = "";
-              }else{
+              }
+              else{
                   
                   
                   $trainingtypequery = "AND tto.id IN (".$trainingtypes.")";
@@ -11581,7 +12338,7 @@ else if($agrregate_method=="view_part_names"){
            if(!isset($locations) || empty($locations)){
          $locations = $this->get_all_locations();
          }
-              $headers = array("First Name","Middle Name","Surname","State","LGA","Facility","Professional Qualification","Training Type","Training Organizer","Training Start Date","Training End Date","Gender","Certification");
+              $headers = array("ID","First Name","Middle Name","Surname","State","LGA","Facility","Professional Qualification","Training Type","Training Organizer","Training Start Date","Training End Date","Gender","Certification");
                
               if($trainingorganizer=="" || empty($trainingorganizer)){
 		$trainingorganizer = array();
@@ -11608,15 +12365,20 @@ else if($agrregate_method=="view_part_names"){
 		}  
                $trainingtypes = implode(",",$training_type);
                  
-              if($cadre==""){
+              if(empty($cadre)){
                   $cadrequery = "";
               }else{
-                  $cadrequery = "AND p.primary_qualification_option_id='".$cadre."'";
+                  $cadreImplode = implode(",",$cadre);
+                  $cadrequery = "AND p.primary_qualification_option_id IN ($cadreImplode)";
               }
               
               if($training_organizer==""){
-                  $trainingorganizerquery=="";
-              }else{
+                  $trainingorganizerquery="";
+              }
+               else if(empty($trainingOrgTemp)){
+                  $trainingorganizerquery="";
+              }
+              else{
                   $training_organizer = implode(",",$trainingorganizer);
                   
                   $trainingorganizerquery = "AND (t.training_organizer_option_id IN (".$training_organizer.") ".$addempty." )";
@@ -11675,6 +12437,8 @@ else if($agrregate_method=="view_part_names"){
           foreach($all_participants as $persons){
               $has_result = "true";
               $data_collector = array();
+              $id = $persons['person_id'];
+              $Link = "<a href='../person/view/id/$id'>$id</a>";
               $first_name = $persons['first_name'];
               $first_name = str_replace(",", "@", $first_name);
               $middle_name = $persons['middle_name'];
@@ -11707,7 +12471,7 @@ else if($agrregate_method=="view_part_names"){
               }
             
               //echo $perLocation;
-              $data_collector = array($first_name,$middle_name,$last_name,$state,$lga,$facility_name,$cadre,$training_types,$training_title_phrase,$training_start_date,$training_end_date,$genders,$certification);
+              $data_collector = array($Link,$first_name,$middle_name,$last_name,$state,$lga,$facility_name,$cadre,$training_types,$training_title_phrase,$training_start_date,$training_end_date,$genders,$certification);
         // print_r($data_collector);echo '<br/><br/>';
               array_push($output,$data_collector);
               }
@@ -11783,7 +12547,8 @@ else if($agrregate_method=="view_part_names"){
         $dataJSON = json_encode($data);
        
         echo $dataJSON;
-    } else{
+    } 
+    else{
     return true;
 }
 }
@@ -12015,23 +12780,10 @@ else{
     
    unset($locations);
 }
-                }else{
-                    if(!empty($localgovernment)){
-                    
-                foreach($localgovernment as $state){
-                  $state_gen =   explode("_",$state);
-                  $parent_id = $state_gen[0];
-                $district = $state_gen[1];
-                $location_id = $state_gen[2];
-                if($location_id!=""){
-                array_push($locations,$location_id);
                 }
-                }
-                    
-                $filter = "location_id";
-                //echo 'na here i dey';
-}
-                    else if(!empty($state)){
+                else{
+                   
+                   if(!empty($state)){
  // echo 'hi';
     
     foreach($state as $states){
@@ -12085,6 +12837,7 @@ if(isset($locations)){
                 $list = implode(',', $locations);
                 $trainingorganizer = $this->getSanParam('trainingorganizer');
                 $trainingorganizer = $reports->formatSelection($trainingorganizer);
+                $trainingOrgTemp = $trainingorganizer;
                 $cadre = $this->getSanParam('cadre');
                 $stock_out = $this->getSanParam('stock_out');
                 
@@ -12179,7 +12932,7 @@ if(isset($locations)){
                
                 $consumption = $this->getSanParam('consumption');
                 
-                    $current_month = date('m');
+                $current_month = date('m');
                 $current_day = date('d');
                 $current_year = date('Y');
                  //echo $agrregate_method;exit;
@@ -12220,6 +12973,15 @@ if(isset($locations)){
               }else{
                   $dob_query = "";
               }
+              $implodedLocations = "";
+              if(isset($locations)){
+       $implodedLocations = implode(",",$locations);
+              }
+              
+              $locationQuery = "";
+                      if(!empty($implodedLocations)){
+                          $locationQuery = "AND (loc.parent_id IN($implodedLocations) OR loc.id IN ($implodedLocations))";
+                      }
               //echo $dob_query;exit;
    // echo 'The size of the locations is what you will see now '.$sizeof($locations);
               $has_result = "false";
@@ -12263,24 +13025,25 @@ if(isset($locations)){
                   $trainingtypequery = "AND training_title_option_id IN (".$trainingtypes.")";
               }
              // echo $start_date;exit;
-              $records = $this->get_training_records_from_db( $trainingorganizerquery,$trainingtypequery,$start_date,$end_date);
+              $records = $this->get_training_records_from_db( $trainingorganizerquery,$trainingtypequery,$start_date,$end_date,$locationQuery);
              $start_month_name = $this->return_the_month_name($start_month);
                     $start_month_name = substr($start_month_name,0,3);
                $end_month_name = $this->return_the_month_name($end_month);
                     $end_month_name = substr($end_month_name,0,3);
                     $word = "Training $start_day $start_month_name $start_year to $end_day $end_month_name $end_year";
                     
-              $headers = array($word,"Training Partner","Start Date","End Date","Participants");
+              $headers = array("ID",$word,"Training Partner","Start Date","End Date","Participants");
                $output = array();
               foreach($records as $record){
                   $data_collector  = array();
                  $training_id = $record['id'];
+                 $link = "<a href='../training/view/id/$training_id'>$training_id</a>";
                  $trainingtitle = $record['training_title_phrase'];
                  $training_organizer = $record['training_organizer_phrase'];
                  $training_start_date = $record['training_start_date'];
                  $training_end_date = $record['training_end_date'];
                  $participants = $this->get_counter_person_trainings($training_id,$facilityq);
-                 $data_collector = array($trainingtitle,$training_organizer,$training_start_date,$training_end_date,$participants);
+                 $data_collector = array($link,$trainingtitle,$training_organizer,$training_start_date,$training_end_date,$participants);
              
                  array_push($output,$data_collector);
              }
@@ -12307,7 +13070,7 @@ else if($agrregate_method=="view_aggregate_train"){
                   foreach($training_type as $type){
                       
                       $data_collector = array();
-                     $trainings =  $this->get_total_number_of_trainings($training_org,$type,$start_date,$end_date);
+                     $trainings =  $this->get_total_number_of_trainings($training_org,$type,$start_date,$end_date,$locationQuery);
                       if($trainings<=0 ){
                           continue;
                       }
@@ -12402,15 +13165,19 @@ else if($agrregate_method=="view_aggregate_part"){
                     //echo '';
                       $training_organizer = $training_org;
                  $trainingtypes = $trainingtype;
-           if($cadre==""){
+           if(empty($cadre)){
                   $cadrequery = "";
               }else{
-                  $cadrequery = "AND p.primary_qualification_option_id='".$cadre."'";
+                  $cadreImplode = implode(",",$cadre);
+                  $cadrequery = "AND p.primary_qualification_option_id IN ($cadreImplode)";
               }
               
               if($training_organizer==""){
-                  $trainingorganizerquery=="";
-              }else{
+                  $trainingorganizerquery="";
+              }else if(empty($trainingOrgTemp)){
+                  $trainingorganizerquery="";
+              }
+              else{
                   //$training_organizer = implode(",",$trainingorganizer);
                   $trainingorganizerquery = "AND t.training_organizer_option_id ='$training_organizer'";
               }
@@ -12496,7 +13263,7 @@ else if($agrregate_method=="view_part_names"){
            if(!isset($locations) || empty($locations)){
          $locations = $this->get_all_locations();
          }
-              $headers = array("First Name","Middle Name","Surname","State","LGA","Facility","Professional Qualification","Training Type","Training Organizer","Training Start Date","Training End Date","Gender","Certification");
+              $headers = array("ID","First Name","Middle Name","Surname","State","LGA","Facility","Professional Qualification","Training Type","Training Organizer","Training Start Date","Training End Date","Gender","Certification");
                
               if($trainingorganizer=="" || empty($trainingorganizer)){
 		$trainingorganizer = array();
@@ -12523,14 +13290,18 @@ else if($agrregate_method=="view_part_names"){
 		}  
                $trainingtypes = implode(",",$training_type);
                  
-              if($cadre==""){
+              if(empty($cadre)){
                   $cadrequery = "";
               }else{
-                  $cadrequery = "AND p.primary_qualification_option_id='".$cadre."'";
+                  $cadreImplode = implode(",",$cadre);
+                  $cadrequery = "AND p.primary_qualification_option_id IN ($cadreImplode)";
               }
               
               if($training_organizer==""){
-                  $trainingorganizerquery=="";
+                  $trainingorganizerquery="";
+              }
+              else if(empty($trainingOrgTemp)){
+                  $trainingorganizerquery="";
               }else{
                   $training_organizer = implode(",",$trainingorganizer);
                   
@@ -12590,6 +13361,8 @@ else if($agrregate_method=="view_part_names"){
           foreach($all_participants as $persons){
               $has_result = "true";
               $data_collector = array();
+              $id = $persons['person_id'];
+              $Link = "<a href='../person/view/id/$id'>$id</a>";
               $first_name = $persons['first_name'];
               $middle_name = $persons['middle_name'];
               $last_name = $persons['last_name'];
@@ -12617,7 +13390,7 @@ else if($agrregate_method=="view_part_names"){
               }
             
               
-              $data_collector = array($first_name,$middle_name,$last_name,$state,$lga,$facility_name,$cadre,$training_types,$training_title_phrase,$training_start_date,$training_end_date,$genders,$certification);
+              $data_collector = array($Link,$first_name,$middle_name,$last_name,$state,$lga,$facility_name,$cadre,$training_types,$training_title_phrase,$training_start_date,$training_end_date,$genders,$certification);
         // print_r($data_collector);echo '<br/><br/>';
               array_push($output,$data_collector);
               }
@@ -12764,7 +13537,12 @@ public function get_location_category_unique($category,$condition=""){
 }
 public function get_all_facilities_reporte_rates($facility_ids,$date_format){
     $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
-    $sql = "SELECT COUNT(*) as counter FROM facility_report_rate WHERE facility_id IN (".$facility_ids.") AND date='$date_format'";
+    if(!empty($facility_ids)){
+        $whereFac = "AND facility_id IN (".$facility_ids.")"; 
+    }else{
+       $whereFac = ""; 
+    }
+    $sql = "SELECT COUNT(*) as counter FROM facility_report_rate WHERE date='$date_format' $whereFac";
     
     $result = $db->fetchAll($sql);
     //print_r($result);exit;
@@ -13696,20 +14474,33 @@ $this->viewAssignEscaped('criteria',$criteria);
                               //print_r($consump_sum_sql); exit;
                               return $res;
           }
-          public function get_total_number_of_trainings($training_org,$type,$start_date,$end_date){
+          public function get_total_number_of_trainings($training_org,$type,$start_date,$end_date,$locationQuery="  "){
               $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
           
-          $sql = "SELECT count(*) as count FROM training WHERE training_end_date>='".$start_date."' AND training_end_date<='".$end_date."'  AND training_organizer_option_id='".$training_org."' AND training_title_option_id='".$type."' AND is_deleted='0'";
-     
-          $res = $db->fetchAll($sql);
+          $sql = "SELECT count(*) as count FROM training "
+                  . " LEFT JOIN training_location as tl on training.training_location_id=tl.id"
+                  . " LEFT JOIN location as loc on tl.location_id=loc.id "
+                  . " WHERE training_end_date>='".$start_date."' "
+                  . " AND training_end_date<='".$end_date."'  "
+                  . " AND training_organizer_option_id='".$training_org."' "
+                  . " AND training_title_option_id='".$type."' "
+                  ."$locationQuery"
+                  . " AND training.is_deleted='0'";
+                Helper2::jLog($sql);
+                $res = $db->fetchAll($sql);
                              
                               return $res[0]['count'];
           }
-      public function get_training_records_from_db( $trainingorganizerquery,$trainingtitleoptionquery,$start_date,$end_date){
+      public function get_training_records_from_db( $trainingorganizerquery,$trainingtitleoptionquery,$start_date,$end_date,$locationQuery="  "){
         $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
           
-          $sql = "SELECT training.id, training_organizer_phrase,training_title_phrase,training_start_date,training_end_date FROM training left join training_organizer_option on training_organizer_option_id=training_organizer_option.id left join training_title_option on training_title_option.id=training_title_option_id WHERE training_end_date>='".$start_date."' AND training_end_date<='".$end_date."'  ".$trainingorganizerquery." ".$trainingtitleoptionquery." AND training.is_deleted='0'";
-     
+          $sql = "SELECT training.id, training_organizer_phrase,training_title_phrase,training_start_date,training_end_date FROM training 
+                  left join training_organizer_option on training_organizer_option_id=training_organizer_option.id 
+                  left join training_title_option on training_title_option.id=training_title_option_id 
+                  LEFT JOIN training_location as tl on training.training_location_id=tl.id 
+                  LEFT JOIN location as loc on tl.location_id=loc.id  
+                  WHERE training_end_date>='".$start_date."' AND training_end_date<='".$end_date."'  ".$trainingorganizerquery." ".$trainingtitleoptionquery." $locationQuery AND training.is_deleted='0' ";
+             Helper2::jLog($sql);
           $res = $db->fetchAll($sql);
                                     return $res;
       }
@@ -13828,10 +14619,10 @@ $this->viewAssignEscaped('criteria',$criteria);
       // $sql = "SELECT facility_summary_person_view.*,person.birthdate FROM facility_summary_person_view inner join person on person.id=person_id WHERE (parent_id IN (".$locator.") OR geo_zone_id IN (".$locator.") OR facility_location_id IN (".$locator.")) ".$cadrequery." ".$trainingorganizerquery." ".$trainingtypequery." ".$training_end_date." ".$genderq." ".$certificationq." ".$facilityq." ".$dob_query;    
  
        
-       $sql = "SELECT p.first_name,p.middle_name,p.last_name,flv.state,flv.lga,flv.facility_name,pqual.qualification_phrase,tto.training_title_phrase,torg.training_organizer_phrase,t.training_start_date,t.training_end_date,ptt.certification,p.gender,flv.location_id FROM  person_to_training as ptt left join person as p on p.id = ptt.person_id left join person_qualification_option as pqual on pqual.id=p.primary_qualification_option_id  left join training as t on t.id=ptt.training_id  left join training_title_option as tto on tto.id=t.training_title_option_id left join training_organizer_option as torg on torg.id = t.training_organizer_option_id left join facility_location_view as flv on flv.id=p.facility_id WHERE ".$locationquery." ".$cadrequery." ".$trainingorganizerquery." ".$trainingtypequery." ".$training_end_date." ".$genderq." ".$certificationq." ".$facilityq." ".$dob_query." AND p.is_deleted='0' AND t.is_deleted='0' AND tto.is_deleted='0'";
+       $sql = "SELECT p.id as person_id,p.first_name,p.middle_name,p.last_name,flv.state,flv.lga,flv.facility_name,pqual.qualification_phrase,tto.training_title_phrase,torg.training_organizer_phrase,t.training_start_date,t.training_end_date,ptt.certification,p.gender,flv.location_id FROM  person_to_training as ptt left join person as p on p.id = ptt.person_id left join person_qualification_option as pqual on pqual.id=p.primary_qualification_option_id  left join training as t on t.id=ptt.training_id  left join training_title_option as tto on tto.id=t.training_title_option_id left join training_organizer_option as torg on torg.id = t.training_organizer_option_id left join facility_location_view as flv on flv.id=p.facility_id WHERE ".$locationquery." ".$cadrequery." ".$trainingorganizerquery." ".$trainingtypequery." ".$training_end_date." ".$genderq." ".$certificationq." ".$facilityq." ".$dob_query." AND p.is_deleted='0' AND t.is_deleted='0' AND tto.is_deleted='0'";
       //echo $sql;exit;
       $helper2 = new Helper2();
-     // Helper2::jLog($sql);
+      Helper2::jLog($sql);
 //echo $sql;
        //echo '<br/><br/>';
        $res = $db->fetchAll($sql);
@@ -13951,6 +14742,12 @@ public function get_training_title_option($trainingtype){
     $all_sql = $db->fetchAll($sql);
     return $all_sql[0]['training_title_phrase'];
 }
+public function get_training_organizer_phrase_name($torg){
+     $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
+    $sql  = "SELECT * FROM training_organizer_option WHERE id='".$torg."'";
+    $all_sql = $db->fetchAll($sql);
+    return $all_sql[0]['training_organizer_phrase'];
+}
 public function get_all_training_titles(){
     $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
     $sql  = "SELECT * FROM training_title_option as tto WHERE tto.is_deleted='0'";
@@ -13968,6 +14765,7 @@ public function get_commodity_option_name($name_id){
     return $all_sql[0]['commodity_name'];
     
 }
+
 public function get_location_name($location_id){
      $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
      $sql = "SELECT location_name FROM location WHERE id=$location_id";

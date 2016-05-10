@@ -13,6 +13,7 @@
 		foreach ($this->output as $row){
 			$_row = array();
 			foreach ($row as $key=>$value){
+                            $value = str_replace("@", ",", $value);
 				$_row[] = $value;
 			}
 			$data[] = $_row;
@@ -58,7 +59,7 @@ if(isset($this->criteria['total_participants'])){
 		$output = implode("\n", $output);
 
 		header("Content-type: text/csv");
-		header("Content-Disposition: attachment; filename=training-data-" . date("d.m.Y.H.m.s") . ".csv");
+		header("Content-Disposition: attachment; filename=all-queries-" . date("d.m.Y.H.m.s") . ".csv");
 		header("Pragma: no-cache");
 		header("Expires: 0");
 		echo $output;
@@ -129,7 +130,7 @@ if(isset($this->criteria['total_participants'])){
             
                 
             $(document).ready(function () {
-                 
+                 checkTimeDateRange();
                 
                  $("#region_c_id").on('change', function (event) {
                      check_buttons();
@@ -177,21 +178,23 @@ if(isset($this->criteria['total_participants'])){
                 $("#jqxComboBox").jqxComboBox({source: countries, multiSelect: true, width: 200, height: 25});           
 //                $("#jqxComboBox").jqxComboBox('selectItem', '681');
 //                $("#jqxComboBox").jqxComboBox('selectItem', '710');
-                $("#arrow").jqxButton({  });
-                $("#arrow").click(function () {
-                    $("#jqxComboBox").jqxComboBox({ showArrow: false });
-                });
+                
                 // trigger selection changes.
                 $("#jqxComboBox").on('change', function (event) {
                     var items = $("#jqxComboBox").jqxComboBox('getSelectedItems');
-                    var selectedItems = "Selected Items: ";
+                    var result = $("#jqxComboBox").jqxComboBox('val');
+                     $("#jqTraining").val(result);
+                     
+                    var selectedItems = "";
                     $.each(items, function (index) {
                         selectedItems += this.label;
                         if (items.length - 1 != index) {
-                            selectedItems += ", ";
+                            selectedItems += ",";
                         }
                     });
                     $("#log").text(selectedItems);
+                    $("#jqTraining").val(selectedItems);
+                    //$("#jqTraining").val(selectedItems);
                 });
                 
                 
@@ -206,21 +209,23 @@ if(isset($this->criteria['total_participants'])){
                 $("#jqxComboBox").jqxComboBox({source: countries, multiSelect: true, width: 200, height: 25});           
 //                $("#jqxComboBox").jqxComboBox('selectItem', '681');
 //                $("#jqxComboBox").jqxComboBox('selectItem', '710');
-                $("#arrow").jqxButton({  });
-                $("#arrow").click(function () {
-                    $("#jqxComboBox").jqxComboBox({ showArrow: false });
-                });
+                
                 // trigger selection changes.
                 $("#jqxComboBox").on('change', function (event) {
                     var items = $("#jqxComboBox").jqxComboBox('getSelectedItems');
-                    var selectedItems = "Selected Items: ";
+                    var result = $("#jqxComboBox").jqxComboBox('val');
+                     
+                   // $("#jqTraining").val(result);
+                    var selectedItems = "";
                     $.each(items, function (index) {
                         selectedItems += this.label;
                         if (items.length - 1 != index) {
-                            selectedItems += ", ";
+                            selectedItems += ",";
                         }
                     });
                     $("#log").text(selectedItems);
+                    $("#jqTraining").val(selectedItems);
+                     //$("#jqTraining").val(selectedItems);
                 });
                 
                 
@@ -250,6 +255,7 @@ if( isset($this->criteria['aggregate_method']) && $this->criteria['aggregate_met
                                   draggable: false,
                                   resizable: false,
                                       });  
+                                       $('.ui-dialog-titlebar').hide();
                                 
 			} );
                         
@@ -279,6 +285,7 @@ if( isset($this->criteria['aggregate_method']) && $this->criteria['aggregate_met
                                   resizable: false,
                                       }); 
                                 check_buttons();
+                                
 			} );
                         
                        
@@ -359,89 +366,70 @@ div#dialog-certification-message {
         </style>
         <script type="text/javascript">
           
-            function checkDateRange(){
-                var StartMonth = $("#StartMonth").val();
-                var StartYear =  $("#StartYear").val();
-                var EndMonth =   $("#EndMonth").val();
-                var EndYear =    $("#EndYear").val();
-                //alert(StartDate+" end date is "+EndDate);
-                if(EndYear!="" || EndMonth!="" || StartYear!="" || StartMonth!=""){
-                    
-                   // forms.duration.disabled = true;
-                    $("#12_months").prop("disabled",true);
-                    $("#6_months").prop("disabled",true);
-                    $("#3_months").prop("disabled",true);
-                    $("#one_month").prop("disabled",true);
-                }else{
-                   // forms.duration.disabled = false;
-                    $("#12_months").prop("disabled",false);
-                    $("#6_months").prop("disabled",false);
-                    $("#3_months").prop("disabled",false);
-                    $("#one_month").prop("disabled",false);
-                }
-                
-            }
-            
-            function checkMonthDuration(){
+            function checkTimeDateRange(){
+              
                 var duration = forms.duration.value;
-                if(duration!=""){
-                   $("#StartMonth").prop("disabled",true);
-                   $("#StartYear").prop("disabled",true);
-                   $("#EndMonth").prop("disabled",true);
-                   $("#EndYear").prop("disabled",true);
-               }
-            }
-            function checkDuration(){
-               var period =  forms.period.value;
-               if(period=="monthly"){
-                   $("#StartMonth").prop("disabled",true);
-                   $("#StartYear").prop("disabled",true);
-                   $("#EndMonth").prop("disabled",true);
-                   $("#EndYear").prop("disabled",true);
-                   
-                   $("#12_months").prop("disabled",false);
-                    $("#6_months").prop("disabled",false);
-                    $("#3_months").prop("disabled",false);
-                    $("#one_month").prop("disabled",false);
+                // alert(duration);
+                var period =  forms.period.value;
+                //alert(StartDate+" end date is "+EndDate);
+               if(duration=="custom"){
+                  if(period=="monthly"){
+                   $("#StartMonth").prop("disabled",false);
+                   $("#StartYear").prop("disabled",false);
+                   $("#EndMonth").prop("disabled",false);
+                   $("#EndYear").prop("disabled",false);
+                  
                }else if(period=="annual"){
                    $("#StartMonth").prop("disabled",true);
                    $("#StartYear").prop("disabled",false);
                    $("#EndMonth").prop("disabled",true);
                    $("#EndYear").prop("disabled",false);
                    
-                    $("#12_months").prop("disabled",true);
-                    $("#6_months").prop("disabled",true);
-                    $("#3_months").prop("disabled",true);
-                    $("#one_month").prop("disabled",true);
                    
                }else{
-                    $("#12_months").prop("disabled",false);
-                    $("#6_months").prop("disabled",false);
-                    $("#3_months").prop("disabled",false);
-                    $("#one_month").prop("disabled",false);
-                    
-                    
-                    $("#StartMonth").prop("disabled",false);
+                   $("#StartMonth").prop("disabled",false);
                    $("#StartYear").prop("disabled",false);
                    $("#EndMonth").prop("disabled",false);
                    $("#EndYear").prop("disabled",false);
                     
                }
+                  
+               }else{
+                    $("#StartMonth").prop("disabled",true);
+                   $("#StartYear").prop("disabled",true);
+                   $("#EndMonth").prop("disabled",true);
+                   $("#EndYear").prop("disabled",true);
+//                   
+//                    
+//                   // forms.duration.disabled = true;
+//                    $("#12_months").prop("disabled",true);
+//                    $("#6_months").prop("disabled",true);
+//                    $("#3_months").prop("disabled",true);
+//                    $("#one_month").prop("disabled",true);
+                }
             }
+            
+           
             function check_buttons(){
                var val =   forms.aggregate_method.value;
                 if(val=="facility_training"){
-                   document.getElementById("facility_id").disabled = false;
+                   document.getElementById("facility_id").disabled = true;
+                   document.getElementById("trainingtype").disabled = true;
+                   document.getElementById("trainingorganizer").disabled = true;
                    //training not disabled
                     $("#jqxComboBox").jqxComboBox({disabled:false});
                 }
                 else if(val=="facility_geog"){
                      document.getElementById("facility_id").disabled = false;
+                     document.getElementById("trainingtype").disabled = false;
+                   document.getElementById("trainingorganizer").disabled = false;
                       $("#jqxComboBox").jqxComboBox({disabled:true});
                       //training disabled    
             }
                 else{
                    document.getElementById("facility_id").disabled = true;
+                   document.getElementById("trainingtype").disabled = false;
+                   document.getElementById("trainingorganizer").disabled = false;
                     $("#jqxComboBox").jqxComboBox({disabled:true});
                  }
             }
@@ -511,17 +499,15 @@ label {
     <script>
  function submitForm(){
      
-     document.getElementById("trainingDataForm").submit();
+     document.getElementById("allDataForm").submit();
      return true;
  }    
  
- 
- $(function() {
-$('#submitTrainingData').click(function() {
-    $.ajax({
+ function submitAllDataForm(){
+      $.ajax({
             type: "POST",
-            url: "<?php echo $this->base_url;?>/reports/trainingresult",
-            data: $("#trainingDataForm").serialize(),
+            url: "<?php echo $this->base_url;?>/reports/allqueriesresult",
+            data: $("#allDataForm").serialize(),
             beforeSend: function() {
              //alert("before");
              $(".ui-dialog").show();
@@ -534,48 +520,27 @@ $('#submitTrainingData').click(function() {
                $('#dialog-certification-message').dialog('open');
                },
             success: function(data) {
-             //alert("successful");
-           //alert(data);
-           
-             var responseData =   jQuery.parseJSON(data);
-             var locationName = responseData['locationName'];
+          //alert(data);
+          
+             //document.getElementById("data").innerHTML = "Fetching...";
              
-             
+           var responseData =   jQuery.parseJSON(data);
+            var error = responseData.error;
+            // alert(responseData.error);
+             if(error!=""){
+                 document.getElementById("message").innerHTML = "<div id='statusBox' style='color:red;'><p align='center'>* "+error+"</p></div>";
+                 $('#message').show().fadeIn('slow');    
+         }else{
+             document.getElementById("message").innerHTML = "";
+             $('#message').hide().fadeOut('slow');
              document.getElementById("data").innerHTML = "Populating...";
              var  headers = $.map(responseData.headers, function(el) { return el });
-             
-             
-          
-      
-             var aggregate_method = responseData['aggregate_method'];
-             var totalTraining = responseData['total_training'];
-             var alert = responseData['alert'];
-             
-             var locationTotal = responseData['locationNumber'];
-             
-             var totalParticipants = responseData['total_participants'];
-             //var perLocations = perLocation['perLocation'];
-             //var agreggate_participants = perLocation['agreggate_participants'];
-             //alert(locationName);
-            //lert(agreggate_participants);
+            // alert("hello after headers");
+        
              var dataMessage = "";
            
-           if(aggregate_method=="view_aggregate_part" || aggregate_method=="view_part_names"){
-                if(aggregate_method=="view_part_names"){
-                    if(locationName=="all geography"){
-                        dataMessage = "<h3 align='left'><b><i>Total Participants :  "+totalParticipants+"</i></b></h3><h4 align='left'><i>"+alert+"</i></h4>";
-                    }else{
-                        dataMessage = "<h3 align='left'><b><i>Total Participants :  "+locationTotal+"</i></b></h3><h4 align='left'><i>"+alert+"</i></h4>";
-                    }
-                }else{
-                    dataMessage = "<h3 align='left'><b><i>Total Participants :  "+totalParticipants+"</i></b></h3>";
-                }
-             }else{
-               dataMessage = "<h3 align='left'><b><i>Total Trainings :  "+totalTraining+"</i></b></h3>";
-             }
-             
-             
              headers = headers.toString();
+             //alert(headers);
              var headersArray = headers.split(",");
              var outputArray = jQuery.parseJSON(responseData.output);
          
@@ -591,7 +556,7 @@ $('#submitTrainingData').click(function() {
      jQuery.each( outputArray, function( key, value ) {
       
       var individualResponseTableData = value.toString();
-     
+     //alert(individualResponseTableData);
       var individualResponseTableDataArray = individualResponseTableData.split(","); 
       responseTable  += '<tr>\n';
       jQuery.each( individualResponseTableDataArray, function( key, result ) {
@@ -612,6 +577,12 @@ $('#submitTrainingData').click(function() {
 					"sPaginationType": "full_numbers"
 				});
                
+            
+           
+           
+                
+         }
+         $('.ui-dialog-titlebar').hide();
                  dialogCert = $( "#dialog-certification-message" ).dialog();
                $('#dialog-certification-message').dialog('close');
              $('.ui-dialog-titlebar').show();
@@ -627,11 +598,10 @@ $('#submitTrainingData').click(function() {
              document.getElementById("data").innerHTML = "Fetching...";
             }
 
-        })
-    
-      
-});
- });
+        });
+ }
+ 
+ 
  
 </script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
@@ -653,6 +623,7 @@ $('#submitTrainingData').click(function() {
                                     </div>
 					
                                         <div class="row">
+                                           
                                          <?php 
                                                     // print_r($this->criteria['error']);
                                          if(isset($criteria['error'])){
@@ -661,7 +632,9 @@ $('#submitTrainingData').click(function() {
                                                      }
                                          }
                                                      ?>
-					<form  action="" method="post" name="forms" id="trainingDataForm" >
+                                             
+                                     </div>
+					<form  action="" method="post" name="forms" id="allDataForm" onsubmit="return false;" >
 						
 					<input type="hidden" name="process" id="process" value="1">
 					
@@ -669,7 +642,7 @@ $('#submitTrainingData').click(function() {
 </div>
                                         <div class="row">	
                                                 <div  class="col-md-11" style="margin:0 auto !important;min-width:200px;padding-left:4.3% !important;">
-                                                 
+                                                 <div id="message" style="width:100% !important;padding-top:10px;"></div>
                                                     <?php
                                                     if(!isset($this->criteria['aggregate_method']) || $this->criteria['aggregate_method']==""){
                                                         $this->criteria['aggregate_method'] = "aggreg_data";
@@ -708,7 +681,7 @@ $('#submitTrainingData').click(function() {
                                                            
 							<p align="center"><span class="required"></span> National Report</p>
 							
-							<p align="center"><select name="national_report">
+							<p align="center"><select name="national">
                                                                 
                                                                 <option value="">--choose--</option>
                                                                 <option value="0" <?php if($this->criteria['national_report']=="0"){ echo 'selected="selected"'; }?>>National Report</option>
@@ -739,6 +712,7 @@ $('#submitTrainingData').click(function() {
                                                             
                                                         
                                                         <div style="margin-top: 5px;" id='jqxComboBox'></div>
+                                                        <input id="jqTraining" type="hidden" name="jqTraining"/>
                                                         </div>
 
 							<!-- TA:17: 09/04/2014 START-->
@@ -752,7 +726,8 @@ $('#submitTrainingData').click(function() {
                                             </div>
                                         </div>
                                         
-                                       
+                                        <input type="hidden" name="csv" value="0"  id="csvid"/>
+                                        <div id="csvdownload"></div>
                                         
                                             <div class="col-md-11" style="padding-top:20px !important;padding-bottom:20px !important;margin:0 auto !important;margin-left:4.6% !important;">
                                                 <div class="row">
@@ -846,7 +821,7 @@ echo "<option value=''  >--choose--</option>";
                     }else{
                         $selected = "";
                     }
-                     $dnt_show = array("31","32","38","37","36");
+                     $dnt_show = array("31","32","38","37","36","39");
             if(!in_array($item['id'],$dnt_show)){
 			echo "<option value=\"" . $item['id'] . "\"  ".$selected." title='".$item['commodity_name']."'>" . $item['commodity_name'] . "</option>\n";
 		}
@@ -914,13 +889,44 @@ echo "<option value=''  >--choose--</option>";
 							<p align="center" class="center">Time Period Display</p>
 							
                                                         <p align="center" class="center">
-                                                    <p class="center"><label for="monthly">  <input type="radio" name="period" value="monthly" id="monthly" onclick="checkDuration();"> &nbsp;&nbsp;<span>Monthly</span></label>&nbsp;&nbsp;&nbsp;
-                                                    <label for="annual"><input type="radio" name="period" value="annual" id="annual" onclick="checkDuration();"> &nbsp;&nbsp;<span>Annual</span></label>&nbsp;&nbsp;&nbsp;
-                                                    <label for="total"><input type="radio" name="period" value="total" id="total" onclick="checkDuration();"> &nbsp;&nbsp;<span>Total</span></label></p>
+                                                    <p class="center"><label for="monthly">  <input type="radio" name="period" value="monthly" id="monthly" onclick="checkTimeDateRange();"> &nbsp;&nbsp;<span>Monthly</span></label>&nbsp;&nbsp;&nbsp;
+                                                    <label for="annual"><input type="radio" name="period" value="annual" id="annual" onclick="checkTimeDateRange();"> &nbsp;&nbsp;<span>Annual</span></label>&nbsp;&nbsp;&nbsp;
+                                                    <label for="total"><input type="radio" name="period" value="total" id="total" onclick="checkTimeDateRange();"> &nbsp;&nbsp;<span>Total</span></label></p>
                                                      
                                                 </p>
                                                     </div>
-							<div class="col-md-3" style="min-width:200px;border-right:1px solid !important;min-height:90px !important;padding-top:15px !important;">
+							
+							<div class="col-md-6" style="min-width:200px;min-height:90px !important;padding-top:15px !important;" >
+                                                <p align="center" class="center"></p>
+							
+						<p align="center" class="center">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                   
+                                                        <div id="infobutton" class="infobutton" style="padding-left:10px !important;">
+                                                                                <span class="infowrap"><i class="fa fa-info-circle"></i></span>
+                                                                                <div id="" class="infodiv" >
+                                                                                   The last month for which data is available on the dashboard is <?php echo $this->criteria['lastPullDate']; ?>
+                                                                                </div>
+                                                               </div> 
+                                                        </div>
+                                                  <div class="col-md-11">
+                                                    <p class="center">
+                                                        
+                                                        <br/>
+                                                        <label for="one_month">  <input type="radio" name="duration" value="1" id="one_month" OnClick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Last Month</span></label>&nbsp;&nbsp;&nbsp;
+                                                    <label for="3_months"><input type="radio" name="duration" value="3" id="3_months" Onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Last 3 Months</span></label>&nbsp;&nbsp;&nbsp;
+                                                   <label for="6_months"><input type="radio" name="duration" value="6" id="6_months" Onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Last 6 Months</span></label>&nbsp;&nbsp;&nbsp;
+                                                  <label for="12_months"><input type="radio" name="duration" value="12"  id="12_months" onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Last 12 Months</span></label>
+                                                  <label for="custom"><input type="radio" name="duration" value="custom"  id="custom" onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Custom</span></label></p>
+                                                  
+                                                  
+                                                  </div>  
+                                                    </div>
+                                                </p>
+                                                
+                                                        </div>
+                                                       <div class="col-md-3" style="min-width:200px;padding-top:15px !important;">
 	
 							<p align="center" class="center">Date Range</p>
                                                        
@@ -937,26 +943,6 @@ echo "<option value=''  >--choose--</option>";
                                                         </p>                  
                                                                             
                                                         </div>
-							<div class="col-md-6" style="min-width:200px;min-height:90px !important;padding-top:15px !important;" >
-                                                <p align="center" class="center"></p>
-							
-						<p align="center" class="center">
-                                                    <p class="center">
-                                                        <div id="infobutton" class="infobutton" style="padding-left:10px !important;">
-                                                                                <span class="infowrap"><i class="fa fa-info-circle"></i></span>
-                                                                                <div id="" class="infodiv" >
-                                                                                   The last month for which data is available on the dashboard is December 2015
-                                                                                </div>
-                                                               </div> <br/>
-                                                        <label for="one_month">  <input type="radio" name="duration" value="1" id="one_month" OnClick="checkMonthDuration();"/> &nbsp;&nbsp;<span>Last Month</span></label>&nbsp;&nbsp;&nbsp;
-                                                    <label for="3_months"><input type="radio" name="duration" value="3" id="3_months" Onclick="checkMonthDuration()"/> &nbsp;&nbsp;<span>Last 3 Months</span></label>&nbsp;&nbsp;&nbsp;
-                                                   <label for="6_months"><input type="radio" name="duration" value="6" id="6_months" Onclick="checkMonthDuration()"/> &nbsp;&nbsp;<span>Last 6 Months</span></label>&nbsp;&nbsp;&nbsp;
-                                                  <label for="12_months"><input type="radio" name="duration" value="12"  id="12_months" onclick="checkMonthDuration()"/> &nbsp;&nbsp;<span>Last 12 Months</span></label></p>
-                                                    
-                                                </p>
-                                                
-                                                        </div>
-                                                       
 
 							<!-- TA:17: 09/04/2014 START-->
                                                        </div>
@@ -971,7 +957,7 @@ echo "<option value=''  >--choose--</option>";
 						<div class="row" style="height : 50px;">
                                                     <div class="col-md-11">
 							<div  style="margin: 0 auto !important;width:50px !important;"  >
-								<input type="submit" name="go" id="submitTrainingData" value="<?php tp('Fetch');?>" class="submitNoArrow" onclick="return false;"/>
+								<input type="submit" name="go" id="submitAllData" value="<?php tp('Fetch');?>" class="submitNoArrow" onclick="submitAllDataForm()"/>
 							</div>
                                                     </div>
                                                      

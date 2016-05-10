@@ -415,7 +415,7 @@ $('#submitFacilitySummary').click(function() {
 					<div id="contentheader">
 						<h2><?php tp('Facility Summary Query');?></h2><br>
                                                     <div id="facilityDetails">
-                                                   <?php if($this->criteria['details_facility']['facility_name']!="" ){
+                                                   <?php if(!empty($this->criteria['details_facility']['facility_name']) && isset($this->criteria['details_facility']['facility_name'])){
                                                    ?><h3><?php tp('Facility Summary of '.$this->criteria['details_facility']['facility_name'].'');?></h3>
                                                    <?php }?>
                                                     </div>

@@ -6,8 +6,10 @@
  *  Fuse IQ -- todd@fuseiq.com
  *
  */
-
+include_once('Helper2.php');
 require_once('Role.php');
+require_once('Report.php');
+require_once('User.php');
 class Location extends ITechTable
 {
 	protected $_primary = 'id';
@@ -16,11 +18,14 @@ class Location extends ITechTable
         
 	//return [id,uuid,name,parent_id, tier, is_default, is_good]
 	static protected $_locations = null;//cache
+        static protected $_tracker = null;
 
 	public static function getAll($tracker="") {
             //$itech = new ITechController();
+            $report = new Report();
+            $user = "";
                  $auth = Zend_Auth::getInstance();
-                if ($auth->hasIdentity()) {
+                if (isset($auth->hasIdentity())) {
                     // Identity exists; get it
                     $identity = $auth->getIdentity();
                   // $identify = $identity;
@@ -29,26 +34,47 @@ class Location extends ITechTable
                        $details_user[] = $identify;
                     }
                     //print_r($identity); exit;
-                    $user = $details_user[0];
+                    $user = (isset($details_user[0]))? $details_user[0]:0;
                     //$province_id = $details_user[5];
                     //$district_id = $details_user[6];
                     //$region_c_id = $details_user[7];
                     //$role = $details_user[4];
 
-                }   
+                  
                     $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
 
-		$sql = "SELECT  role,province_id,district_id,region_c_id FROM user WHERE id ='".$user."'";
+		$sql = "SELECT  role,province_id,district_id,region_c_id,multiple_locations_id FROM user WHERE id ='".$user."'";
 		$result = $db->fetchAll($sql);
                 //print_r($result);
                 //echo 'User id is '.$user;
                 $province_id = $result[0]['province_id'];
                 $district_id = $result[0]['district_id'];
+                $multipleLocationsId = $result[0]['multiple_locations_id'];
+                if($multipleLocationsId!=""){
+                    $multipleLocationsIdArray = json_decode($multipleLocationsId,true);
+                    $partnerZones = $report->explodeGeogArray($multipleLocationsIdArray, 1);
+                    $partnerZones = $report->formatSelection($partnerZones);
+                    if($partnerZones!=""){
+                       $partnerZoneCriteria =  implode(",",$partnerZones);
+                    }
+                    
+                    $partnerStates = $report->explodeGeogArray($multipleLocationsIdArray, 2);
+                    $partnerStates = $report->formatSelection($partnerStates);
+                    
+                    if($partnerStates!=""){
+                        $partnerStatesCriteria =  implode(",",$partnerStates);
+                    }
+                    
+                }
                 $region_c_id = $result[0]['region_c_id'];
                 $role = $result[0]['role'];
+        }
+                //echo $role;exit;
+                //echo $tracker;exit;
                 //echo Role::LGA_USER;exit;
-		if ( self::$_locations ) return self::$_locations;
-                
+                //if($tracker==self::$_tracker)
+		if ( self::$_locations && $tracker==self::$_tracker) return self::$_locations;
+                self::$_tracker = $tracker;
                 $tableObj = new Location();
 		//$region_b = System::getSetting('display_region_b');
 		//$region_c = System::getSetting('display_region_c');
@@ -66,7 +92,9 @@ class Location extends ITechTable
                         ->where('is_deleted = 0')
                         ->order('location_name'); 
          }
-         else {       
+         
+         else {    
+             
                 if($role == Role::ADMIN_USER || $role== Role::FMOH_USER){
                   $select = $tableObj->select()
                                         ->from(array('l' => 'location'))
@@ -74,14 +102,20 @@ class Location extends ITechTable
                                         ->order('location_name');  
                 }
                 else if($role== Role::PARTNER_USER){
-                    
+                    $stateArray = array();
+                    $stateArray = Location::getLocationByCategory("state",$province_id);
+                    //print_r($stateArray,true);
+                   $stateLocations = implode(",",$stateArray);
+                   Helper2::jLog($stateLocations);
+                    //print_r($stateArray);exit;
                     $select = $tableObj->select()
                                         ->from(array('l' => 'location'))
                                         ->where('is_deleted = 0')
-                                        ->where('id=?',$province_id)
-                                        ->orwhere('parent_id=?',$province_id)
-                                        ->orwhere('tier=?','3')
-                                       ->order('location_name');
+                                        ->where('id IN ('.$partnerZoneCriteria.')')
+                                        ->orwhere('id IN('.$partnerStatesCriteria.')')
+                                        ->orwhere('parent_id IN('.$partnerStatesCriteria.')' )
+                                        ->order('location_name');
+                    
                 }
                 else if($role== Role::STATE_USER){
 
@@ -114,7 +148,8 @@ class Location extends ITechTable
          }//end else
         
 		//$tableObj = new Location();
-	
+	//echo $select->__toString();exit;
+        Helper2::jLog($select->__toString());
   //echo $select;
 		$output = array();
 		try {
@@ -136,12 +171,31 @@ class Location extends ITechTable
 				//if the parent is more than one tier higher, then no good unless the middle region is off
 				$is_good = true;
 				$parent_tier = (!$row['parent_id'] ? 0: $indexed[$row['parent_id']]['tier']);
+                                //if(!array_key_exists$row['parent_id'])
+//                                $parent_tier = 0;
+////                                if(!$row['
+//                                if($row['parent_id']){
+//                                    if(array_key_exists($row['parent_id'], $indexed)){
+//                                        $parent_tier = $indexed[$row['parent_id']]['tier'];
+//                                    }else{
+//                                       // echo 'continue loop'.$parent_tier;
+//                                        continue;
+//                                    }
+//                                }else{
+//                                    $parent_tier = 0;
+//                                }
+                                //echo $parent_tier;echo '<br/>';
 				if ( $row['tier'] > 1 && !$parent_tier) {
 					$is_good = false;
 				} else if ( (($parent_tier + 1) != $row['tier']) ) {
 					$is_good = false;
 				}
-
+                                
+                               if($tracker=="1"){
+                                   $locationName = $row['location_name'];
+                                   $loc = new Location();
+                                  $row['location_name'] = $loc->breakLocationName($locationName);
+                               }
 				$output[$row['id']] = array('id'=>$row['id'],'uuid'=>$row['uuid'],'name'=>$row['location_name'], 'parent_id'=>($row['parent_id']?$row['parent_id']:0), 'tier'=>$row['tier'], 'is_default' =>$row['is_default'], 'is_good'=>$is_good);
 				if ( $row['tier'] > $num_tiers) {
 					$num_tiers = $row['tier'];
@@ -164,7 +218,7 @@ class Location extends ITechTable
 			$output []= array('id' => 0, 'name' => t('unknown'), 'tier'=>$t-1 ,'is_default'=>0, 'parent_id'=>0);
 			}
 			*/
-                        
+                      
 			self::$_locations = $output;
 			return self::$_locations;
 
@@ -174,7 +228,22 @@ class Location extends ITechTable
 
 		return null;
 	}
-
+        
+        
+        
+        public function breakLocationName($location_name){
+            
+      
+    $location_names = explode(" ",$location_name);
+    if(sizeof($location_names)>=3){
+      $location_names[2] = "\n".$location_names[2];
+    
+    }
+    $locationName = implode(" ",$location_names);
+   
+    return $locationName;
+         
+        }
 
 	public static function moveLocation($location_id, $new_parent) {
 		//caller should make sure it's in the correct tier
@@ -293,7 +362,25 @@ class Location extends ITechTable
 		return $output;
 
 	}
-
+       public function ImplodedUserAccessLocation(){
+                $user = new User();
+    $personLocationWhere = "";
+    $newLocations = array();
+    $newLocation = "";
+   $locationnew = new Location();
+   
+   if(!$user->UserAccessRoleAllowed()){
+   $newLocations = $locationnew->userAccessLocations();
+   $newLocation = implode(",",$newLocations);
+   }
+        if($newLocation!=""){
+            
+        $personLocationWhere = "AND f.location_id IN ($newLocation)";
+        
+    }
+    return $newLocation;
+       }
+       
 	public static function _innerChild($locations, $location, $tier = false, &$output) {
 		if ( !$location['id'] ) return;
 
@@ -645,7 +732,162 @@ class Location extends ITechTable
     
     return $results ? $results : null;
   }
+  public function userAccessLocations(){
+      $locations = array();
+      $new_locations = array();
+      $location = new Location();
+      $locations = $location->getAll("");
+    
+      //print_r($locations);exit;
+      
+                   foreach($locations as $locator){
+                      $tier = $locator['tier'];
+                     
+                      if($tier>=2){
+                     // echo $tier;echo '<br/>';
+                      $locationId = $locator['id'];
+                      $new_locations[] = $locationId;
+                      
+                       //echo '<br/><br/>';
+                   }
+                   }
+                    Helper2::jLog(print_r($new_locations,true));
+                   return $new_locations;
+  }
+  public function getUserLocationWithRole(){
+      require_once ("User.php");
+       $location = new Location();
+       $locations = array();
+      $user = new User();
+      if(!$user->UserAccessRoleAllowed()){
+         
+      
+          $locations = $location->userAccessLocations();
+          $locationName = $location->getUserLocationName();
+          
+      }
+      
+      //print_r($locations);exit;
+      return $locations;
+  }
+  public function getUserLocationName(){
+      require_once ("User.php");
+      $user = new User();
+      $locations = array();
+    
+      $location = new Location();
+      $locations = $location->getAll("");
+    
+      //print_r($locations);exit;
+      $location_name = array("3","2","1");
+      $geogLocation = array();
+      //$location_name = array();
+      $tier = 0;
+     if($user->isUserAnLga()){
+                       $tier = 1;
+                       $appender = " Local Government";
+                   }else if($user->isUserAState()){
+                       $appender = " State";
+                       $tier = 2;
+                   }else if($user->isUserAPartner()){
+                       $appender = " State";
+                       $tier = 2;    
+                         
+                   }
+                   foreach($locations as $locator){
+                      $locationTier = $locator['tier'];
+                    
+                      $appender = "";
+                      if($locationTier== $tier){
+                         $geogLocation[] = $locator['name'].$appender;
+                          
+                      }
+                                          
+                       //echo '<br/><br/>';
+                   }
+                  
+                   
+                   
+                   $location_name = array_unique($geogLocation);
+                   
+                   if($user->isUserAPartner()){
+                       foreach($location_name as $locationData){
+                           if($locationName!=""){
+                           $locationName .= ", ".$locationData;
+                           }else{
+                               $locationName .= $locationData;
+                           }
+                       }
+                   }
+                 
+                   if($user->isUserAnLga()){
+                       $locationName = $location_name[0];
+                   }else if($user->isUserAState()){
+                       $locationName = $location_name[0];
+                   }else if($user->isUserAPartner()){
+                       
+                         $locationName = " selected area(s) matching your coverage area(s)";//$locationName;
+                         
+                   }else{
+                       $locationName = "all geography";
+                   }
+                  
+                   return $locationName;
+  }
+  
+  public function get_location_category_unique($category,$condition=""){
+      if($category=="zone"){
+        $needle = "geo_parent_id,geo_zone";
+        $condi = "";
+        $name = "geo_zone";
+    }else if($category=="state"){
+        $needle = "state_id,state";
+        $name = "state";
+        $condi = "WHERE geo_parent_id='$condition'";
+    }else{
+        $needle = "lga_id,lga";
+        $name = "lga";
+        $condi = "WHERE state_id='$condition'";
+    }
+    
+    $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
+    $sql = "SELECT DISTINCT  ".$needle." FROM facility_location_view ".$condi."  ORDER BY `$name` ASC";
+  // echo $sql;exit;
+    $result = $db->fetchAll($sql);
+    return $result;
+    
+}
+public function getLocationByCategory($category,$province_id){
+    $locations = array();
+    if($category=="zone"){
+        $needle = "geo_parent_id";
+       
+    }else if($category=="state"){
+        $needle = "state_id";
+        
+    }else{
+        $needle = "lga_id";
+         }
+         
+    $locationArray = Location::get_location_category_unique($category,$province_id);
+    foreach($locationArray as $loc){
+        $locations[] = $loc[$needle];
+    }
+    return $locations;
+}
 
+public function formatLocationIdWithTier($tier,$locationId){
+    $locations = explode('_',$locationId);
+    //print_r($locations);
+    if($tier==1 || $tier=="1"){
+        return $locationId;
+    }else if($tier==2 || $tier=="2"){
+        return $locations[1];
+    }
+    else if($tier==3 || $tier=="3"){
+        return $locations[2];
+    }
+}
  
 }
 

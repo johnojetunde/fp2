@@ -6,10 +6,8 @@
  *  Fuse IQ -- todd@fuseiq.com
  *
  */
-include_once('Helper2.php');
+
 require_once('Role.php');
-require_once('Report.php');
-require_once('User.php');
 class Location extends ITechTable
 {
 	protected $_primary = 'id';
@@ -18,13 +16,12 @@ class Location extends ITechTable
         
 	//return [id,uuid,name,parent_id, tier, is_default, is_good]
 	static protected $_locations = null;//cache
-        static protected $_tracker = null;
 
 	public static function getAll($tracker="") {
             //$itech = new ITechController();
-            $report = new Report();
                  $auth = Zend_Auth::getInstance();
-                if ($auth->hasIdentity()) {
+                 $role="";
+                if (!empty($auth->hasIdentity())) {
                     // Identity exists; get it
                     $identity = $auth->getIdentity();
                   // $identify = $identity;
@@ -39,40 +36,21 @@ class Location extends ITechTable
                     //$region_c_id = $details_user[7];
                     //$role = $details_user[4];
 
-                }   
+                   
                     $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
 
-		$sql = "SELECT  role,province_id,district_id,region_c_id,multiple_locations_id FROM user WHERE id ='".$user."'";
+		$sql = "SELECT  role,province_id,district_id,region_c_id FROM user WHERE id ='".$user."'";
 		$result = $db->fetchAll($sql);
                 //print_r($result);
                 //echo 'User id is '.$user;
                 $province_id = $result[0]['province_id'];
                 $district_id = $result[0]['district_id'];
-                $multipleLocationsId = $result[0]['multiple_locations_id'];
-                if($multipleLocationsId!=""){
-                    $multipleLocationsIdArray = json_decode($multipleLocationsId,true);
-                    $partnerZones = $report->explodeGeogArray($multipleLocationsIdArray, 1);
-                    $partnerZones = $report->formatSelection($partnerZones);
-                    if($partnerZones!=""){
-                       $partnerZoneCriteria =  implode(",",$partnerZones);
-                    }
-                    
-                    $partnerStates = $report->explodeGeogArray($multipleLocationsIdArray, 2);
-                    $partnerStates = $report->formatSelection($partnerStates);
-                    
-                    if($partnerStates!=""){
-                        $partnerStatesCriteria =  implode(",",$partnerStates);
-                    }
-                    
-                }
                 $region_c_id = $result[0]['region_c_id'];
                 $role = $result[0]['role'];
-                //echo $role;exit;
-                //echo $tracker;exit;
+                }
                 //echo Role::LGA_USER;exit;
-                //if($tracker==self::$_tracker)
-		if ( self::$_locations && $tracker==self::$_tracker) return self::$_locations;
-                self::$_tracker = $tracker;
+		if ( self::$_locations ) return self::$_locations;
+                
                 $tableObj = new Location();
 		//$region_b = System::getSetting('display_region_b');
 		//$region_c = System::getSetting('display_region_c');
@@ -90,9 +68,7 @@ class Location extends ITechTable
                         ->where('is_deleted = 0')
                         ->order('location_name'); 
          }
-         
-         else {    
-             
+         else {       
                 if($role == Role::ADMIN_USER || $role== Role::FMOH_USER){
                   $select = $tableObj->select()
                                         ->from(array('l' => 'location'))
@@ -100,20 +76,14 @@ class Location extends ITechTable
                                         ->order('location_name');  
                 }
                 else if($role== Role::PARTNER_USER){
-                    $stateArray = array();
-                    $stateArray = Location::getLocationByCategory("state",$province_id);
-                    //print_r($stateArray,true);
-                   $stateLocations = implode(",",$stateArray);
-                   Helper2::jLog($stateLocations);
-                    //print_r($stateArray);exit;
+                    
                     $select = $tableObj->select()
                                         ->from(array('l' => 'location'))
                                         ->where('is_deleted = 0')
-                                        ->where('id IN ('.$partnerZoneCriteria.')')
-                                        ->orwhere('id IN('.$partnerStatesCriteria.')')
-                                        ->orwhere('parent_id IN('.$partnerStatesCriteria.')' )
-                                        ->order('location_name');
-                    
+                                        ->where('id=?',$province_id)
+                                        ->orwhere('parent_id=?',$province_id)
+                                        ->orwhere('tier=?','3')
+                                       ->order('location_name');
                 }
                 else if($role== Role::STATE_USER){
 
@@ -146,8 +116,7 @@ class Location extends ITechTable
          }//end else
         
 		//$tableObj = new Location();
-	//echo $select->__toString();exit;
-        Helper2::jLog($select->__toString());
+	
   //echo $select;
 		$output = array();
 		try {
@@ -169,31 +138,12 @@ class Location extends ITechTable
 				//if the parent is more than one tier higher, then no good unless the middle region is off
 				$is_good = true;
 				$parent_tier = (!$row['parent_id'] ? 0: $indexed[$row['parent_id']]['tier']);
-                                //if(!array_key_exists$row['parent_id'])
-//                                $parent_tier = 0;
-////                                if(!$row['
-//                                if($row['parent_id']){
-//                                    if(array_key_exists($row['parent_id'], $indexed)){
-//                                        $parent_tier = $indexed[$row['parent_id']]['tier'];
-//                                    }else{
-//                                       // echo 'continue loop'.$parent_tier;
-//                                        continue;
-//                                    }
-//                                }else{
-//                                    $parent_tier = 0;
-//                                }
-                                //echo $parent_tier;echo '<br/>';
 				if ( $row['tier'] > 1 && !$parent_tier) {
 					$is_good = false;
 				} else if ( (($parent_tier + 1) != $row['tier']) ) {
 					$is_good = false;
 				}
-                                
-                               if($tracker=="1"){
-                                   $locationName = $row['location_name'];
-                                   $loc = new Location();
-                                  $row['location_name'] = $loc->breakLocationName($locationName);
-                               }
+
 				$output[$row['id']] = array('id'=>$row['id'],'uuid'=>$row['uuid'],'name'=>$row['location_name'], 'parent_id'=>($row['parent_id']?$row['parent_id']:0), 'tier'=>$row['tier'], 'is_default' =>$row['is_default'], 'is_good'=>$is_good);
 				if ( $row['tier'] > $num_tiers) {
 					$num_tiers = $row['tier'];
@@ -216,7 +166,7 @@ class Location extends ITechTable
 			$output []= array('id' => 0, 'name' => t('unknown'), 'tier'=>$t-1 ,'is_default'=>0, 'parent_id'=>0);
 			}
 			*/
-                      
+                        
 			self::$_locations = $output;
 			return self::$_locations;
 
@@ -226,22 +176,7 @@ class Location extends ITechTable
 
 		return null;
 	}
-        
-        
-        
-        public function breakLocationName($location_name){
-            
-      
-    $location_names = explode(" ",$location_name);
-    if(sizeof($location_names)>=3){
-      $location_names[2] = "\n".$location_names[2];
-    
-    }
-    $locationName = implode(" ",$location_names);
-   
-    return $locationName;
-         
-        }
+
 
 	public static function moveLocation($location_id, $new_parent) {
 		//caller should make sure it's in the correct tier
@@ -360,25 +295,7 @@ class Location extends ITechTable
 		return $output;
 
 	}
-       public function ImplodedUserAccessLocation(){
-                $user = new User();
-    $personLocationWhere = "";
-    $newLocations = array();
-    $newLocation = "";
-   $locationnew = new Location();
-   
-   if(!$user->UserAccessRoleAllowed()){
-   $newLocations = $locationnew->userAccessLocations();
-   $newLocation = implode(",",$newLocations);
-   }
-        if($newLocation!=""){
-            
-        $personLocationWhere = "AND f.location_id IN ($newLocation)";
-        
-    }
-    return $newLocation;
-       }
-       
+
 	public static function _innerChild($locations, $location, $tier = false, &$output) {
 		if ( !$location['id'] ) return;
 
@@ -730,7 +647,8 @@ class Location extends ITechTable
     
     return $results ? $results : null;
   }
-  public function userAccessLocations(){
+
+ public function userAccessLocations(){
       $locations = array();
       $new_locations = array();
       $location = new Location();

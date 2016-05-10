@@ -125,7 +125,27 @@ if( $this->criteria['aggregate_method']=="view_part_names"){
                                          "aaSorting": [[0, 'desc']]
 				});
                                 
-                                
+                                $("#region_c_id").on('change', function (event) {
+                     check_buttons();
+                 });
+                 $("#province_id").on('change', function (event) {
+                     check_buttons();
+                 });
+                
+                $("#district_id").on('change', function (event) {
+                    check_buttons();
+                });
+                
+                $("#aggreg_region_c_id").on('change', function (event) {
+                     check_buttons();
+                 });
+                 $("#aggreg_province_id").on('change', function (event) {
+                     check_buttons();
+                 });
+                
+                $("#aggreg_district_id").on('change', function (event) {
+                    check_buttons();
+                });
                                 
 			} );
                         
@@ -199,13 +219,13 @@ select, input[type="text"] {
                
                 //alert('This is the value '+val);
                 if(val=="view_individual_train" || val=="view_aggregate_train"){
-                    document.getElementById("province_id").disabled=true;
-                    document.getElementById("district_id").disabled=true;
+                    document.getElementById("province_id").disabled=false;
+                    document.getElementById("district_id").disabled=false;
                     document.getElementById("region_c_id").disabled=true;
                     document.getElementById("facility_id").disabled = true;
                     
-                    document.getElementById("aggreg_province_id").disabled=true;
-                    document.getElementById("aggreg_district_id").disabled=true;
+                    document.getElementById("aggreg_province_id").disabled=false;
+                    document.getElementById("aggreg_district_id").disabled=false;
                     document.getElementById("aggreg_region_c_id").disabled=true;
                     document.getElementById("aggreg_facility_id").disabled = true;
                     
@@ -245,13 +265,19 @@ select, input[type="text"] {
             function check_buttons(){
                var val =   forms.aggregate_method.value;
                 if(val=="view_individual_train" || val=="view_aggregate_train"){
-                    document.getElementById("province_id").disabled=true;
-                    document.getElementById("district_id").disabled=true;
+       document.getElementById("geoSelectionMenu").style.display = 'none';
+       document.getElementById("geoSelectionMenu").style.visibile = 'hidden';
+       
+       document.getElementById("geoSelectionMenuAggregate").style.display = 'block';
+       document.getElementById("geoSelectionMenuAggregate").style.visibile = 'show';
+       
+                    document.getElementById("province_id").disabled=false;
+                    document.getElementById("district_id").disabled=false;
                     document.getElementById("region_c_id").disabled=true;
                     document.getElementById("facility_id").disabled = true;
                     
-                    document.getElementById("aggreg_province_id").disabled=true;
-                    document.getElementById("aggreg_district_id").disabled=true;
+                    document.getElementById("aggreg_province_id").disabled=false;
+                    document.getElementById("aggreg_district_id").disabled=false;
                     document.getElementById("aggreg_region_c_id").disabled=true;
                     document.getElementById("aggreg_facility_id").disabled = true;
                     
@@ -265,6 +291,8 @@ select, input[type="text"] {
                     document.getElementById("dob-end-day").disabled = true;
                     document.getElementById("dob-end-month").disabled = true;
                     document.getElementById("dob-end-year").disabled = true;
+                    
+       
                 }else{
                     //alert(val);
                     if(val=="view_part_names"){
@@ -527,7 +555,7 @@ echo "<option value=''  >--choose--</option>";
                                                         <div class="col-md-2" >
 							<p align="center"><?php echo t('Professional Qualification'); ?></p>
 							
-							<p align="center"><select name="cadre" style="width:95%;" id="cadre"/>
+							<p align="center"><select name="cadre[]" style="width:95%;" id="cadre" multiple/>
 	<?php
        
         echo "<option value=''  ".$disbaled.">--choose--</option>";

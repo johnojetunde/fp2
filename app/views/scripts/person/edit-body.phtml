@@ -686,7 +686,8 @@ YAHOO.util.Event.onDOMReady(function() {
 
 		<div class="clear"></div>
 		<div class="actionBtn">
-		<button type="button" id="submitPerson"><?php tp('Save changes');?></button><br />
+		<button type="button" id="submitPerson" onclick="_gaq.push(['_trackEvent', 'Click', 'Save Edit Person', 'Save edited person\'s record']);">
+      <?php tp('Save changes');?></button><br />
 		</div>
 
 		<?php if($this->mode == 'add')

@@ -395,7 +395,195 @@ class IndexController extends ReportFilterHelpers  {
             return $cs_calc;
         }
         
+        public function requestaccessAction(){
+            require_once ('models/table/User.php');
+            require_once ('models/ValidationContainer.php');
+            require_once ('Zend/Validate/EmailAddress.php');
+            require_once ('Zend/Mail.php');
+            require_once ('models/table/MultiOptionList.php');
+            require_once ('models/table/Report.php');
+            require_once('models/table/Helper.php');
+            require_once('models/table/Location.php');
+            require_once('models/table/requestUser.php');
+                //$auth = Zend_Auth::getInstance ();
+                //$read = $auth->getStorage()->read();
+                $report = new Report();
+                $requestUser = new requestUser();
+		$request = $this->getRequest ();
+		$validateOnly = $request->isXmlHttpRequest ();
+		if ($validateOnly)
+		$this->setNoRenderer ();
+
+		$status = ValidationContainer::instance ();
+		$req_id = $this->getSanParam('id');
+                if(!empty($req_id)){
+                    $where = 'req_id ='.$req_id.'';
+                    $rawRequestUserData = $requestUser->selectRequestUser('request_access',$where);
+                    $user = $rawRequestUserData[0];
+                    $this->viewAssignEscaped('user', $user);
+                }
+                //var_dump($locations); exit;
+                
+		if ($request->isPost()) {
+                    //echo 'post requesttttt'; exit;
+                    
+                    
+                    
+                    
+                    
+                    //validate
+                    $status->checkRequired ( $this, 'designation', 'Designation' );
+                    $status->checkRequired ( $this, 'first_name', 'First name' );
+                    $status->checkRequired ( $this, 'last_name', 'Surname' );
+                    $status->checkRequired ( $this, 'username', 'Login' );
+                    $status->checkRequired ( $this, 'email', 'Email' );
+                    
+                    
+
+			//valid email?
+			$validator = new Zend_Validate_EmailAddress ( );
+
+			if (!$validator->isValid ( $this->_getParam ( 'email' ) )) {
+				$status->addError ( 'email', 'That email address does not appear to be valid.' );
+			}
+
+			if (strlen ( $this->_getParam ( 'username' ) ) < 3) {
+				$status->addError ( 'username', 'Usernames should be at least 3 characters in length.' );
+			}
+                        
+			$status->checkRequired ( $this, 'password', 'Password' );
+                        
+			//check unique username and email
+			if ($uniqueArray = User::isUnique ( $this->getSanParam ( 'username' ), $this->_getParam ( 'email' ) )) {
+				if (isset ( $uniqueArray ['email'] )){
+				$status->addError ( 'email', 'That email address is already in use. Please choose another one.' );
+                                }
+                                else{
+                                    if(!empty($req_id)){
+                                        $where = 'email ='.$this->_getParam ( 'email' ).' AND req_id != '.$req_id.'';
+                                    }else{
+                                        $where = 'email ='.$this->_getParam ( 'email' ).'';
+                                    }
+                                    
+                                    $queryResult = $requestUser->selectRequestUser('request_access',$where);
+                                   if(!empty($queryResult)){
+                                       $status->addError ( 'email', 'That email address is already in use. Please choose another one.' );
+                                   }
+                                }
+				if (isset ( $uniqueArray ['username'] ))
+				$status->addError ( 'username', 'That username is already in use. Please choose another one.' );
+			}
+
+			if (strlen ( $this->_getParam ( 'password' ) ) < 6) {
+				$status->addError ( 'password', 'Passwords should be at least 6 characters in length.' );
+			}
+                        
+                       /* if($province_id=="" && empty($district_id) && empty($region_c_id)){
+                            $status->addError ( 'province_id', 'The Location of the user must be completely filled' );
+                        
+                            
+                        }*/
+                         
+                        $status->checkRequired ( $this,'province_id', 'Zone' );
+                        $status->checkRequired ( $this,'district_id', 'State' );
+                        $status->checkRequired ( $this,'region_c_id', 'LGA' );
+                         
+                       
+                        
+			if ($status->hasError ()) {
+				$status->setStatusMessage ( 'The user could not be saved.' );
+			} else {
+                            $province_id = array();
+                            $province_id[] = $this->getSanParam('province_id');
+                            $province_id = $report->formatSelection($province_id);
+                            $zone = $report->explodeGeogArray($province_id,"1");
+                            $geo_zone = $zone[0];
+
+                            $district_id = array();
+                            $district_id[] = $this->getSanParam('district_id');
+                            $district_id = $report->formatSelection($district_id);
+                            $state = $report->explodeGeogArray($district_id, "2");
+                            $geo_state = $state[0];
+
+                            $region_c_id = array();
+                            $region_c_id[] = $this->getSanParam('region_c_id');
+                            $region_c_id = $report->formatSelection($region_c_id);
+                            $localgovernment = $report->explodeGeogArray($region_c_id, "3");
+                            $geo_lga = $localgovernment[0];
+                            $currDate = new Zend_Db_Expr('CURDATE()');
+                    
+                    
+                            $data['first_name'] = $this->getSanParam('first_name');
+                            $data['last_name'] = $this->getSanParam('last_name');
+                            $data['username'] = $this->getSanParam('username');
+                            $data['password'] = $this->getSanParam('password');
+                            $data['email'] = $this->getSanParam('email');
+                            $data['province_id'] = $geo_zone;
+                            $data['district_id'] = $geo_state;
+                            $data['region_c_id'] = $geo_lga;
+                            $data['designation'] = $this->getSanParam('designation');
+                            $data['status'] = 0;
+                           if(!empty($req_id)){
+                           $data['timestamp_modified'] = $currDate;
+                           }else {
+                           $data['timestamp_created'] = $currDate;
+                           }
+                         //print_r($details);exit;
+                           //print_r($userRow);exit;
+                            //echo $zone.' state '.$details.' lga '.$lga;exit;
+                             //print_r($this->_getAllParams ());exit;
+				
+
+//					$view = new Zend_View ( );
+//					$view->setScriptPath ( Globals::$BASE_PATH . '/app/views/scripts/email' );
+//					$view->assign ( 'first_name', $this->_getParam ( 'first_name' ) );
+//					$view->assign ( 'username', $this->_getParam ( 'username' ) );
+//					$view->assign ( 'password', $this->_getParam ( 'password' ) );
+//					$text = $view->render ( 'text/new_account.phtml' );
+//					$html = $view->render ( 'html/new_account.phtml' );
+//
+//					try {
+//						$mail = new Zend_Mail ( );
+//						$mail->setBodyText ( $text );
+//						$mail->setBodyHtml ( $html );
+//						$mail->setFrom ( Settings::$EMAIL_ADDRESS, Settings::$EMAIL_NAME );
+//						$mail->addTo ( $this->_getParam ( 'email' ), $this->_getParam ( 'first_name' ) . " " . $this->_getParam ( 'last_name' ) );
+//						$mail->setSubject ( 'New Account Created' );
+//						$mail->send ();
+//					} catch (Exception $e) {
+//
+//					}
+
+				
+                             if(!empty($req_id)){
+                                 $where = 'req_id = '.$req_id.'';
+                                 $id = $requestUser->updateRequestUser("request_access", $data, $where);
+                             }else{
+                                 $id = $requestUser->insertRequestUser("request_access", $data);
+                             }
+                             
+				if (!empty($id)) {
+					$status->setStatusMessage ( 'Access Request has been placed.' );
+					
+				} else {
+					$status->setStatusMessage ( 'The user could not be saved.' );
+				}
+
+			}
+		}
+
+                $locations = Location::getAll("1");
+                $this->viewAssignEscaped('locations', $locations);
         
+                        $data = array();
+			$data['status'] = $status;
+                        $jsonData = json_encode($data);
+                           if ($validateOnly){
+                        echo $jsonData;
+                        }
+               
+                
+        }
         
         public function testAction() {
 

@@ -20,13 +20,13 @@ print ScriptContainer::$instance->renderJSHead();
     <div class="clear"></div>
     <form action="" id="userForm" method="post">
 	  <div class="fieldLabel" id="first_name_lbl"><span class="required">*</span><?php echo $this->translation['First Name'];?></div>
-	  <div class="fieldInput"><input type="text" name="first_name" size="32" maxlength="32" value="<?php echo $this->user['first_name'];?>"/></div>
+	  <div class="fieldInput"><input type="text" name="first_name" size="32" maxlength="32" value="<?php echo (isset($this->user['first_name']))?$this->user['first_name']:"";?>"/></div>
 	  <div class="fieldLabel" id="last_name_lbl"><span class="required">*</span><?php echo $this->translation['Last Name'];?></div>
-	  <div class="fieldInput"><input type="text" name="last_name" size="32" maxlength="32" value="<?php echo $this->user['last_name'];?>"/></div>
+	  <div class="fieldInput"><input type="text" name="last_name" size="32" maxlength="32" value="<?php echo (isset($this->user['last_name']))?$this->user['last_name']:"";?>"/></div>
 	  <div class="fieldLabel"  id="username_lbl"><span class="required">*</span><?php tp('Login');?></div>
-	  <div class="fieldInput"><input type="text" name="username" size="32" maxlength="32" value="<?php echo $this->user['username'];?>"/></div>
+	  <div class="fieldInput"><input type="text" name="username" size="32" maxlength="32" value="<?php echo (isset($this->user['username']))?$this->user['username']:"";?>"/></div>
  	  <div class="fieldLabel"  id="email_lbl"><span class="required">*</span><?php tp('E-mail');?></div>
-	  <div class="fieldInput"><input type="text" name="email" size="32" maxlength="255" value="<?php echo $this->user['email'];?>"/></div>
+	  <div class="fieldInput"><input type="text" name="email" size="32" maxlength="255" value="<?php echo (isset($this->user['email']))?$this->user['email']:"";?>"/></div>
  	  <div class="fieldLabel"  id="password_lbl"><?php tp('New password');?></div>
 	  <div class="fieldInput"><input type="password" name="password" size="32" maxlength="32" autocomplete="false" autocomplete='off' value=""/></div>
  	  <div class="fieldLabel"  id="confirm_password_lbl"><?php tp('Confirm New password');?></div>
@@ -34,19 +34,19 @@ print ScriptContainer::$instance->renderJSHead();
  	  
 	<div class="fieldLabel"><span class="required">*</span>Zone</div><br/>
 							
-							<div class="fieldselect"><?php renderFilter($this->locations, 1, 'province_id', $this->user['zone'], 'district_id', false,false); ?></div>
+							<div class="fieldselect"><?php renderFilter($this->locations, 1, 'province_id', (isset($this->user['province_id']))?$this->user['district_id']:"", 'district_id', false,false); ?></div>
 							
 							<div class="clear pad20">&nbsp;</div>
 	
 							<div class="fieldLabel"><span class="required">*</span>State</div><br/>
 							
-							<div class="fieldselect"><?php renderFilter($this->locations, 2, 'district_id', $this->user['state'], 'region_c_id', false,false); ?></div>
+							<div class="fieldselect"><?php renderFilter($this->locations, 2, 'district_id', (isset($this->user['district_id']))?$this->user['district_id']:"", 'region_c_id', false,false); ?></div>
 							
 							<div class="clear pad20">&nbsp;</div>
 	
 							<div class="fieldLabel"><span class="required">*</span>LGA </div><br/>
 							
-							<div class="fieldselect"><?php renderFilter($this->locations, 3, 'region_c_id', $this->user['lga'],'', false, false); ?></div>
+							<div class="fieldselect"><?php renderFilter($this->locations, 3, 'region_c_id', (isset($this->user['region_c_id']))?$this->user['region_c_id']:"",'', false, false); ?></div>
 							
 							<div class="clear pad20">&nbsp;</div>
           
