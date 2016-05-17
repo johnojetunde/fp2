@@ -256,8 +256,9 @@ YAHOO.util.Event.onDOMReady(setOrgAccessStatus);
        $('#region_c_id_lbl .errorText').remove();
        $('#role_lbl .errorText').remove();
    } 
-     $(function() {
-$('#Finished').click(function() {
+     
+
+    function submitButton(){
      $.ajax({
             type: "POST",
             url: "<?php echo $this->base_url;?>/user/approve",
@@ -277,7 +278,7 @@ $('#Finished').click(function() {
                },
             success: function(data) {
              //alert("successful");
-           alert(data);
+           //alert(data);
            
            var responseData =   jQuery.parseJSON(data);
            var status = responseData.status;
@@ -305,10 +306,10 @@ $('#Finished').click(function() {
             }
 
         })
-    
-      
-});
- });
+    return false;
+    }
+
+
  
 
 </script>
@@ -318,7 +319,7 @@ $('#Finished').click(function() {
 <form action="" id="userForm" method="POST" onsubmit="return false;">
    
 	<div style="float:right;">&nbsp;</div>
-        <button id="Finished" title="Approve User" class="submitNoArrow"> <?php tp('Approve User');?> </button>
+        <input type="submit" id="Finished" title="Approve User" value="Approve User" onClick="submitButton();" class="submitNoArrow" />
      
         <div class="clear"></div>
 	<div class="fieldLabel" id="first_name_lbl"><span class="required">*</span><?php echo $this->translation['First Name'];?></div>
@@ -484,7 +485,7 @@ $('#Finished').click(function() {
 	<div class="fieldLabelThin" for="spacer"></div>
 	
 	<div style="float:right;">&nbsp;</div>
-	<input type="button" id="Finished" title="Approve User" class="submitNoArrow" value="<?php tp('Approve User');?>"/>
+	<input type="submit" id="Finished" title="Approve User" value="Approve User" onClick="submitButton();" class="submitNoArrow" />
 	
         <div class="clear"></div>
 

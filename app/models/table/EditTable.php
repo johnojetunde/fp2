@@ -71,7 +71,7 @@ class EditTable extends ITechTable
    */
   public static function getDependencies($table, $tableDependent, $colDependent) {
     $topicTable = new EditTable(array('name' => $table));
-    
+   
     $joinTo = ($tableDependent == 'self'?$topicTable->_name:$tableDependent);
     
     //hacky
@@ -80,15 +80,21 @@ class EditTable extends ITechTable
     	$jpkey = 'person_id';
     }
     
+    if($joinTo=="training"){
+        $whereT = "d.is_deleted = 0";
+    }
+    else{
+        $whereT = "";
+    }
     $select = $topicTable->select()
         ->from($topicTable->_name, array('id'))
         ->setIntegrityCheck(false)
         ->joinLeft(array('d' => $joinTo), "d.$colDependent = $table.id", array('countDependent' => "COUNT(d.".$jpkey.")"))
         ->group("$table.id")
-        ->where("$table.is_deleted = 0")
+        ->where("$table.is_deleted = 0 AND $whereT")
         ->having("countDependent != 0");  
   
-    
+//    echo ($select->__toString());
     $rows = $topicTable->fetchAll($select);
     $ids = array();
     foreach($rows as $r) {

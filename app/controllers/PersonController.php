@@ -428,9 +428,9 @@ return $clear;
                    $userfacility_id = $personDetails['facility_id'];
                    $facility_idPerson = $facility->selectUniqueFacility($userfacility_id);
                    
-                   $LGA_idPersonData  = $facility_idPerson[0]['lga_id'];
-                   $STATE_idPersonData  = $facility_idPerson[0]['state_id'];
-                   $ZONE_idPersonData  = $facility_idPerson[0]['geo_zone_id'];
+                   $LGA_idPersonData  = (isset($facility_idPerson[0]['lga_id']))?$facility_idPerson[0]['lga_id']:"";
+                   $STATE_idPersonData  = (isset($facility_idPerson[0]['state_id']))?$facility_idPerson[0]['state_id']:"";
+                   $ZONE_idPersonData  = (isset($facility_idPerson[0]['geo_zone_id']))?$facility_idPerson[0]['geo_zone_id']:"";
                    //echo $location_idPersonData;
                  // print_r($facility_idPerson);
                 // exit;
@@ -1848,9 +1848,12 @@ $locationWhereQuery = "";
 	* autocomplete ajax (person)
 	*/
 	public function firstListAction() {
+            
 		require_once ('models/table/Person.php');
+                 
 		$rowArray = Person::suggestionQuery ( $this->_getParam ( 'query' ), 100, 'first_name', array ('p.first_name','p.facility_id' ) )->toArray ();
-		//$rowArray = $this->_attach_locations($rowArray);
+		
+//$rowArray = $this->_attach_locations($rowArray);
 		$this->sendData ( $rowArray );
 	}
 

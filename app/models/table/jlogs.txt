@@ -1,0 +1,39 @@
+2016-05-12 08:24:30 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 926 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC

@@ -1537,81 +1537,81 @@ echo $sql . "<br>";
 
 			$sql = 'SELECT ';
 
-			if (isset($criteria ['doCount'])) {
+			if (!empty($criteria ['doCount'])) {
 				$sql .= ' COUNT(pt.person_id) as "cnt" ';
 			} else {
 				$sql .= ' DISTINCT pt.id as "id", ptc.pcnt, pt.training_start_date, pt.training_end_date, pt.has_known_participants  ';
 			}
 
-			if (isset($criteria ['showTrainingTitle'])) {
+			if (!empty($criteria ['showTrainingTitle'])) {
 				$sql .= ', training_title ';
 			}
 			
 			
 
-			if (isset($criteria ['showLocation'])) {
+			if (!empty($criteria ['showLocation'])) {
 				$sql .= ', pt.training_location_name ';
 			}
 
-			if (isset($criteria ['showOrganizer'])) {
+			if (!empty($criteria ['showOrganizer'])) {
 				$sql .= ', torg.training_organizer_phrase ';
 			}
 
-			if (isset($criteria ['showMechanism'] , $display_training_partner)) {
+			if (!empty($criteria ['showMechanism']) && isset($display_training_partner)) {
 				$sql .= ', organizer_partners.mechanism_id ';
 			}
 
-			if (isset($criteria ['showLevel'])) {
+			if (!empty($criteria ['showLevel'])) {
 				$sql .= ', tlev.training_level_phrase ';
 			}
 
-			if (isset($criteria ['showCategory'])) {
+			if (!empty($criteria ['showCategory'])) {
 				$sql .= ', tcat.training_category_phrase ';
 			}
 
-			if (isset($criteria ['showPepfar']) || isset($criteria ['training_pepfar_id']) || $criteria ['training_pepfar_id'] === '0') {
-				if ($criteria ['doCount']) {
+			if (!empty($criteria ['showPepfar']) || !empty($criteria ['training_pepfar_id']) || $criteria ['training_pepfar_id'] === '0') {
+				if (!empty($criteria ['doCount'])) {
 					$sql .= ', tpep.pepfar_category_phrase ';
 				} else {
 					$sql .= ', GROUP_CONCAT(DISTINCT tpep.pepfar_category_phrase) as "pepfar_category_phrase" ';
 				}
 			}
 
-			if (isset($criteria ['showMethod'])) {
+			if (!empty($criteria ['showMethod'])) {
 				$sql .= ', tmeth.training_method_phrase ';
 			}
 
-			if (isset($criteria ['showTopic'])) {
-				if ($criteria ['doCount']) {
+			if (!empty($criteria ['showTopic'])) {
+				if (!empty($criteria ['doCount'])) {
 					$sql .= ', ttopic.training_topic_phrase ';
 				} else {
 					$sql .= ', GROUP_CONCAT(DISTINCT ttopic.training_topic_phrase ORDER BY training_topic_phrase) AS "training_topic_phrase" ';
 				}
 			}
 
-			if (isset($criteria ['showTot'])) {
+			if (!empty($criteria ['showTot'])) {
 				$sql .= ", IF(is_tot,'" . t ( 'Yes' ) . "','" . t ( 'No' ) . "') AS is_tot";
 			}
 
-			if (isset($criteria ['showRefresher'])) {
+			if (!empty($criteria ['showRefresher'])) {
 				$sql .= ", IF(is_refresher,'" . t ( 'Yes' ) . "','" . t ( 'No' ) . "') AS is_refresher";
 			}
 
-			if (isset($criteria ['showSecondaryLanguage'])) {
+			if (!empty($criteria ['showSecondaryLanguage'])) {
 				$sql .= ', tlos.language_phrase as "secondary_language_phrase" ';
 			}
-			if (isset($criteria ['showPrimaryLanguage'])) {
+			if (!empty($criteria ['showPrimaryLanguage'])) {
 				$sql .= ', tlop.language_phrase as "primary_language_phrase" ';
 			}
-			if (isset($criteria ['showGotComment'])) {
+			if (!empty($criteria ['showGotComment'])) {
 				$sql .= ", pt.got_comments";
 			}
-			if (isset($criteria ['showGotCurric'])) {
+			if (!empty($criteria ['showGotCurric'])) {
 				$sql .= ', tgotc.training_got_curriculum_phrase ';
 			}
 
-			if (isset($criteria ['showFunding'])) {
-				if (isset($criteria ['doCount'])) {
+			if (!empty($criteria ['showFunding'])) {
+				if (!empty($criteria ['doCount'])) {
 					$sql .= ', tfund.funding_phrase ';
 				} else {
 					$sql .= ', GROUP_CONCAT(DISTINCT tfund.funding_phrase ORDER BY funding_phrase) as "funding_phrase" ';
@@ -1650,10 +1650,10 @@ echo $sql . "<br>";
 //			if ( isset($criteria['showCustom4']) ) {
 //				$sql .= ', pt.custom_4';
 //			}
-			if (isset($criteria['doCount'] , $criteria ['showQualPrim']) || isset($criteria['doName'] , $criteria ['showQualPrim'])) {
+			if ( ( !empty($criteria['doCount']) && !empty($criteria ['showQualPrim']) ) || (!empty($criteria['doName']) && !empty($criteria ['showQualPrim'])) ) {
 				$sql .= ', pq.qualification_phrase ';
 			}
-			if ( isset($criteria['doCount'] , $criteria ['showQualSecond']) || isset($criteria['doName'] , $criteria ['showQualSecond'])) {
+			if ( (!empty($criteria['doCount']) && !empty($criteria ['showQualSecond'])) || (!empty($criteria['doName']) && !empty($criteria ['showQualSecond']))) {
 				$sql .= ', pqs.qualification_phrase AS qualification_secondary_phrase';
 			}
                        if(isset($geoLocationWhere) && $geoLocationWhere!=""){
@@ -1667,7 +1667,7 @@ echo $sql . "<br>";
 			//if we're doing a participant count, then LEFT JOIN with the participants
 			//otherwise just select the core training info
 
-			if (isset($criteria ['doCount'] )|| isset($criteria ['doName']) ) {
+			if (!empty($criteria ['doCount'] )|| !empty($criteria ['doName']) ) {
 				$sql .= ' FROM (SELECT training.*, pers.person_id as "person_id", tto.training_title_phrase AS training_title, training_location.training_location_name,training_location.location_id, primary_qualification_option_id, pers.location_phrase as location_phrase'.
 				'         FROM training ' .
 				'         LEFT JOIN training_title_option tto ON (`training`.training_title_option_id = tto.id)' .
@@ -1688,64 +1688,64 @@ echo $sql . "<br>";
 				'  WHERE training.is_deleted=0) as pt ';
 				$sql .= " LEFT JOIN (SELECT COUNT(id) as `pcnt`,training_id FROM person_to_training GROUP BY training_id) as ptc ON ptc.training_id = pt.id ";
 			}
-			if (isset($criteria ['doName'])) {
+			if (!empty($criteria ['doName'])) {
 				$sql .= " LEFT JOIN (SELECT COUNT(id) as `pcnt`,training_id FROM person_to_training GROUP BY training_id) as ptc ON ptc.training_id = pt.id ";
 			}
-			if (!(isset($criteria['doCount']) || isset($criteria['doName'])) && (isset($criteria['showViewingLoc']) || isset($criteria['person_to_training_viewing_loc_option_id']))) {
+			if (!(!empty($criteria['doCount']) || !empty($criteria['doName'])) && (!empty($criteria['showViewingLoc']) || !empty($criteria['person_to_training_viewing_loc_option_id']))) {
 				$sql .= ' LEFT JOIN person_to_training ON pt.person_id = person_to_training.person_id AND person_to_training.training_id = pt.id ';
 				$sql .= ' LEFT JOIN person_to_training_viewing_loc_option ON person_to_training.viewing_location_option_id = person_to_training_viewing_loc_option.id ';
 			}
 
-			if (isset($criteria ['showOrganizer']) or isset($criteria ['training_organizer_id']) || isset($criteria ['showMechanism'])  || isset($criteria ['mechanism_id'])) {
+			if (isset($criteria ['showOrganizer']) or !empty($criteria ['training_organizer_id']) || !empty($criteria ['showMechanism'])  || !empty($criteria ['mechanism_id'])) {
 				$sql .= '	LEFT JOIN training_organizer_option as torg ON torg.id = pt.training_organizer_option_id ';
 			}
 
-			if (isset($criteria ['showMechanism']) || isset($criteria ['mechanism_id']) && isset( $display_training_partner)) {
+			if (!empty($criteria ['showMechanism']) || !empty($criteria ['mechanism_id']) && !empty( $display_training_partner)) {
 				$sql .= ' LEFT JOIN organizer_partners ON organizer_partners.organizer_id = torg.id';
 			}
 
-			if (isset($criteria ['showLevel'] ) || isset($criteria ['training_level_id'])) {
+			if (!empty($criteria ['showLevel'] ) || !empty($criteria ['training_level_id'])) {
 				$sql .= '	JOIN training_level_option as tlev ON tlev.id = pt.training_level_option_id ';
 			}
 
-			if (isset($criteria ['showMethod']) || isset($criteria ['training_method_id'])) {
+			if (!empty($criteria ['showMethod']) || !empty($criteria ['training_method_id'])) {
 				$sql .= ' JOIN training_method_option as tmeth ON tmeth.id = pt.training_method_option_id ';
 			}
 
-			if (isset($criteria ['showPepfar']) || isset($criteria ['training_pepfar_id']) ||  $criteria ['training_pepfar_id'] === '0') {
+			if (!empty($criteria ['showPepfar']) || !empty($criteria ['training_pepfar_id']) ||  $criteria ['training_pepfar_id'] === '0') {
 				$sql .= '	LEFT JOIN (SELECT training_id, ttpco.training_pepfar_categories_option_id, pepfar_category_phrase FROM training_to_training_pepfar_categories_option as ttpco JOIN training_pepfar_categories_option as tpco ON ttpco.training_pepfar_categories_option_id = tpco.id) as tpep ON tpep.training_id = pt.id ';
 			}
 
-			if (isset($criteria ['showTopic']) || isset($criteria ['training_topic_id'])) {
+			if (!empty($criteria ['showTopic']) || !empty($criteria ['training_topic_id'])) {
 				$sql .= '	LEFT JOIN (SELECT training_id, ttto.training_topic_option_id, training_topic_phrase FROM training_to_training_topic_option as ttto JOIN training_topic_option as tto ON ttto.training_topic_option_id = tto.id) as ttopic ON ttopic.training_id = pt.id ';
 			}
 
-			if (isset($criteria ['showPrimaryLanguage']) || isset($criteria ['training_primary_language_option_id'])) {
+			if (!empty($criteria ['showPrimaryLanguage']) || !empty($criteria ['training_primary_language_option_id'])) {
 				$sql .= ' LEFT JOIN trainer_language_option as tlop ON tlop.id = pt.training_primary_language_option_id ';
 			}
 
-			if (isset($criteria ['showSecondaryLanguage']) || isset($criteria ['training_secondary_language_option_id'])) {
+			if (!empty($criteria ['showSecondaryLanguage']) || !empty($criteria ['training_secondary_language_option_id'])) {
 				$sql .= ' LEFT JOIN trainer_language_option as tlos ON tlos.id = pt.training_secondary_language_option_id ';
 			}
 
-			if (isset($criteria ['showFunding']) || (intval ( $criteria ['funding_min'] ) or intval ( $criteria ['funding_max'] ))) {
+			if (!empty($criteria ['showFunding']) || (intval ( $criteria ['funding_min'] ) or intval ( $criteria ['funding_max'] ))) {
 				$sql .= '	LEFT JOIN (SELECT training_id, ttfo.training_funding_option_id, funding_phrase, ttfo.funding_amount FROM training_to_training_funding_option as ttfo JOIN training_funding_option as tfo ON ttfo.training_funding_option_id = tfo.id) as tfund ON tfund.training_id = pt.id ';
 			}
 
-			if (isset($criteria ['showGotCurric']) || isset($criteria ['training_got_curric_id'])) {
+			if (!empty($criteria ['showGotCurric']) || !empty($criteria ['training_got_curric_id'])) {
 				$sql .= '	LEFT JOIN training_got_curriculum_option as tgotc ON tgotc.id = pt.training_got_curriculum_option_id';
 			}
 
-			if (isset($criteria ['showCategory']) or ! empty ( $criteria ['training_category_id'] )) {
+			if (!empty($criteria ['showCategory']) or !empty ( $criteria ['training_category_id'] )) {
 				$sql .= '
 				LEFT JOIN training_category_option_to_training_title_option tcotto ON (tcotto.training_title_option_id = pt.training_title_option_id)
 				LEFT JOIN training_category_option tcat ON (tcotto.training_category_option_id = tcat.id)
 				';
 			}
-			if (isset( $criteria['showCustom1']) || isset($criteria ['custom_1_id'] )) {
+			if (!empty( $criteria['showCustom1']) || !empty($criteria ['custom_1_id'] )) {
 				$sql .= ' LEFT JOIN training_custom_1_option as tqc ON pt.training_custom_1_option_id = tqc.id  ';
 			}
-			if ( isset($criteria['showCustom2']) || isset($criteria ['custom_2_id'] )) {
+			if ( !empty($criteria['showCustom2']) || !empty($criteria ['custom_2_id'] )) {
 				$sql .= ' LEFT JOIN training_custom_2_option as tqc2 ON pt.training_custom_2_option_id = tqc2.id  ';
 			}
 			#not multi opt fields yet - no join required
@@ -1756,20 +1756,24 @@ echo $sql . "<br>";
 			#	//$sql .= ' LEFT JOIN training_custom_4_option as tqc ON pt.training_custom_4_option_id = tqc4.id  ';
 			#}
 
-			if ( isset($criteria['showCreatedBy'] ) || isset($criteria ['created_by']) ) {
+			if ( !empty($criteria['showCreatedBy'] ) || !empty($criteria ['created_by']) ) {
 				$sql .= ' LEFT JOIN user ON user.id = pt.created_by  ';
 			}
+                       
 
-			if ( isset($criteria['showGender']) || isset($criteria['showAge']) || isset($criteria['training_gender']) || isset($criteria['age_min']) || isset($criteria['age_max'])) {
+			if ( !empty($criteria['showGender']) || !empty($criteria['showAge']) || !empty($criteria['training_gender']) || !empty($criteria['age_min']) || !empty($criteria['age_max'])) {
 				$personAlias  = ($criteria['doCount'] || $criteria['doName']) ? 'pt.person_id'  : 'pt.person_id';
 
 				$sql .= " LEFT JOIN person_to_training as ptt on ptt.training_id = pt.id AND $personAlias = ptt.person_id AND pt.is_deleted = 0 ";
 				$sql .= ' LEFT JOIN (SELECT id as pid, gender
 								,CASE WHEN birthdate  IS NULL OR birthdate = \'0000-00-00\' THEN NULL ELSE ((date_format(now(),\'%Y\') - date_format(birthdate,\'%Y\')) - (date_format(now(),\'00-%m-%d\') < date_format(birthdate,\'00-%m-%d\')) ) END as "age"
 								FROM person where is_deleted = 0) as perssexage ON perssexage.pid = ptt.person_id ';
-			}
+			
+                           
+                        }
+                        //echo 'This is outside the thing';exit;
 
-			if (( isset($criteria['doCount']) || isset($criteria['doName'])) && ( isset($criteria ['showQualPrim']) || isset($criteria ['showQualSecond']) || isset($criteria ['qualification_id'])  || isset($criteria ['qualification_secondary_id'])) ) {
+			if (( !empty($criteria['doCount']) || !empty($criteria['doName'])) && ( !empty($criteria ['showQualPrim']) || !empty($criteria ['showQualSecond']) || !empty($criteria ['qualification_id'])  || !empty($criteria ['qualification_secondary_id'])) ) {
 				// primary qualifications
 				$sql .= 'LEFT JOIN person_qualification_option as pq ON (
 							(pt.primary_qualification_option_id = pq.id AND pq.parent_id IS NULL)
@@ -1784,7 +1788,7 @@ echo $sql . "<br>";
 
 			// restricted access?? only show trainings we have the ACL to view
 			$org_allowed_ids = allowed_organizer_access($this);
-			if ($org_allowed_ids) { // doesnt have acl 'training_organizer_option_all'
+			if (!empty($org_allowed_ids)) { // doesnt have acl 'training_organizer_option_all'
 				$org_allowed_ids = implode(',', $org_allowed_ids);
 				$where [] = " pt.training_organizer_option_id in ($org_allowed_ids) ";
 			}
@@ -1794,7 +1798,7 @@ echo $sql . "<br>";
 				$where []= " pt.training_organizer_option_id in ($site_orgs) ";
 
 			// criteria
-			if (isset($criteria ['training_participants_type'])) {
+			if (!empty($criteria ['training_participants_type'])) {
 				if ($criteria ['training_participants_type'] == 'has_known_participants') {
 					$where [] = ' pt.has_known_participants = 1 ';
 				}
@@ -1808,39 +1812,39 @@ echo $sql . "<br>";
 			if ($this->_is_not_filter_all($criteria['training_title_option_id']) && ($criteria ['training_title_option_id'] or $criteria ['training_title_option_id'] === '0')) {
 				$where [] = 'pt.training_title_option_id in (' . $this->_sql_implode($criteria ['training_title_option_id']) . ')';
 			}
-			if (isset($criteria ['training_location_id']) && !empty($criteria['training_location_id'])) {
+			if (!empty($criteria ['training_location_id']) && !empty($criteria['training_location_id'])) {
 				$where [] = ' pt.training_location_id = \'' . $criteria ['training_location_id'] . '\'';
 			}
 
-			if ($this->_is_not_filter_all($criteria['training_organizer_id']) && isset($criteria ['training_organizer_id']) or $criteria ['training_organizer_id'] === '0') {
+			if ($this->_is_not_filter_all($criteria['training_organizer_id']) && !empty($criteria ['training_organizer_id']) or $criteria ['training_organizer_id'] === '0') {
 				$where [] = ' pt.training_organizer_option_id in (' . $this->_sql_implode($criteria ['training_organizer_id']) . ')';
 			}
 
-			if (isset($criteria ['mechanism_id']) or $criteria ['mechanism_id'] === '0' && $display_training_partner) {
+			if (!empty($criteria ['mechanism_id']) or $criteria ['mechanism_id'] === '0' && $display_training_partner) {
 				$where [] = ' organizer_partners.mechanism_id = \'' . $criteria ['mechanism_id'] . '\'';
 			}
 
-			if ($this->_is_not_filter_all($criteria['training_topic_id']) && $criteria ['training_topic_id'] or $criteria ['training_topic_id'] === '0') {
+			if ($this->_is_not_filter_all($criteria['training_topic_id']) && !empty($criteria ['training_topic_id']) or $criteria ['training_topic_id'] === '0') {
 				$where [] = ' ttopic.training_topic_option_id in (' . $this->_sql_implode($criteria ['training_topic_id']) . ')';
 			}
 
-			if (isset($criteria ['training_level_id']) && !empty($criteria['training_level_id'])) {
+			if (!empty($criteria ['training_level_id']) && !empty($criteria['training_level_id'])) {
 				$where [] = ' pt.training_level_option_id = \'' . $criteria ['training_level_id'] . '\'';
 			}
 
-			if (isset($criteria ['training_pepfar_id']) or $criteria ['training_pepfar_id'] === '0') {
+			if (!empty($criteria ['training_pepfar_id']) or $criteria ['training_pepfar_id'] === '0') {
 				$where [] = ' tpep.training_pepfar_categories_option_id = \'' . $criteria ['training_pepfar_id'] . '\'';
 			}
 
-			if (isset($criteria ['training_method_id']) or $criteria ['training_method_id'] === '0') {
+			if (!empty($criteria ['training_method_id']) or $criteria ['training_method_id'] === '0') {
 				$where [] = ' tmeth.id = \'' . $criteria ['training_method_id'] . '\'';
 			}
 
-			if (isset($criteria ['training_primary_language_option_id']) or $criteria ['training_primary_language_option_id'] === '0') {
+			if (!empty($criteria ['training_primary_language_option_id']) or $criteria ['training_primary_language_option_id'] === '0') {
 				$where [] = ' pt.training_primary_language_option_id = \'' . $criteria ['training_primary_language_option_id'] . '\'';
 			}
 
-			if (isset($criteria ['training_secondary_language_option_id']) or $criteria ['training_secondary_language_option_id'] === '0') {
+			if (!empty($criteria ['training_secondary_language_option_id']) or $criteria ['training_secondary_language_option_id'] === '0') {
 				$where [] = ' pt.training_secondary_language_option_id = \'' . $criteria ['training_secondary_language_option_id'] . '\'';
 			}
 
@@ -1880,7 +1884,7 @@ echo $sql . "<br>";
 				$where [] = ' pt.region_i_id IN (' . implode ( ',', $criteria ['region_i_id'] ) . ')';
 			}
 */
-                        if(isset($criteria['end-year'])){
+                        if(!empty($criteria['end-year'])){
 			if (intval ( $criteria ['end-year'] ) and $criteria ['start-year']) {
 				$startDate = $criteria ['start-year'] . '-' . $criteria ['start-month'] . '-' . $criteria ['start-day'];
 				$endDate = $criteria ['end-year'] . '-' . $criteria ['end-month'] . '-' . $criteria ['end-day'];
@@ -1902,36 +1906,36 @@ echo $sql . "<br>";
 				$where [] = ' is_tot = ' . $criteria ['is_tot'];
 			}
 
-			if (isset($criteria ['funding_id']) or $criteria ['funding_id'] === '0') {
+			if (!empty($criteria ['funding_id']) or $criteria ['funding_id'] === '0') {
 				$where [] = ' tfund.training_funding_option_id = \'' . $criteria ['funding_id'] . '\'';
 			}
 
-			if (isset($criteria ['training_category_id']) or $criteria ['training_category_id'] === '0') {
+			if (!empty($criteria ['training_category_id']) or $criteria ['training_category_id'] === '0') {
 				$where [] = ' tcat.id = \'' . $criteria ['training_category_id'] . '\'';
 			}
 
-			if ((isset($criteria ['training_got_curric_id']) or $criteria ['training_got_curric_id'] === '0') && !empty($criteria['training_got_curric_id'])) {
+			if ((!empty($criteria ['training_got_curric_id']) or $criteria ['training_got_curric_id'] === '0') && !empty($criteria['training_got_curric_id'])) {
 				$where [] = ' tgotc.id = \'' . $criteria ['training_got_curric_id'] . '\'';
 			}
 
-			if ((isset($criteria ['custom_1_id']) or $criteria ['custom_1_id'] === '0') && !empty($criteria['custom_1_id'])) {
+			if ((!empty($criteria ['custom_1_id']) or $criteria ['custom_1_id'] === '0') && !empty($criteria['custom_1_id'])) {
 				$where [] = ' pt.training_custom_1_option_id = \'' . $criteria ['custom_1_id'] . '\'';
 			}
-			if ((isset($criteria ['custom_2_id']) or $criteria ['custom_2_id'] === '0') && !empty($criteria['custom_2_id'])) {
+			if ((!empty($criteria ['custom_2_id']) or $criteria ['custom_2_id'] === '0') && !empty($criteria['custom_2_id'])) {
 				$where [] = ' pt.training_custom_2_option_id = \'' . $criteria ['custom_2_id'] . '\'';
 			}
-			if ((isset($criteria ['custom_3_id']) or $criteria ['custom_3_id'] === '0')&& !empty($criteria['custom_3_id'])) {
+			if ((!empty($criteria ['custom_3_id']) or $criteria ['custom_3_id'] === '0')&& !empty($criteria['custom_3_id'])) {
 				$where [] = ' pt.custom_3 = \'' . $criteria ['custom_3_id'] . '\'';
 			}
-			if ((isset($criteria ['custom_4_id']) or $criteria ['custom_4_id'] === '0') && !empty($criteria['custom_4_id'])) {
+			if ((!empty($criteria ['custom_4_id']) or $criteria ['custom_4_id'] === '0') && !empty($criteria['custom_4_id'])) {
 				$where [] = ' pt.custom_4 = \'' . $criteria ['custom_4_id'] . '\'';
 			}
 
-			if ((isset($criteria ['created_by']) or $criteria ['created_by'] === '0') && !empty($criteria['created_by'])) {
+			if ((!empty($criteria ['created_by']) or $criteria ['created_by'] === '0') && !empty($criteria['created_by'])) {
 				$where [] = ' pt.created_by in (' . $this->_trainsmart_implode($criteria ['created_by']) . ')';
 			}
 
-			if (isset($criteria ['date_added'])) {
+			if (!empty($criteria ['date_added'])) {
 				if ( isset( $criteria['date_added'][0] ) && !empty( $criteria['date_added'][0] ) ){
 					$where [] = " pt.timestamp_created >= '".$criteria['date_added'][0]."' ";
 				}
@@ -1973,46 +1977,46 @@ echo $sql . "<br>";
 
 				$groupBy = array();
 
-				if ($criteria ['showTrainingTitle'])     $groupBy []=  '  pt.training_title_option_id';
-				if ($criteria ['showProvince'])          $groupBy []=  '  pt.province_id';
-				if ($criteria ['showDistrict'])          $groupBy []=  '  pt.district_id';
-				if ($criteria ['showRegionC'])           $groupBy []=  '  pt.region_c_id';
-				if ($criteria ['showRegionD'])           $groupBy []=  '  pt.region_d_id';
-				if ($criteria ['showRegionE'])           $groupBy []=  '  pt.region_e_id';
-				if ($criteria ['showRegionF'])           $groupBy []=  '  pt.region_f_id';
-				if ($criteria ['showRegionG'])           $groupBy []=  '  pt.region_g_id';
-				if ($criteria ['showRegionH'])           $groupBy []=  '  pt.region_h_id';
-				if ($criteria ['showRegionI'])           $groupBy []=  '  pt.region_i_id';
-				if ($criteria ['showLocation'])          $groupBy []=  '  pt.training_location_id';
-				if ($criteria ['showOrganizer'])         $groupBy []=  '  pt.training_organizer_option_id';
-				if ($criteria ['showMechanism'] && $display_training_partner) $groupBy []=  '  organizer_partners.mechanism_id';
-				if ($criteria ['showCustom1'])           $groupBy []=  '  pt.training_custom_1_option_id';
-				if ($criteria ['showCustom2'])           $groupBy []=  '  pt.training_custom_2_option_id';
-				if ($criteria ['showCustom3'])           $groupBy []=  '  pt.custom_3';
-				if ($criteria ['showCustom4'])           $groupBy []=  '  pt.custom_4';
-				if ($criteria ['showTopic'])             $groupBy []=  '  ttopic.training_topic_option_id';
-				if ($criteria ['showLevel'])             $groupBy []=  '  pt.training_level_option_id';
-				if ($criteria ['showPepfar'])            $groupBy []=  '  tpep.training_pepfar_categories_option_id';
-				if ($criteria ['showMethod'])            $groupBy []=  '  tmeth.id';
-				if ($criteria ['showTot'])               $groupBy []=  '  pt.is_tot';
-				if ($criteria ['showRefresher'])         $groupBy []=  '  pt.is_refresher';
-				if ($criteria ['showGotCurric'])         $groupBy []=  '  pt.training_got_curriculum_option_id';
-				if ($criteria ['showPrimaryLanguage'])   $groupBy []=  '  pt.training_primary_language_option_id';
-				if ($criteria ['showSecondaryLanguage']) $groupBy []=  '  pt.training_secondary_language_option_id';
-				if ($criteria ['showFunding'])           $groupBy []=  '  tfund.training_funding_option_id';
-				if ($criteria ['showCreatedBy'])         $groupBy []=  '  pt.created_by';
-				if ($criteria ['showCreationDate'])      $groupBy []=  '  pt.timestamp_created';
-				if ($criteria ['showGender'])            $groupBy []=  '  gender';
-				if ($criteria ['showAge'])               $groupBy []=  '  age';
-				if ($criteria ['showViewingLoc'])        $groupBy []=  '  location_phrase';
-				if ($criteria ['showQualPrim'])          $groupBy []=  '  pq.qualification_phrase';
-				if ($criteria ['showQualSecond'])        $groupBy []=  '  pqs.qualification_phrase';
+				if (!empty($criteria ['showTrainingTitle']))     $groupBy []=  '  pt.training_title_option_id';
+				if (!empty($criteria ['showProvince']))          $groupBy []=  '  pt.province_id';
+				if (!empty($criteria ['showDistrict']))          $groupBy []=  '  pt.district_id';
+				if (!empty($criteria ['showRegionC']))           $groupBy []=  '  pt.region_c_id';
+				if (!empty($criteria ['showRegionD']))           $groupBy []=  '  pt.region_d_id';
+				if (!empty($criteria ['showRegionE']))           $groupBy []=  '  pt.region_e_id';
+				if (!empty($criteria ['showRegionF']) )          $groupBy []=  '  pt.region_f_id';
+				if (!empty($criteria ['showRegionG']))           $groupBy []=  '  pt.region_g_id';
+				if (!empty($criteria ['showRegionH']))           $groupBy []=  '  pt.region_h_id';
+				if (!empty($criteria ['showRegionI']))           $groupBy []=  '  pt.region_i_id';
+				if (!empty($criteria ['showLocation']))          $groupBy []=  '  pt.training_location_id';
+				if (!empty($criteria ['showOrganizer']) )        $groupBy []=  '  pt.training_organizer_option_id';
+				if (!empty($criteria ['showMechanism'] ) && $display_training_partner) $groupBy []=  '  organizer_partners.mechanism_id';
+				if (!empty($criteria ['showCustom1']))           $groupBy []=  '  pt.training_custom_1_option_id';
+				if (!empty($criteria ['showCustom2']))           $groupBy []=  '  pt.training_custom_2_option_id';
+				if (!empty($criteria ['showCustom3']))           $groupBy []=  '  pt.custom_3';
+				if (!empty($criteria ['showCustom4']))           $groupBy []=  '  pt.custom_4';
+				if (!empty($criteria ['showTopic']))             $groupBy []=  '  ttopic.training_topic_option_id';
+				if (!empty($criteria ['showLevel']))             $groupBy []=  '  pt.training_level_option_id';
+				if (!empty($criteria ['showPepfar']))            $groupBy []=  '  tpep.training_pepfar_categories_option_id';
+				if (!empty($criteria ['showMethod']))            $groupBy []=  '  tmeth.id';
+				if (!empty($criteria ['showTot']))               $groupBy []=  '  pt.is_tot';
+				if (!empty($criteria ['showRefresher']))         $groupBy []=  '  pt.is_refresher';
+				if (!empty($criteria ['showGotCurric']))         $groupBy []=  '  pt.training_got_curriculum_option_id';
+				if (!empty($criteria ['showPrimaryLanguage']))   $groupBy []=  '  pt.training_primary_language_option_id';
+				if (!empty($criteria ['showSecondaryLanguage'])) $groupBy []=  '  pt.training_secondary_language_option_id';
+				if (!empty($criteria ['showFunding']))           $groupBy []=  '  tfund.training_funding_option_id';
+				if (!empty($criteria ['showCreatedBy']))         $groupBy []=  '  pt.created_by';
+				if (!empty($criteria ['showCreationDate']))      $groupBy []=  '  pt.timestamp_created';
+				if (!empty($criteria ['showGender']))            $groupBy []=  '  gender';
+				if (!empty($criteria ['showAge']))               $groupBy []=  '  age';
+				if (!empty($criteria ['showViewingLoc']))        $groupBy []=  '  location_phrase';
+				if (!empty($criteria ['showQualPrim']))          $groupBy []=  '  pq.qualification_phrase';
+				if (!empty($criteria ['showQualSecond']))        $groupBy []=  '  pqs.qualification_phrase';
 
-				if ($groupBy) {
+				if (!empty($groupBy)) {
 					$sql .= ' GROUP BY ' . implode(',',$groupBy);
 				}
 
-				if ($criteria['showAge'] || $criteria['showGender']) {
+				if (!empty($criteria['showAge']) || !empty($criteria['showGender'])) {
 					$sql .= ' HAVING count(pt.person_id) > 0 ';
 				}
 			} else {
@@ -2025,7 +2029,7 @@ echo $sql . "<br>";
 				$sql .= ' ORDER BY training_start_date DESC';
 			}
                      
-                        //print_r($sql);exit;                                        
+                       // print_r($sql);exit;                                        
 			$rowArray = $db->fetchAll ( $sql );
 
 			if ($criteria ['doCount']) {
@@ -2300,46 +2304,46 @@ echo $sql . "<br>";
 				$sql .= ' DISTINCT pt.id as "id", SUM(person_count_male + person_count_female + person_count_na) as pcnt, SUM(person_count_male) as male_pcnt, SUM(person_count_female) as female_pcnt, SUM(person_count_na) as na_pcnt, pt.training_start_date, pt.training_end_date, pt.has_known_participants  ';
 			}
 
-			if ($criteria ['showTrainingTitle']) {
+			if (!empty($criteria ['showTrainingTitle'])) {
 				$sql .= ', training_title ';
 			}
 
-			if ($criteria ['showRegionC']) {
+			if (!empty($criteria ['showRegionC'])) {
 				$sql .= ', pt.region_c_name ';
 			}
-			if ($criteria ['showDistrict']) {
+			if (!empty($criteria ['showDistrict'])) {
 				$sql .= ', pt.district_name ';
 			}
-			if ($criteria ['showProvince']) {
+			if (!empty($criteria ['showProvince'])) {
 				$sql .= ', pt.province_name ';
 			}
 
-			if ($criteria ['showLocation']) {
+			if (!empty($criteria ['showLocation'])) {
 				$sql .= ', pt.training_location_name ';
 			}
 
-			if ( $criteria ['showQualification'] ) {
+			if ( !empty($criteria ['showQualification'] )) {
 				$sql .= ', pqo.qualification_phrase';
 				$sql .= ', ppqo.qualification_phrase as parent_qualification_phrase';
 			}
 
-			if ( $criteria ['showAgeRange'] ) {
+			if ( !empty($criteria ['showAgeRange'] )) {
 				$sql .= ', aro.age_range_phrase';
 			}
 
-			if ($criteria ['showOrganizer']) {
+			if (!empty($criteria ['showOrganizer'])) {
 				$sql .= ', torg.training_organizer_phrase ';
 			}
 
-			if ($criteria ['showLevel']) {
+			if (!empty($criteria ['showLevel'])) {
 				$sql .= ', tlev.training_level_phrase ';
 			}
 
-			if ($criteria ['showCategory']) {
+			if (!empty($criteria ['showCategory'])) {
 				$sql .= ', tcat.training_category_phrase ';
 			}
 
-			if ($criteria ['showPepfar'] || $criteria ['training_pepfar_id'] || $criteria ['training_pepfar_id'] === '0') {
+			if (!empty($criteria ['showPepfar']) || !empty($criteria ['training_pepfar_id']) || $criteria ['training_pepfar_id'] === '0') {
 				if ($criteria ['doCount']) {
 					$sql .= ', tpep.pepfar_category_phrase ';
 				} else {
@@ -2347,41 +2351,41 @@ echo $sql . "<br>";
 				}
 			}
 
-			if ($criteria ['showMethod']) {
+			if (!empty($criteria ['showMethod'])) {
 				$sql .= ', tmeth.training_method_phrase ';
 			}
 
-			if ($criteria ['showTopic']) {
-				if ($criteria ['doCount']) {
+			if (!empty($criteria ['showTopic'])) {
+				if (!empty($criteria ['doCount'])) {
 					$sql .= ', ttopic.training_topic_phrase ';
 				} else {
 					$sql .= ', GROUP_CONCAT(DISTINCT ttopic.training_topic_phrase ORDER BY training_topic_phrase) AS "training_topic_phrase" ';
 				}
 			}
 
-			if ($criteria ['showTot']) {
+			if (!empty($criteria ['showTot'])) {
 				$sql .= ", IF(is_tot,'" . t ( 'Yes' ) . "','" . t ( 'No' ) . "') AS is_tot";
 			}
 
-			if ($criteria ['showRefresher']) {
+			if (!empty($criteria ['showRefresher'])) {
 				$sql .= ", IF(is_refresher,'" . t ( 'Yes' ) . "','" . t ( 'No' ) . "') AS is_refresher";
 			}
 
-			if ($criteria ['showSecondaryLanguage']) {
+			if (!empty($criteria ['showSecondaryLanguage'])) {
 				$sql .= ', tlos.language_phrase as "secondary_language_phrase" ';
 			}
-			if ($criteria ['showPrimaryLanguage']) {
+			if (!empty($criteria ['showPrimaryLanguage'])) {
 				$sql .= ', tlop.language_phrase as "primary_language_phrase" ';
 			}
-			if ($criteria ['showGotComment']) {
+			if (!empty($criteria ['showGotComment'])) {
 				$sql .= ", pt.got_comments";
 			}
-			if ($criteria ['showGotCurric']) {
+			if (!empty($criteria ['showGotCurric'])) {
 				$sql .= ', tgotc.training_got_curriculum_phrase ';
 			}
 
-			if ($criteria ['showFunding']) {
-				if ($criteria ['doCount']) {
+			if (!empty($criteria ['showFunding'])) {
+				if (!empty($criteria ['doCount'])) {
 					$sql .= ', tfund.funding_phrase ';
 				} else {
 					$sql .= ', GROUP_CONCAT(DISTINCT tfund.funding_phrase ORDER BY funding_phrase) as "funding_phrase" ';
@@ -2407,7 +2411,7 @@ echo $sql . "<br>";
 			//otherwise just select the core training info
 
 
-			if ($criteria ['doCount']) {
+			if (!empty($criteria ['doCount'])) {
 				$sql .= ' FROM (SELECT training.*, pers.person_id as "person_id", tto.training_title_phrase AS training_title, training_location.training_location_name, '.implode(',',$field_name).
 				'       FROM training ' .
 				'         LEFT JOIN training_title_option tto ON (`training`.training_title_option_id = tto.id)' .
@@ -2425,12 +2429,12 @@ echo $sql . "<br>";
 				$sql .= ' LEFT JOIN training_to_person_qualification_option as ttpqo ON ttpqo.training_id = pt.id ';
 			}
 
-			if ($criteria ['showQualification'] ) {
+			if (!empty($criteria ['showQualification'] )) {
 				$sql .= ' LEFT JOIN person_qualification_option as pqo ON ttpqo.person_qualification_option_id = pqo.id';
 				$sql .= ' LEFT JOIN person_qualification_option as ppqo ON pqo.parent_id = ppqo.id';
 			}
 
-			if ($criteria ['showAgeRange'] ) {
+			if (!empty($criteria ['showAgeRange'] ) ) {
 				$sql .= ' LEFT JOIN age_range_option as aro ON ttpqo.age_range_option_id = aro.id';
 			}
 
@@ -11278,7 +11282,7 @@ if($this->getSanParam('go') || $this->getSanParam('download') ){
                 foreach($trainingtypes as $training){
 				$training_type_not_set[] = $training['id'];
 				}
-                 $tosql = "SELECT * FROM `training_organizer_option` WHERE is_deleted='0'  ORDER BY `training_organizer_phrase`ASC";
+                $tosql = "SELECT * FROM `training_organizer_option` WHERE is_deleted='0'  ORDER BY `training_organizer_phrase`ASC";
                 
                 $trainingorg = $db->fetchAll($tosql);
                 $this->viewAssignEscaped ( 'trainingorganizer', $trainingorg );

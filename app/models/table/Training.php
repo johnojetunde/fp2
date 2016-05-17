@@ -65,6 +65,32 @@ class Training extends ITechTable
 		return $this->fetchRow($select);
 	}
 
+        
+        public function reformatTheDatabase(){
+            $select = $this->select()
+		->from($this->_name, array('*'))
+		->setIntegrityCheck(false)
+                ->where("training_start_date='0000-00-00'");
+            $rowArray = $this->fetchAll($select);
+            
+            return $rowArray;
+        }
+        
+        public function replaceStartDateWithEndDate(){
+            $rowArray = $this->reformatTheDatabase()->toArray();
+            foreach($rowArray as $row){
+                $id = $row['id'];
+                $trainingEndDate = $row['training_end_date'];
+                //$dates = explode("-", $trainingEndDate);
+                if($trainingEndDate !="2015-00-00" && $trainingEndDate!="0000-00-00"){
+                $data = array('training_start_date'=>$trainingEndDate);
+                $where  = "id = '$id'";
+               $this->update($data, $where);
+                }
+            }
+        }
+        
+      
 	/**
 	* Returns row with joins (for extended training info)
 	*/

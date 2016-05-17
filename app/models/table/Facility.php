@@ -72,6 +72,15 @@ class Facility extends ITechTable {
              return $result;
              
         }
+        
+        public function selectAllFacility(){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
+            $sql = "SELECT id,facility_name,geo_zone,state,lga FROM facility_location_view ";
+             $result = $db->fetchAll($sql);
+         //print_r($result);exit;
+             return $result;
+             
+        }
  	public static function saveSponsors ( $id, $sponsor_array, $sponsor_date_array, $sponsor_end_date_array )
  	{
 		// save facility_sponsors table data)

@@ -180,7 +180,7 @@ public function trainingdemoAction(){
 		$this->view->assign ( 'qualifications', $qualificationsArray );
                 $sql = "SELECT COUNT(*) FROM facility";
                 $rowArray = $db->fetchAll($sql);
-                //$number = $rowArray['COUNT(*)'];
+                $number = $rowArray['COUNT(*)'];
                 
                 //training level list
                 $trainingLevelResult = $training->getTrainingLevel();
@@ -1233,7 +1233,7 @@ $countParticipant = 0;
 
 		// row values
 		$this->view->assign ( 'row', $rowRay );
-                 $this->updateCacheTraining();
+                // $this->updateCacheTraining();
 }
 
 
@@ -1243,7 +1243,6 @@ $countParticipant = 0;
 		//  ini_set('display_errors', 1);
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
-            ini_set('max_execution_time','0');
 		if (! $this->hasACL ( 'edit_course' )) {
 			$this->view->assign ( 'viewonly', 'disabled="disabled"' );
 			$this->view->assign ( 'pageTitle', t ( 'View' ).' '.t( 'Training' ) );
@@ -1255,7 +1254,6 @@ $countParticipant = 0;
 			return;
 		}
                      $training = New Training();
-                     
 		require_once 'models/table/MultiOptionList.php';
 		require_once 'models/table/TrainingLocation.php';
 		require_once 'models/table/Location.php';
@@ -1276,7 +1274,8 @@ $countParticipant = 0;
               
                
 	
-
+                $locationName = "";
+                $personInJurisdiction = "0";
 		//find the first date in the database
 		$db = Zend_Db_Table_Abstract::getDefaultAdapter ();
 		$qualificationsArray = OptionList::suggestionList ( 
@@ -1285,8 +1284,7 @@ $countParticipant = 0;
                 $sql = "SELECT COUNT(*) FROM facility";
                 $rowArray = $db->fetchAll($sql);
                 //$number = $rowArray['COUNT(*)'];
-                $locationName = "";
-                $personInJurisdiction = "";
+                
                 //training level list
                 $trainingLevelResult = $training->getTrainingLevel();
                 $trainingLevelArray = $trainingLevelResult->toArray();
@@ -1315,7 +1313,11 @@ $countParticipant = 0;
                     //$id = 2592 + $v;
                     $locations[$id] = $facilitiesArray[$v];
                 }
-                
+                //print_r($locations);
+                foreach($locations as $location){
+                  // print_r($location);echo '<br/><br/>';
+                    
+                }
                //exit;
                //print_r($locations); exit;
 		$this->view->assign('location_editper', $locations);
@@ -1478,7 +1480,7 @@ $countParticipant = 0;
                         
                  
                        
-               //echo "hello";exit;
+               
                         
                         
                         if(!$this->getSanParam('training_level_option_id') || $this->getSanParam('training_level_option_id')==""){
@@ -1490,7 +1492,7 @@ $countParticipant = 0;
                                         
 
 			$pepfarEnabled = @$this->setting('display_training_pepfar');
-                        
+
 			if ($training_id) {
 
 				$pepfarCount = 0;
@@ -1582,7 +1584,7 @@ $countParticipant = 0;
 			} else if ($this->_getParam ( 'action' ) == 'add') {
 				$row->has_known_participants = 1;
 			}
-                        
+
 			//approve by default if the approvals modules is not enabled
 			if (($this->_getParam ( 'action' ) == 'add') && $this->_countrySettings ['module_approvals_enabled'] && ! $this->hasACL ( 'approve_trainings' )) {
 				$row->is_approved = 0;
@@ -1751,12 +1753,7 @@ $countParticipant = 0;
 					$do_save_approval_history = true;
 				}
 				$row->training_refresher_option_id = 0; // refresher / bugfix - this col isnt used anymore
-                                //echo 'Hello';exit;
-                                $currDate = new Zend_Db_Expr('CURDATE()');
-                                $row->timestamp_updated = $currDate;
-                                $row->timestamp_created = $currDate;
-//                                print_r($row);
-//                                exit;
+
 				if ($row->save ()) {
 
 					//save approval history
@@ -1796,9 +1793,8 @@ $countParticipant = 0;
 				}
 
 			}
-                         
+
 			if ($validateOnly) {
-                            
                         // echo    json_encode($status->messages);
                           // print_r($status);
                            echo json_encode($status);
@@ -2002,7 +1998,7 @@ $countParticipant = 0;
 				}
 			}
 		}
-
+                
 		// pepfar
 		$this->view->assign ( 'NUM_PEPFAR', $this->NUM_PEPFAR ); // number of Pepfar drop-downs to display
 		for($j = 0; $j < $this->NUM_PEPFAR; $j ++) {
@@ -2053,7 +2049,7 @@ $countParticipant = 0;
 			}
 		}
 
-
+                                                
 
 		/****************************************************************************************************************
 		* Trainers */
@@ -2103,17 +2099,16 @@ $countParticipant = 0;
 		$locations = Location::getAll ("1");
                
 		$customColDefs = array();
-                $personToTraining = new PersonToTraining();
-                $locationModel = new Location();
+                
                 $countParticipant = 0;
 		if ($training_id) {
-                    $countParticipant = $personToTraining->getParticipantsCount($training_id);
-                    $locationName = $locationModel->getUserLocationName();
+                    $countParticipant = PersonToTraining::getParticipantsCount($training_id);
+                    $locationName = Location::getUserLocationName();
 			$persons = PersonToTraining::getParticipants ( $training_id )->toArray ();
                         $personInJurisdiction = count($persons);
 			foreach ( $persons as $pid => $p ) {
 				$region_ids = Location::getCityInfo ( $p ['location_id'], $this->setting ( 'num_location_tiers' ) ); // todo expensive call, getcityinfo loads all locations each time??
-				$persons [$pid] ['province_name'] = (isset($region_ids[1])? $locations [$region_ids['1']] ['name'] : 'unknown');
+				$persons [$pid] ['province_name'] = ($region_ids[1] ? $locations [$region_ids['1']] ['name'] : 'unknown');
                                 $certify = strtoupper($persons[$pid]['certification']);
                                 $personToTrainingId = $persons[$pid]['id'];
                                 
@@ -2121,42 +2116,42 @@ $countParticipant = 0;
                                 // $persons[$pid]['certification'] .= ;
                                 // //?record_id=".$personToTrainingId."&cert_val=".$certify."
                                  //<a href="#myPopupDialog"  class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Open Dialog Popup</a>
-                                if (isset($region_ids[2]))
+                                if ($region_ids[2])
 					$persons [$pid] ['district_name'] = $locations [$region_ids[2]] ['name'];
 				else
 					$persons [$pid] ['district_name'] = 'unknown';
 
-				if (isset($region_ids[3]))
+				if ($region_ids[3])
 					$persons [$pid] ['region_c_name'] = $locations [$region_ids[3]] ['name'];
 				else
 					$persons [$pid] ['region_c_name'] = 'unknown';
 
-				if (isset($region_ids[4]))
+				if ($region_ids[4])
 					$persons [$pid] ['region_d_name'] = $locations [$region_ids[4]] ['name'];
 				else
 					$persons [$pid] ['region_d_name'] = 'unknown';
 
-				if (isset($region_ids[5]))
+				if ($region_ids[5])
 					$persons [$pid] ['region_e_name'] = $locations [$region_ids[5]] ['name'];
 				else
 					$persons [$pid] ['region_e_name'] = 'unknown';
 
-				if (isset($region_ids[6]))
+				if ($region_ids[6])
 					$persons [$pid] ['region_f_name'] = $locations [$region_ids[6]] ['name'];
 				else
 					$persons [$pid] ['region_f_name'] = 'unknown';
 
-				if (isset($region_ids[7]))
+				if ($region_ids[7])
 					$persons [$pid] ['region_g_name'] = $locations [$region_ids[7]] ['name'];
 				else
 					$persons [$pid] ['region_g_name'] = 'unknown';
 
-				if (isset($region_ids[8]))
+				if ($region_ids[8])
 					$persons [$pid] ['region_h_name'] = $locations [$region_ids[8]] ['name'];
 				else
 					$persons [$pid] ['region_h_name'] = 'unknown';
 
-				if (isset($region_ids[9]))
+				if ($region_ids[9])
 					$persons [$pid] ['region_i_name'] = $locations [$region_ids[9]] ['name'];
 				else
 					$persons [$pid] ['region_i_name'] = 'unknown';
@@ -2165,7 +2160,7 @@ $countParticipant = 0;
 			$persons = array ();
 		}
 
-               
+                
 
 		if (! $this->setting ( 'display_middle_name' )) {
                     //TP: The space at the back of the index value ID, is meant to enlarge the HTML view of it
@@ -2377,12 +2372,14 @@ $countParticipant = 0;
 				$rowRay['start-year'] = $parts[2];
 			}
 		}
-
+                        
 		// row values
 		$this->view->assign ( 'row', $rowRay );
                 $this->view->assign('base_url',Settings::$COUNTRY_BASE_URL);
                 //Helper2::jLog("This is the log of the link ".Settings::$COUNTRY_BASE_URL);
-                 $this->updateCacheTraining();
+               
+                 //$this->updateCacheTraining();
+                 
 	}
 
 	/**
@@ -2611,8 +2608,7 @@ $countParticipant = 0;
 //         ini_set('display_errors', 1);
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
-ini_set("max_execution_time",0);
-$errs = array();
+
                 global $errs,$mess_person,$mess_facility,$rows,$values,$values_person,$status;
                       
 		$status = ValidationContainer::instance();
@@ -2626,11 +2622,12 @@ $errs = array();
 		
                 if( ! $this->hasACL('import_training')  && !$this->hasACL('edit_course'))
 			$this->doNoAccessError ();
-                
-		
-                
-		$filename = (isset($_FILES['upload']['tmp_name']))?$_FILES['upload']['tmp_name']:"";
-		if (!empty($filename )){
+		$filename = "";
+        if(isset($_FILES['upload']['tmp_name'])){
+            $filename = ($_FILES['upload']['tmp_name']);
+        }
+        
+		if ( $filename!="" ){
 			
 			require_once('models/table/TrainingLocation.php');
 			require_once('models/table/Person.php');
@@ -2645,9 +2642,7 @@ $errs = array();
 			$rows = $this->_excel_parser($filename,"2");
                        
 			$values = array();
-			$training_id = "";
-                        $success = array();
-                        
+			
 			//get training info
 			$values['training_organizer_phrase'] = $rows[9][2];
                         $values['training_organizer_option_id'] = 0;
@@ -2800,9 +2795,8 @@ $errs = array();
                                    $id = $trainingloc->insertIfNotFound($LocationDefaultName, $stateLocationid);
                                    $values['training_location_id'] = $id;
                                 }
-                                $currDate = new Zend_Db_Expr('CURDATE()');
-                                $values['timestamp_updated'] =  $currDate;
-                                $values['timestamp_created'] =  $currDate;
+                               // echo 
+                                $values['timestamp_updated'] = date("Y-m-d H:i:s",time());
                                 
                                 /*TP: Training parsing ends here*/
                                 
@@ -2836,6 +2830,7 @@ $errs = array();
                                                                         
                                                                 $certification = $rows[$i][14];
                                                                $values_person['facility_id'] = 0;
+                                                               $values_person =  date("Y-m-d H:i:s",time());
                                                                      
                                                                 $facility_name = strtolower(trim($rows[$i][9]));                                                               
                                                                 $values_person['birthdate'] = trim($rows[$i][4]);
@@ -2845,7 +2840,7 @@ $errs = array();
                                                                 if($de=="")$de ="00";
                                                                 $birthDate = $ye.'-'.$me.'-'.$de;
                                                                 if(!($status->validateDate($birthDate))){
-                                                                           $birthDate = "";
+                                                                           $birthDate = "0000-00-00";
                                                                     }
                                                                         $qualification = '0';
                                                                         $facilityID = $values_person['facility_id'];
@@ -2869,7 +2864,7 @@ $errs = array();
 										continue;
  									}
 								}
-                                                                
+                                                                /*
                                                                  if($qualification!="" && $qualification!=0 && $qualification!="0"){
                                                                     $p->updateUserRecord("primary_qualification_option_id", $qualification, $trainer_id);
                                                                 
@@ -2880,7 +2875,7 @@ $errs = array();
                                                                 }
                                                                 if($facilityID!="" && $facilityID!=null && $facilityID!=0 && $facilityID!="0"){
                                                                 $p->updateUserRecord("facility_id", $facilityID, $trainer_id);
-                                                                }
+                                                                }*/
                                                                 $certification = substr($certification, 0, 1);
 								//	this not working 
 								//TrainingToTrainer::addTrainerToTraining($trainer_id, $training_id, 0); 
@@ -2914,7 +2909,7 @@ $errs = array();
 			
 			if($training_id)
 			 $stat .='<br><a href='. Settings::$COUNTRY_BASE_URL . '/training/view/id/' . $training_id . '>View new training ' . $to_fix . '</a>';
-			$this->updateCacheTraining();
+			//$this->updateCacheTraining();
 			$status->setStatusMessage($stat);
 			$this->view->assign('status',$status);
 			
@@ -2924,6 +2919,7 @@ $errs = array();
         public function updateCacheTraining(){
                   $coverage = new Coverage();
                   $coverage->updateCache();
+                   //echo 'Hello';exit;
                   $stockout = new Stockout();
                   $stockout->updateCache();
         } 
@@ -3330,138 +3326,13 @@ $errs = array();
          	$this->_helper->viewRenderer->setNoRender(true);
 		}
                else if($this->getSanParam('outputType') == 'FacilityList.xlsx'){//TA:17: 10/14/2014
-                $facility = new Facility();
-                $allFacilities = $facility->selectAllFacility();
-                
-                $headers =  array("Facility Id","Facility Name","Geo Political Zone","State","LGA");
-                $data = array();
-		
-		$_row = array();
-		foreach ($headers as $value){
-			$_row[] = $value;
+ 			header('Content-Type: application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+ 			header('Content-Disposition: attachment; filename="FacilityList.xlsx"');
+ 			header("Content-Type: application/force-download");
+ 			readfile(Globals::$BASE_PATH . '/html/templates/FacilityList.xlsx');
+  			$this->view->layout()->disableLayout();
+         	$this->_helper->viewRenderer->setNoRender(true);
 		}
-		$data[] = $_row;
-		
-		foreach ($allFacilities as $row){
-			$_row = array();
-			foreach ($row as $key=>$value){
-				$_row[] = $value;
-			}
-			$data[] = $_row;
-		}
-		
-
-
-		$delimiter = ',';
-		$enclosure = '"';
-		$encloseAll = false;
-		$nullToMysqlNull = false;
-	
-		$delimiter_esc = preg_quote($delimiter, '/');
-		$enclosure_esc = preg_quote($enclosure, '/');
-	
-		$output = array();
-
-		foreach ($data as $row){
-			$outputrow = array();
-			foreach ($row as $field){
-				if ($field === null && $nullToMysqlNull) {
-					$outputrow[] = 'NULL';
-					continue;
-				}
-		
-				// Enclose fields containing $delimiter, $enclosure or whitespace
-				if ( $encloseAll || preg_match( "/(?:${delimiter_esc}|${enclosure_esc}|\s)/", $field ) ) {
-					$outputrow[] = $enclosure . str_replace($enclosure, $enclosure . $enclosure, $field) . $enclosure;
-				}
-				else {
-					$outputrow[] = $field;
-				}
-			}
-                        //$output[] = "Total Participants: ".$this->criteria['total_participants']."";
-                      
-                              
-			$output[] = implode($delimiter,$outputrow);
-		}
-		$output = implode("\n", $output);
-
-		header("Content-type: text/csv");
-		header("Content-Disposition: attachment; filename=Facility List.csv");
-		header("Pragma: no-cache");
-		header("Expires: 0");
-		echo $output;
-		exit;
-// 			header('Content-Type: application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-// 			header('Content-Disposition: attachment; filename="FacilityList.xlsx"');
-// 			header("Content-Type: application/force-download");
-// 			readfile(Globals::$BASE_PATH . '/html/templates/FacilityList.xlsx');
-//  			$this->view->layout()->disableLayout();
-//         	$this->_helper->viewRenderer->setNoRender(true);
-		}
-               else if($this->getSanParam('outputType') == 'TrainingOrganizer.xlsx'){
-                   require_once("models/table/trainingPartner.php");
-                   $trainingPartner = new TrainingPartner();
-                $allTrainingOrg = $trainingPartner->selectAllTrainingOrganizer();
-                
-                $headers =  array("ID","Training Organizer");
-                $data = array();
-		
-		$_row = array();
-		foreach ($headers as $value){
-			$_row[] = $value;
-		}
-		$data[] = $_row;
-		
-		foreach ($allTrainingOrg as $row){
-			$_row = array();
-			foreach ($row as $key=>$value){
-				$_row[] = $value;
-			}
-			$data[] = $_row;
-		}
-		
-
-
-		$delimiter = ',';
-		$enclosure = '"';
-		$encloseAll = false;
-		$nullToMysqlNull = false;
-	
-		$delimiter_esc = preg_quote($delimiter, '/');
-		$enclosure_esc = preg_quote($enclosure, '/');
-	
-		$output = array();
-
-		foreach ($data as $row){
-			$outputrow = array();
-			foreach ($row as $field){
-				if ($field === null && $nullToMysqlNull) {
-					$outputrow[] = 'NULL';
-					continue;
-				}
-		
-				// Enclose fields containing $delimiter, $enclosure or whitespace
-				if ( $encloseAll || preg_match( "/(?:${delimiter_esc}|${enclosure_esc}|\s)/", $field ) ) {
-					$outputrow[] = $enclosure . str_replace($enclosure, $enclosure . $enclosure, $field) . $enclosure;
-				}
-				else {
-					$outputrow[] = $field;
-				}
-			}
-                        //$output[] = "Total Participants: ".$this->criteria['total_participants']."";
-                      
-                              
-			$output[] = implode($delimiter,$outputrow);
-		}
-		$output = implode("\n", $output);
-
-		header("Content-type: text/csv");
-		header("Content-Disposition: attachment; filename=TrainingOrganizerList.csv");
-		header("Pragma: no-cache");
-		header("Expires: 0");
-		echo $output;
-		exit;
-               }
 	}
 
 	/**
@@ -3686,9 +3557,7 @@ $errs = array();
 	*/
 	public function personFirstListAction() {
 		require_once ('models/table/Person.php');
-               Helper2::jLog("THe first list is workinbg");
 		$rowArray = Person::suggestionListByFirstName ( $this->_getParam ( 'query' ), 100, $this->setting ( 'display_middle_name_last' ) );
-                
                 $result = array();
                 foreach($rowArray as $row){
                     if($row['birthdate']=="0000-00-00"){
@@ -3696,7 +3565,6 @@ $errs = array();
                     }
                    $result[] = $row; 
                 }
-                
                 $rowArray = $result;
                 $rowArray = $this->_attach_locations ( $rowArray );
                 

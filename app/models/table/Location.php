@@ -552,6 +552,26 @@ class Location extends ITechTable
 		return false;
 	}
 
+        
+            public function ImplodedUserAccessLocation(){
+                $user = new User();
+    $personLocationWhere = "";
+    $newLocations = array();
+    $newLocation = "";
+   $locationnew = new Location();
+   
+   if(!$user->UserAccessRoleAllowed()){
+   $newLocations = $locationnew->userAccessLocations();
+   $newLocation = implode(",",$newLocations);
+   }
+        if($newLocation!=""){
+            
+        $personLocationWhere = "AND f.location_id IN ($newLocation)";
+        
+    }
+    return $newLocation;
+       }
+       
 	/**
 	* Insert city if not found and return id
 	* otherwise just return actual city id

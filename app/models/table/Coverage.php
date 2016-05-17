@@ -192,7 +192,7 @@ class Coverage {
                     }
                     else if($updateMode){
                         $dataArray = array('value' => json_encode($output));
-                        $where[] = "indicator_alias='$alias'";
+                        $where[] = "indicator_alias IN ('$alias')";
                        
                         $cacheManager->updateIndicator($dataArray, $where);
                     }
@@ -512,7 +512,7 @@ class Coverage {
                     }
                     else if($updateMode){
                         $dataArray = array('value' => json_encode($output));
-                        $where = "indicator_alias='$alias'";
+                        $where = "indicator_alias IN('$alias')";
                         $cacheManager->updateIndicator($dataArray, $where);
                     }
                     else{ //inner if

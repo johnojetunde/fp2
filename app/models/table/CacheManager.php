@@ -78,6 +78,7 @@ class CacheManager {
 //        exit;
         $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
         //echo $where;exit;
+        //print_r($where);exit;
         $db->update('data_cache', $dataArray, $where);
        // print $data->__toString();
     }

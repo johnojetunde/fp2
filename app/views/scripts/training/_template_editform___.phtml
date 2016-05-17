@@ -848,13 +848,13 @@ echo "<br clear='top'/><br clear='left'/><br clear='top'/>";
     <div class="clear"></div>
     <?php if( $this->hasACL('edit_course') ) : ?>
     <!-- import training button -->
-    
+  
     <span id="importTraining" class="yui-button yui-push-button" style="float:left;">
       <span class="first-child">
         <button onclick="location.href='<?php echo $this->base_url; ?>/training/import';return false;" type="button" tabindex=1 id="trainingImportBtn" class="yui-button yui-push-button"><?php tp('Import trainings from Excel');?></button>
       </span>
     </span>
-    
+ 
     <?php endif; ?>
     
     <button type="button" id="submitTraining" onclick="saveTraining();"><?php tp('Save and Continue');?></button><br>

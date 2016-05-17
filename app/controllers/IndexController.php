@@ -563,7 +563,7 @@ class IndexController extends ReportFilterHelpers  {
                              }
                              
 				if (!empty($id)) {
-					$status->setStatusMessage ( 'Access Request has been placed.' );
+					$status->setStatusMessage ( 'Access request sent' );
 					
 				} else {
 					$status->setStatusMessage ( 'The user could not be saved.' );

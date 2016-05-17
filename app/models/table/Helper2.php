@@ -793,12 +793,17 @@ class Helper2 {
             $output = array();
             if(!empty($numerArray)){
                 foreach ($numerArray as $i=>$numer){
-                  //  print_r($numer);exit;
-                   $output[] = array(
-                               'month' => $numer['month_name'],
-                               'year' => $numer['year'],
-                               'percent' => $numer['fid_count'] / $denomArray[$i]['fid_count']
-                   );
+                   //print_r($numer);exit;
+                   $internalArray = array();
+                   if(isset($numer['month_name'])){
+                    $internalArray['month'] = $numer['month_name'];
+                   }
+                  
+                   if(isset($numer['year'])){
+                    $internalArray['year'] = $numer['year'];   
+                   }
+                   $internalArray['percent'] = $numer['fid_count'] / $denomArray[$i]['fid_count'];
+                   $output[] = $internalArray;
                }
             }
             else{

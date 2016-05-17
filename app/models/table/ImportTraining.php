@@ -112,6 +112,9 @@ class ImportTraining  {
     public function parsePersonDataToArray($values_person,$rows,$status,$i){
         $status = ValidationContainer::instance();
         $p = new Person();
+        $errs = array();
+        $currDate = new Zend_Db_Expr('CURDATE()');
+        $to_fix = "";
         $values_person['phone_mobile'] = trim($rows[$i][12]);
         $values_person['phone_home'] = trim($rows[$i][12]);
 	$values_person['email'] = trim($rows[$i][13]);
@@ -126,16 +129,25 @@ class ImportTraining  {
             if($de=="")$de ="00";
                                                    
         $values_person['birthdate'] = $ye.'-'.$me.'-'.$de;
-            if(!($status->validateDate($values_person['birthdate']))){
-        $values_person['birthdate'] = "0000-00-00";
+        
+        if(!($status->validateDate($values_person['birthdate']))){
+        $values_person['birthdate'] = "";
         }
+        
+        
+        
         $birthdate = $values_person['birthdate'];
+        
+        if($values_person['birthdate']=='0000-00-00'){
+            unset($values_person['birthdate']);
+           // $values_person['birthdate'] = "";
+        }
         $values_person['gender'] = trim($rows[$i][5]);
             if(trim($rows[$i][5])==""){ $values_person['gender'] = 'na'; }
 	$values_person['certification'] = trim($rows[$i][14]);
         // echo 'Certification is '.$values_person['certification']." ";
         $values_person['certification'] = trim($rows[$i][14]);
-        $values_person['training_level_id'] = $values['training_level_option__id'];
+//        $values_person['training_level_id'] = $values['training_level_option_id'];
 	$values_person['primary_qualification_option_id'] = '0';
         $rows[$i][6] = strtolower($rows[$i][6]);
         $values_person['primary_qualification_option_id'] = $this->tryFindCadre($rows,$i);
@@ -154,6 +166,8 @@ class ImportTraining  {
 	$certification = $values_person['certification'];
         $values_person['facility_id'] = $this->tryFindFaciityId($state_name,$lga_name,$facility_name);
         $facilityId = $values_person['facility_id'];
+        $values_person['timestamp_updated'] = $currDate;
+        $values_person['timestamp_created'] = $currDate;
 	//prinr_r($values_person);
         $mes_facility = '';
             if($facility_name) $mes_facility .= $facility_name;
@@ -184,7 +198,7 @@ class ImportTraining  {
             }
             if($values_person['facility_id'] == '0'){				
             $errs [] = $mes_facility . ". Person #" . $rows[$i][0] . " '" . $mes_person . "' has been added to training, but has not being assigned to any facility.";
-            $to_fix = "to fix data";
+            $to_fix= "to fix data";
             }
             return array($values_person,$errs,$to_fix,$mes_person,$mes_facility);
     }

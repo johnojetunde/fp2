@@ -82,12 +82,13 @@ class Person extends ITechTable
                 
 
 		$res = $p->fetchRow($select);
-               
+               if(isset($res->is_deleted)){
                 if($res->is_deleted==1 || $res->is_deleted=="1"){
                     self::updateUserRecord("is_deleted",0,$res->id);
                        }
+               }
                        // echo $res->is_deleted;exit;
-		return $res->id ? $res->id : null;
+		return (isset($res->id))?$res->id : null;
 	}
         public function updateUserRecord($clause,$value,$id){
             $p = new Person();
@@ -110,18 +111,20 @@ class Person extends ITechTable
 		$additionalCols = array('p.first_name','p.middle_name','p.last_name','p.id','f.facility_name','f.location_id', 'p.birthdate','q.qualification_phrase');
 		else
 		$additionalCols = array('p.first_name','p.last_name','p.middle_name','p.id','f.facility_name','f.location_id', 'p.birthdate','q.qualification_phrase');
-
+                
 		$rowArray = array();
 
 		foreach( $priority as $keyrow ) {
 			if ( count($rowArray) < $limit ) {
 				$select = array('p.'.$keyrow.' as key');
 				$select = array_merge($select, $additionalCols);
+                                //Helper2::jLog("This is before we enter the suggestion query");
 				$rows = self::suggestionQuery($match,$limit, $keyrow, $select);
 
 				$rowArray  += $rows->toArray();
 			}
 		}
+               
 
 		return $rowArray;
 	}
@@ -141,11 +144,12 @@ class Person extends ITechTable
 	}
 
 	public static function suggestionQuery($match = false, $limit = 100, $field = 'last_name', $fieldsSelect = array('p.last_name','p.first_name','p.birthdate'), $fieldAdditional = false, $fieldAndWhere = false) {
+               // Helper2::jLog("THis is inside the suggestion query immediately I enter the place");
                 $location = new Location();
                 $newLocation = $location->ImplodedUserAccessLocation();
 		require_once('models/table/OptionList.php');
 		$topicTable = new OptionList(array('name' => 'person'));
-
+                //Helper2::jLog("THis is inside the suggestion query");
 		$select = $topicTable->select()->distinct()
 		->from(array('p' => 'person'),$fieldsSelect);
 
@@ -188,9 +192,10 @@ if($newLocation!=""){
 
 		if ( $limit )
 		$select->limit($limit,0);
-                //Helper2::jLog($select->__toString());
+               
+                
 		$rows = $topicTable->fetchAll($select);
-                 //Helper2::jLog(print_r($rows,true));
+                 //Helper2::jLog("this is the answer to the query".print_r($rows,true));
 		return $rows;
 	}
 
@@ -201,8 +206,11 @@ if($newLocation!=""){
 		$historyTable = new History('person');
 		//cheezy way to get the id
 		$parts = explode('=',$where[0]);
+                
+                if(isset($parts[1])){
 		$historyTable->insert($this, trim($parts[1]));
-
+                }
+                
 		$rslt = parent::update($data,$where);
 
 		return $rslt;

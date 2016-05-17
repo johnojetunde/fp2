@@ -430,77 +430,77 @@ echo DropDown::render_report_filter('training_primary_language_option', 'showPri
 																	// print_r($row); 
 																	
 																	echo ',"'.$row['training_end_date'].'"';
-																	if ( $this->criteria['showProvince'] )
+																	if ( !empty($this->criteria['showProvince']) )
 																	echo ',"'.$row['province_name'].'"';
-																	if ( $this->criteria['showDistrict'] )
+																	if ( !empty($this->criteria['showDistrict']) )
 																	echo ',"'.$row['district_name'].'"';
-																	if ( $this->criteria['showRegionC'] )
+																	if ( !empty($this->criteria['showRegionC']) )
 																	echo ',"'.$row['region_c_name'].'"';
-																	if ( $this->criteria['showRegionD'] )
+																	if ( !empty($this->criteria['showRegionD']) )
 																	echo ',"'.$row['region_d_name'].'"';
-																	if ( $this->criteria['showRegionE'] )
+																	if ( !empty($this->criteria['showRegionE']) )
 																	echo ',"'.$row['region_e_name'].'"';
-																	if ( $this->criteria['showRegionF'] )
+																	if ( !empty($this->criteria['showRegionF']) )
 																	echo ',"'.$row['region_f_name'].'"';
-																	if ( $this->criteria['showRegionG'] )
+																	if ( !empty($this->criteria['showRegionG']) )
 																	echo ',"'.$row['region_g_name'].'"';
-																	if ( $this->criteria['showRegionH'] )
+																	if ( !empty($this->criteria['showRegionH']) )
 																	echo ',"'.$row['region_h_name'].'"';
-																	if ( $this->criteria['showRegionI'] )
+																	if ( !empty($this->criteria['showRegionI']) )
 																	echo ',"'.$row['region_i_name'].'"';
-																	if ( $this->criteria['showCategory'])
+																	if ( !empty($this->criteria['showCategory']))
 																	echo ',"'.$row['training_category_phrase'].'"';
-																	if ( $this->criteria['showTrainingTitle'])
+																	if ( !empty($this->criteria['showTrainingTitle']))
 																	echo ',"'.strtoupper ($row['training_title']).'"';
-																	if ( $this->criteria['showLocation'] )
+																	if ( !empty($this->criteria['showLocation'] ))
 																	echo ',"'.$row['training_location_name'].'"';
-																	if ( $this->criteria['showOrganizer'] )
+																	if ( !empty($this->criteria['showOrganizer'] ))
 																	echo ',"'.$row['training_organizer_phrase'].'"';
-																	if ( $this->criteria['showMechanism'] )
+																	if ( !empty($this->criteria['showMechanism'] ))
 																	echo ',"'.$row['mechanism_id'].'"';
-																	if ( $this->criteria['showLevel'] )
+																	if ( !empty($this->criteria['showLevel'] ))
 																	echo ',"'.$row['training_level_phrase'].'"';
-																	if ( $this->criteria['showTopic'] )
+																	if ( !empty($this->criteria['showTopic'] ))
 																	echo ',"'.$row['training_topic_phrase'].'"';
-																	if ( $this->criteria['showPepfar'] )
+																	if ( !empty($this->criteria['showPepfar'] ))
 																	echo ',"'.$row['pepfar_category_phrase'].'"';
-																	if ( $this->criteria['showMethod'] )
+																	if ( !empty($this->criteria['showMethod'] ))
 																	echo ',"'.$row['training_method_phrase'].'"';
-																	if ( $this->criteria['showFunding'] )
+																	if ( !empty($this->criteria['showFunding'] ))
 																	echo ',"'.$row['funding_phrase'].'"';
-																	if ( $this->criteria['showTot'] )
+																	if ( !empty($this->criteria['showTot'] ))
 																	echo ',"'.$row['is_tot'].'"';
-																	if ( $this->criteria['showRefresher'] )
+																	if ( !empty($this->criteria['showRefresher'] ))
 																	echo ',"'.$row['is_refresher'].'"';
-																	if ( $this->criteria['showGotComment'] )
+																	if ( !empty($this->criteria['showGotComment']) )
 																	echo ',"'.$row['got_comments'].'"';
-																	if ( $this->criteria['showPrimaryLanguage'] )
+																	if ( !empty($this->criteria['showPrimaryLanguage']) )
 																	echo ',"'.$row['primary_language_phrase'].'"';
-																	if ( $this->criteria['showSecondaryLanguage'] )
+																	if ( !empty($this->criteria['showSecondaryLanguage']) )
 																	echo ',"'.$row['secondary_language_phrase'].'"';
-																	if ( $this->criteria['showGotCurric'] )
+																	if ( !empty($this->criteria['showGotCurric'] ))
 																	echo ',"'.$row['training_got_curriculum_phrase'].'"';
-																	if ( $this->criteria['showCustom1'] )
+																	if ( !empty($this->criteria['showCustom1']) )
 																	echo ',"'.$row['custom1_phrase'].'"';
-																	if ( $this->criteria['showCustom2'] )
+																	if ( !empty($this->criteria['showCustom2']) )
 																	echo ',"'.$row['custom2_phrase'].'"';
-																	if ( $this->criteria['showCustom3'] )
+																	if ( !empty($this->criteria['showCustom3']) )
 																	echo ',"'.$row['custom_3'].'"';
-																	if ( $this->criteria['showCustom4'] )
+																	if ( !empty($this->criteria['showCustom4']) )
 																	echo ',"'.$row['custom_4'].'"';
 																	if (array_key_exists('pcnt', $row) !== false )
 																	echo ','.( ($row['has_known_participants']? ($row['pcnt'] ? $row['pcnt'] :0):'"-"') );
-																	if ( $this->criteria['showCreatedBy'] )
+																	if ( !empty($this->criteria['showCreatedBy']) )
 																	echo ',"'.$row['created_by_user'].'"';
-																	if ( $this->criteria['showCreationDate'] )
+																	if ( !empty($this->criteria['showCreationDate']) )
 																	echo ',"'.$row['created_date'].'"';
-																	if ( $this->criteria ['showAge'] )
+																	if ( !empty($this->criteria ['showAge'] ))
 																	echo ','.($row['age'] ? $row['age'] : '"-"');
-																	if ( $this->criteria ['showGender'] )
+																	if ( !empty($this->criteria ['showGender']) )
 																	echo ',"'.$row['gender'].'"';
-																	if ( $this->criteria ['showViewingLoc'] )
+																	if ( !empty($this->criteria ['showViewingLoc']) )
 																	echo ',"'.($row['location_phrases'] ? $row['location_phrases'] : '-').'"';
-																	if ( $this->criteria ['showQualPrim'] )
+																	if ( !empty($this->criteria ['showQualPrim']) )
 																	echo ',"'.$row['qualification_phrase'].'"';
 																	
 																	echo ',"'.$row['qualification_secondary_phrase'].'"';
@@ -523,110 +523,110 @@ echo DropDown::render_report_filter('training_primary_language_option', 'showPri
 																<?php ?>
 																	,{key:"training_end_date", label: "<?php tp('End Date');?>", sortable:true, resizeable:true}
 																<?php  ?>
-																<?php if ( $this->criteria['showProvince'] ) { ?>
+																<?php if ( !empty($this->criteria['showProvince']) ) { ?>
 																	,{key:"province_name", label: "<?php echo (@$this->translation['Region A (Province)']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showDistrict'] ) { ?>
+																<?php if ( !empty($this->criteria['showDistrict']) ) { ?>
 																	,{key:"district_name", label: "<?php echo (@$this->translation['Region B (Health District)']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showRegionC'] ) { ?>
+																<?php if ( !empty($this->criteria['showRegionC']) ) { ?>
 																	,{key:"region_c_name", label: "<?php echo (@$this->translation['Region C (Local Region)']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showRegionD'] ) { ?>
+																<?php if ( !empty($this->criteria['showRegionD']) ) { ?>
 																	,{key:"region_d_name", label: "<?php echo t('Region D'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showRegionE'] ) { ?>
+																<?php if ( !empty($this->criteria['showRegionE']) ) { ?>
 																	,{key:"region_e_name", label: "<?php echo t('Region E'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showRegionF'] ) { ?>
+																<?php if ( !empty($this->criteria['showRegionF']) ) { ?>
 																	,{key:"region_f_name", label: "<?php echo t('Region F'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showRegionG'] ) { ?>
+																<?php if ( !empty($this->criteria['showRegionG']) ) { ?>
 																	,{key:"region_g_name", label: "<?php echo t('Region G'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showRegionH'] ) { ?>
+																<?php if ( !empty($this->criteria['showRegionH']) ) { ?>
 																	,{key:"region_h_name", label: "<?php echo t('Region H'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showRegionI'] ) { ?>
+																<?php if ( !empty($this->criteria['showRegionI']) ) { ?>
 																	,{key:"region_i_name", label: "<?php echo t('Region I'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showCategory']) { ?>
+																<?php if ( !empty($this->criteria['showCategory'])) { ?>
 																	,{key:"training_category_phrase", label: "<?php echo (@$this->translation['Training Category']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showTrainingTitle']) { ?>
+																<?php if ( !empty($this->criteria['showTrainingTitle'])) { ?>
 																	,{key:"training_title", label: "<?php echo (@$this->translation['Training Name']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showLocation'] ) { ?>
+																<?php if ( !empty($this->criteria['showLocation']) ) { ?>
 																	,{key:"training_location_name", label: "<?php tp('Location');?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showOrganizer'] ) { ?>
+																<?php if ( !empty($this->criteria['showOrganizer'] )) { ?>
 																	,{key:"training_organizer_phrase", label: "<?php echo (@$this->translation['Training Organizer']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showMechanism'] ) { ?>
+																<?php if ( !empty($this->criteria['showMechanism'] )) { ?>
 																	,{key:"mechanism_id", label: "<?php tp('Mechanism ID'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showLevel'] ) { ?>
+																<?php if ( !empty($this->criteria['showLevel']) ) { ?>
 																	,{key:"training_level_phrase", label: "<?php echo (@$this->translation['Training Level']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showTopic'] ) { ?>
+																<?php if ( !empty($this->criteria['showTopic']) ) { ?>
 																	,{key:"training_topic_phrase", label: "<?php echo @$this->translation['Training Topic'];?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showPepfar'] ) { ?>
+																<?php if ( !empty($this->criteria['showPepfar'] )) { ?>
 																	,{key:"pepfar_category_phrase", label: "<?php  echo @$this->translation['PEPFAR Category'];?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showMethod'] ) { ?>
+																<?php if ( !empty($this->criteria['showMethod']) ) { ?>
 																	,{key:"training_method_phrase", label: "<?php  echo @$this->translation['Training Method'];?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showFunding'] ) { ?>
+																<?php if ( !empty($this->criteria['showFunding']) ) { ?>
 																	,{key:"funding_phrase", label: "<?php tp('Funding');?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showTot'] ) { ?>
+																<?php if ( !empty($this->criteria['showTot']) ) { ?>
 																	,{key:"is_tot", label: "<?php echo tp('TOT'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showRefresher'] ) { ?>
+																<?php if ( !empty($this->criteria['showRefresher']) ) { ?>
 																	,{key:"is_refresher", label: "<?php echo tp('Refresher'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showGotComment'] ) { ?>
+																<?php if ( !empty($this->criteria['showGotComment'] )) { ?>
 																	,{key:"got_comments", label: "<?php echo @$this->translation['GOT Comment']; ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showPrimaryLanguage'] ) { ?>
+																<?php if ( !empty($this->criteria['showPrimaryLanguage']) ) { ?>
 																	,{key:"primary_language_phrase", label: "<?php echo @$this->translation['Primary Language']; ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showSecondaryLanguage'] ) { ?>
+																<?php if ( !empty($this->criteria['showSecondaryLanguage'] )) { ?>
 																	,{key:"secondary_language_phrase", label: "<?php echo @$this->translation['Secondary Languages']; ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php if ( $this->criteria['showGotCurric'] ) { ?>
+																<?php if ( !empty($this->criteria['showGotCurric']) ) { ?>
 																	,{key:"training_got_curriculum_phrase", label: "<?php echo @$this->translation['GOT Curriculum']; ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showCustom1'] ) { ?>
+																<?php   if ( !empty($this->criteria['showCustom1']) ) { ?>
 																	,{key:"custom1_phrase", label: "<?php echo (@$this->translation['Training Custom 1']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showCustom2'] ) { ?>
+																<?php   if ( !empty($this->criteria['showCustom2'] )) { ?>
 																	,{key:"custom2_phrase", label: "<?php echo (@$this->translation['Training Custom 2']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showCustom3'] ) { ?>
+																<?php   if ( !empty($this->criteria['showCustom3']) ) { ?>
 																	,{key:"custom3_phrase", label: "<?php echo (@$this->translation['Training Custom 3']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showCustom4'] ) { ?>
+																<?php   if ( !empty($this->criteria['showCustom4']) ) { ?>
 																	,{key:"custom4_phrase", label: "<?php echo (@$this->translation['Training Custom 4']); ?>", sortable:true, resizeable:true}
 																<?php } ?>
 																//TA:17: 09/09/2014  
 																<?php if ($this->results[0] && array_key_exists('pcnt', $this->results[0]) !== false && $this->setting['display_training_pepfar']) { ?>
 																	,{key:"pcnt", label: "<?php tp('Participants');?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showCreatedBy'] ) { ?>
+																<?php   if ( !empty($this->criteria['showCreatedBy']) ) { ?>
 																	,{key:"created_by", label: "<?php tp('Created By'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showCreationDate'] ) { ?>
+																<?php   if ( !empty($this->criteria['showCreationDate']) ) { ?>
 																	,{key:"created_date", label: "<?php tp('Created'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showAge'] ) { ?>
+																<?php   if ( !empty($this->criteria['showAge']) ) { ?>
 																	,{key:"age", label: "<?php tp('Age'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showGender'] ) { ?>
+																<?php   if ( !empty($this->criteria['showGender']) ) { ?>
 																	,{key:"gender", label: "<?php tp('Gender'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
-																<?php   if ( $this->criteria['showViewingLoc'] ) { ?>
+																<?php   if ( !empty($this->criteria['showViewingLoc']) ) { ?>
 																	,{key:"viewingloc", label: "<?php tp('Viewing Location'); ?>", sortable:true, resizeable:true}
 																<?php } ?>
 																<?php   if (($this->criteria['doCount'] || $this->criteria['doName']) &&  $this->criteria['showQualPrim'] ) { ?>
@@ -637,7 +637,7 @@ echo DropDown::render_report_filter('training_primary_language_option', 'showPri
 																<?php } ?>
 																];
 
-
+                                                                                                                                           
 																<?php if  ( $this->results ) { ?>
 																	makeDataTable("trainings", null, trainingData, trainingColumnDefs);
 																<?php } ?>

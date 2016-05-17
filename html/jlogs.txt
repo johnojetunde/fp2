@@ -1268,3 +1268,2428 @@ ORDER BY
     [headersSentThrowsException] => 1
 )
 
+2016-05-10 16:10:55 This is the processor class Output_Json
+2016-05-10 16:10:55 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => [{"id":"1","first_name":"Robert","last_name":"Mclaughlin","email":"robmcl@u.washington.edu","username":"robertm","is_blocked":"1"},{"id":"8","first_name":"Demo","last_name":"Demo","email":"demo@mail.com","username":"Demo","is_blocked":"0"},{"id":"9","first_name":"Balami","last_name":"Wapada","email":"wbalami@gmail.com","username":"wbalami","is_blocked":"0"},{"id":"12","first_name":"Training","last_name":"User","email":"training@user.com","username":"TrainingUser","is_blocked":"0"},{"id":"19","first_name":"Techie","last_name":"Planet","email":"leke@techieplanetltd.com","username":"TPadmin","is_blocked":"0"},{"id":"22","first_name":"Lakshmi","last_name":"Balachandran","email":"lbalachandran@clintonhealthaccess.org","username":"lbalachandran","is_blocked":"0"},{"id":"24","first_name":"Administrator","last_name":"Administrator","email":"afadeyi@clintonhealthaccess.org","username":"administrator","is_blocked":"0"},{"id":"26","first_name":"preservice","last_name":"demo","email":"preservicedemo@itech.org","username":"preservicedemo","is_blocked":"1"},{"id":"31","first_name":"Anita","last_name":"Nwachukwu","email":"anwachukwu@clintonhealthaccess.org","username":"anwachukwu","is_blocked":"0"},{"id":"32","first_name":"Caitlin","last_name":"Glover","email":"cglover@clintonhealthaccess.org","username":"cglover","is_blocked":"0"},{"id":"34","first_name":"Lekia","last_name":"Nwidae","email":"lnwidae@clintonhealthaccess.org","username":"lnwidae","is_blocked":"0"},{"id":"35","first_name":"Mindy","last_name":"Scibilia","email":"mscibilia@clintonhealthaccess.org","username":"mscibilia","is_blocked":"0"},{"id":"36","first_name":"Julia","last_name":"McDowell","email":"jmcdowell@clintonhealthaccess.org","username":"jmcdowell","is_blocked":"0"},{"id":"37","first_name":"Zainab","last_name":"Saidu","email":"zsaidu@clintonhealthaccess.org","username":"zsaidu","is_blocked":"0"},{"id":"38","first_name":"Kayode","last_name":"Afolabi","email":"kayodeakinafolabi@yahoo.com","username":"kafolabi","is_blocked":"0"},{"id":"39","first_name":"Greg ","last_name":"Izuwa","email":"gizuwa@yahoo.com","username":"gizuwa","is_blocked":"0"},{"id":"40","first_name":"Lawrence ","last_name":"Anyanwu","email":"iccanyanwu@yahoo.co.uk","username":"lanyanwu","is_blocked":"0"},{"id":"41","first_name":"Temitope ","last_name":"Bombata","email":"taboms1963@gmail.com","username":"tbombata","is_blocked":"0"},{"id":"42","first_name":"Ralph ","last_name":"Olayele","email":"olralphpophea@yahoo.com","username":"rolayele","is_blocked":"0"},{"id":"43","first_name":"Elizabeth ","last_name":"Oluyomi","email":"e_omolola@yahoo.com","username":"eoluyomi","is_blocked":"0"},{"id":"44","first_name":"Alex ","last_name":"Ugochukwu","email":"ugoalex2000@yahoo.com","username":"augochukwu","is_blocked":"0"},{"id":"45","first_name":"Gabriel ","last_name":"Ortonga","email":"iwerkaa@yahoo.com","username":"gortonga","is_blocked":"0"},{"id":"46","first_name":"Nneka ","last_name":"Oteka","email":"nkemoteka@yahoo.com","username":"noteka","is_blocked":"0"},{"id":"47","first_name":"Hadiza ","last_name":"Musa","email":"hadmusa91@yahoo.com","username":"hmusa","is_blocked":"0"},{"id":"48","first_name":"Obi ","last_name":"Oluigbo","email":"ooluigbo@sfhnigeria.org","username":"ooluigbo","is_blocked":"0"},{"id":"49","first_name":"Uchenna","last_name":"Okafor","email":"ookeke@sfhnigeria.org","username":"uokafor","is_blocked":"0"},{"id":"50","first_name":"Dr Moriam","last_name":"Jagun","email":"mjagun@usaid.gov","username":"mjagun","is_blocked":"0"},{"id":"51","first_name":"Umunna ","last_name":"Onyiriuka","email":"umunna.onyiriuka@bayer.com","username":"uonyiriuka","is_blocked":"0"},{"id":"52","first_name":"Emmanuel ","last_name":"Otolorin","email":"Emmanuel.Otolorin@jhpiego.org","username":"eotolorin","is_blocked":"0"},{"id":"53","first_name":"Jeremiah","last_name":" Yem","email":"jeremiah.yem@merck.com","username":"jyem","is_blocked":"0"},{"id":"54","first_name":"Dauda ","last_name":"Sulaiman","email":"dsulaiman@futuresgroup.com","username":"dsulaiman","is_blocked":"0"},{"id":"55","first_name":"Damola ","last_name":"Olajide","email":"dolajide@futuresgroup.com","username":"dolajide","is_blocked":"0"},{"id":"56","first_name":"Effiom ","last_name":"Effiom","email":"Effiom.Effiom@mariestopes.org.ng","username":"eeffiom","is_blocked":"0"},{"id":"57","first_name":"Rati","last_name":"Ndlovu","email":"ndhlovu@unfpa.org","username":"rndhlovu","is_blocked":"0"},{"id":"58","first_name":"Nike ","last_name":"Adedeji","email":"oadedeji@unfpa.org","username":"oadedeji","is_blocked":"0"},{"id":"59","first_name":"LGA","last_name":"LGA","email":"LGA@LGA.com","username":"LGA","is_blocked":"0"},{"id":"60","first_name":"Iyeme","last_name":"Efem","email":"iyeme_efem@ng.jsi.com","username":"iefem","is_blocked":"0"},{"id":"61","first_name":"Aluka ","last_name":"Terpase","email":"Aluka.terpase@gmail.com","username":"aterpase","is_blocked":"0"},{"id":"62","first_name":"Dr Ado Jimada ","last_name":"Gana Muhammad","email":"amuhammad@nphcda.org","username":"amuhammad","is_blocked":"0"},{"id":"63","first_name":"Abbam","last_name":"Ibrahim","email":"abbamibrahim@yahoo.co.uk","username":"aibrahim","is_blocked":"0"},{"id":"64","first_name":"Dr Ugo ","last_name":"Okoli","email":"okoliu2@gmail.com","username":"uokoli","is_blocked":"0"},{"id":"65","first_name":"Dr Mojisola","last_name":"Odeku","email":"megeedison@yahoo.com","username":"medison","is_blocked":"0"},{"id":"66","first_name":"Mariya ","last_name":"Saleh","email":"msaleh@ng.fhi360.org","username":"msaleh","is_blocked":"0"},{"id":"67","first_name":"Kehinde ","last_name":"Nuga","email":"tayokennuga@yahoo.com","username":"knuga","is_blocked":"0"},{"id":"68","first_name":"Clea","last_name":"Finkle","email":"clea.finkle@gatesfoundation.org","username":"cfinkle","is_blocked":"0"},{"id":"69","first_name":"Robyn","last_name":"Churchill ","email":"rchurchill@clintonhealthaccess.org","username":"rchurchill ","is_blocked":"0"},{"id":"70","first_name":"Christina ","last_name":"Allain","email":"callain@clintonhealthaccess.org","username":"callain","is_blocked":"0"},{"id":"71","first_name":"Adeyinka","last_name":"Adewemimo","email":"yinkayoni1@gmail.com","username":"aadewemimo","is_blocked":"0"},{"id":"74","first_name":"Ayodele","last_name":"Iroko","email":"ayodele_iroko@shopsproject.com","username":"airoko","is_blocked":"0"},{"id":"80","first_name":"Janet Kosi ","last_name":"Ajoko","email":"enajkosi@yahoo.com","username":"jajoko","is_blocked":"0"},{"id":"81","first_name":"Sulinjat Ajoke ","last_name":"Alao","email":"asulinat@yahoo.com","username":"salao","is_blocked":"0"},{"id":"82","first_name":"Kikelomo","last_name":"Alonge","email":"alongekike@gmail.com","username":"kalonge","is_blocked":"0"},{"id":"83","first_name":"Lami Kabir","last_name":"Umar","email":"lamikabirumar@gmail.com","username":"lumar","is_blocked":"0"},{"id":"84","first_name":"Asabe B.","last_name":"Madaki","email":"madakiasabe@gmail.com","username":"mmadaki","is_blocked":"0"},{"id":"85","first_name":"Rabi ","last_name":"Kachiro","email":"rabi.kachiro@gmail.com","username":"rkachiro","is_blocked":"0"},{"id":"86","first_name":"Daniel ","last_name":"Ali","email":"danalikyi@yahoo.com","username":"dali","is_blocked":"0"},{"id":"87","first_name":"Dr Ado","last_name":"Moh'd","email":"azmikudan@yahoo.com","username":"azakari","is_blocked":"0"},{"id":"88","first_name":"Cecilia","last_name":"Marcus","email":"chakamarcus@rocketmail.com","username":"cmarcus","is_blocked":"0"},{"id":"89","first_name":"Martha","last_name":"Tauna","email":"marthatauna@gmail.com","username":"mtauna","is_blocked":"0"},{"id":"90","first_name":"Rachel ","last_name":"Swack","email":"rswack@oberlin.edu","username":"rswack","is_blocked":"0"},{"id":"91","first_name":"Charlie","last_name":"Sheen","email":"csheen@gmail.com","username":"csheen","is_blocked":"0"},{"id":"92","first_name":"Cassandra","last_name":"Stanton","email":"cstanton@unicef.org","username":"cstanton","is_blocked":"0"},{"id":"93","first_name":"Maryjane ","last_name":"Lacoste","email":"maryjane.lacoste@gatesfoundation.org","username":"mlacoste ","is_blocked":"0"},{"id":"94","first_name":"Renee ","last_name":"Van de Weerdt","email":"vandeweerdt@unfpa.org","username":"rvandeweerdt ","is_blocked":"0"},{"id":"95","first_name":"Patricia ","last_name":"MacDonald","email":"pmacdonald@usaid.gov","username":"pmacdonald","is_blocked":"0"},{"id":"96","first_name":"Klaas","last_name":"Jan","email":"KlassV@yahoo.com","username":"Klaas","is_blocked":"0"},{"id":"97","first_name":"Bright","last_name":"Orji","email":"bright2orji@yahoo.com","username":"borji","is_blocked":"0"},{"id":"98","first_name":"Modupe","last_name":"Toriola","email":"modupe_toriola@shopsproject.com","username":"mtoriola","is_blocked":"0"},{"id":"99","first_name":"Sikiru ","last_name":"Baruwa","email":"sikiru_baruwa@shopsproject.com","username":"sbaruwa ","is_blocked":"0"},{"id":"100","first_name":"Techie ","last_name":"LGA","email":"sewejeolaleke@gmail.com","username":"techielga","is_blocked":"0"},{"id":"101","first_name":"Blendan","last_name":"Jonathan","email":"JoeBo@gmail.com","username":"Jonathan","is_blocked":"0"},{"id":"102","first_name":"John","last_name":"admin","email":"nbymight@gmail.com","username":"jadmin","is_blocked":"0"},{"id":"103","first_name":"Dr. Nnanna Victor","last_name":"Onyekwere","email":"nnaonyekwere@yahoo.com","username":"nonyekwere","is_blocked":"0"},{"id":"104","first_name":"Joyce","last_name":"Amaewhule","email":"jamaewhule@yahoo.com","username":"jamaewhule","is_blocked":"0"},{"id":"105","first_name":"Doris","last_name":"Igbanibo","email":"igbanibod@yahoo.com","username":"digbanibo","is_blocked":"0"},{"id":"106","first_name":"PAULINE ","last_name":"BIOWOTON-DENNIS","email":"lynbiowoton@gmail.com","username":"pdennis","is_blocked":"0"},{"id":"107","first_name":"JOY","last_name":"UCHE-OKAH","email":"joyucheokah@yahoo.com","username":"jucheokah","is_blocked":"0"},{"id":"108","first_name":"YOKO","last_name":"IKAKITA","email":"ikakitayoko@yahoo.com","username":"yikakita","is_blocked":"0"},{"id":"109","first_name":"Sunday","last_name":"DIKIBO","email":"dikibosunday@yahoo.com","username":"sdikibo","is_blocked":"0"},{"id":"110","first_name":"SOMIARI ","last_name":"BELEMA","email":"somibelz@yahoo.com","username":"sbelema","is_blocked":"0"},{"id":"111","first_name":"Onyenuobi","last_name":"Chibuzor","email":"conyenuobi@ng.fhi360.org","username":"ochibuzor","is_blocked":"0"},{"id":"112","first_name":"ODO ","last_name":"OGWUCHE","email":"oodo@ng.fhi360.org","username":"oogwuche","is_blocked":"0"},{"id":"113","first_name":"MICHAEL ","last_name":"AVWERHOTA","email":"mavwerhota@ng.fhi360.org","username":"mavwerhota","is_blocked":"0"},{"id":"114","first_name":"OLUCHI ","last_name":"BASSEY","email":"okalu@sfhnigeria.org","username":"obassey","is_blocked":"0"},{"id":"115","first_name":"Dr. Lanre","last_name":"Abass","email":"abasslanre2009@gmail.com","username":"labass","is_blocked":"0"},{"id":"116","first_name":"Stella","last_name":"Falaye","email":"stellafalaye@yahoo.co.uk","username":"sfalaye","is_blocked":"0"},{"id":"117","first_name":"Akande ","last_name":"Abiodun","email":"akande_biodun@yahoo.com","username":"aabiodun","is_blocked":"0"},{"id":"118","first_name":"Raji ","last_name":"Mobolaji","email":"rajimobolaji@yahoo.com","username":"rmobolaji","is_blocked":"0"},{"id":"119","first_name":"Stella ","last_name":"Akinso","email":"asakinso@yahoo.com","username":"sakinso","is_blocked":"0"},{"id":"120","first_name":"Ayankola","last_name":"J.O","email":"oayankola@yahoo.com","username":"jayankola","is_blocked":"0"},{"id":"121","first_name":"Salamatu ","last_name":"Bako","email":"salamatu.bako@jhpiego.org","username":"sbako","is_blocked":"0"},{"id":"122","first_name":"Gideon ","last_name":"Orkegheu","email":"gideon.orkegheu@jhpiego.org","username":"gorkegheu","is_blocked":"0"},{"id":"123","first_name":"Najib ","last_name":"Gidado Saleh","email":"nasgid@yahoo.co.uk","username":"nsaleh","is_blocked":"0"},{"id":"124","first_name":"Amina ","last_name":"Ladan","email":"amina.ladan@mnch2.com","username":"aladan","is_blocked":"0"},{"id":"125","first_name":"Hadiza ","last_name":"Sani","email":"hadizasanibarau@gmail.com","username":"hsani","is_blocked":"0"},{"id":"126","first_name":"James ","last_name":"Audu","email":"au2du@yahoo.com","username":"jaudu","is_blocked":"0"},{"id":"127","first_name":"SMOH","last_name":"Test","email":"lakshmi.balachandran@gmail.com","username":"SMOH","is_blocked":"0"},{"id":"128","first_name":"FMOH","last_name":"Test","email":"lb2772@columbia.edu","username":"FMOH","is_blocked":"0"},{"id":"129","first_name":"Partner","last_name":"Test","email":"crazygiraffe_12@hotmail.com","username":"partner","is_blocked":"0"},{"id":"130","first_name":"Gbenga","last_name":"Ishola","email":"gbenga.ishola@jhpiego.org","username":"gishola","is_blocked":"0"},{"id":"131","first_name":"John","last_name":"Ojetunde","email":"bjaypjay2012@gmail.com","username":"johndoe","is_blocked":"0"},{"id":"132","first_name":"Uwaila","last_name":"Akpan","email":"uakpan@clintonhealthaccess.org","username":"uakpan","is_blocked":"0"},{"id":"133","first_name":"Ahmad","last_name":"Haliru","email":"ahaliru@clintonhealthaccess.org","username":"ahaliru","is_blocked":"0"},{"id":"134","first_name":"Juliana Idowu","last_name":"Okanlawon","email":"idowujuliana@yahoo.com","username":"jidowu","is_blocked":"0"},{"id":"135","first_name":"Aderonke","last_name":"Tayo-Olufemi ","email":"Tayo_awobenu@yahoo.com","username":"tolufemi","is_blocked":"0"},{"id":"136","first_name":"Dr. Oludolapo","last_name":"Sotunde","email":"dolapy@gmail.com","username":"soludolapo","is_blocked":"0"},{"id":"137","first_name":"Dr. ","last_name":"Johnson","email":"teewojay@yahoo.com","username":"tjohnson","is_blocked":"0"},{"id":"138","first_name":"Dr. S.A.","last_name":"Okaga","email":"kennyokags@gmail.com","username":"sokaga","is_blocked":"0"},{"id":"139","first_name":"Ademide","last_name":"Ogunmola ","email":"mideogunmola@gmail.com","username":"aogunmola","is_blocked":"0"},{"id":"140","first_name":"Dr A. A.","last_name":"Idowu ","email":"Abbydea2001@yahoo.com","username":"aidowu","is_blocked":"0"},{"id":"141","first_name":"Flora","last_name":"Awosika","email":"floraawosika@yahoo.com","username":"fawosika","is_blocked":"0"},{"id":"142","first_name":"Fadeke ","last_name":"Abuworonye","email":"folusanya@ng.fhi360.org","username":"fabuworonye","is_blocked":"0"},{"id":"143","first_name":"Abiodun ","last_name":"Olaiya","email":"oabiodun@sidhas.org","username":"aolaiya","is_blocked":"0"},{"id":"144","first_name":"Omoniyi ","last_name":"Abisola","email":"aomoniyi@sfhnigeria.org","username":"oabisola","is_blocked":"0"},{"id":"145","first_name":"Dr. Sam ","last_name":"Oyegbile","email":"saoyegbile@gmail.com","username":"soyegbile","is_blocked":"0"},{"id":"146","first_name":"Abimbola","last_name":"Faloye","email":"faloyeabimbola@yahoo.com","username":"afaloye","is_blocked":"0"},{"id":"147","first_name":"Jacob ","last_name":"Olubunmi","email":"olubunmijacob@gmail.com","username":"jolubunmi","is_blocked":"0"},{"id":"148","first_name":"Abiodun","last_name":"Adeyemi ","email":"Aadeyemi@ng.fhi360.org","username":"aadeyemi ","is_blocked":"0"},{"id":"149","first_name":"Dr. O.","last_name":"Asa","email":"asao@unaids.org","username":"oasa","is_blocked":"0"},{"id":"150","first_name":"Dr. O. ","last_name":"Omosehin","email":"omosehin@unfpa.org","username":"oomosehin","is_blocked":"0"},{"id":"151","first_name":"Comfort ","last_name":"Akpan","email":"commynovember@yahoo.com","username":"cakpan","is_blocked":"0"},{"id":"152","first_name":"Grace","last_name":"Okon","email":"graceokon255@yahoo.co.uk","username":"gokon","is_blocked":"0"},{"id":"153","first_name":"Ituh ","last_name":"Emem","email":"mefito98@gmail.com","username":"iemem","is_blocked":"0"},{"id":"154","first_name":"Priscilla","last_name":"Omang","email":"prisca.peters@yahoo.com","username":"pomang","is_blocked":"0"},{"id":"155","first_name":"Timothy ","last_name":"Jonathan","email":"tekpartson@yahoo.com","username":"tjonathan","is_blocked":"0"},{"id":"156","first_name":"Kabir ","last_name":"Abdullahi","email":"kabdullahi@nurhi.org","username":"kabdullahi","is_blocked":"0"},{"id":"157","first_name":"Ibrahim","last_name":"Ahmed","email":"ibraheemsa@yahoo.com","username":"iahmed","is_blocked":"0"},{"id":"158","first_name":"Alexander ","last_name":"Inusa","email":"inusaalexander@yahoo.com","username":"ainusa","is_blocked":"0"},{"id":"159","first_name":"Emmanuel ","last_name":"Gotep","email":"ppfnkaduna@yahoo.com","username":"egotep","is_blocked":"0"},{"id":"160","first_name":"Fatima ","last_name":"Mamman Daura","email":"mamman-daura@unfpa.org","username":"fdaura","is_blocked":"0"},{"id":"161","first_name":"Paulina ","last_name":"Akanet","email":"paulina.akanet@mnch2.com","username":"pakanet","is_blocked":"0"},{"id":"162","first_name":"Olufunke","last_name":"Fasawe","email":"ofasawe@clintonhealthaccess.org","username":"ofasawe","is_blocked":"0"},{"id":"163","first_name":"Sylvia","last_name":"Odo ","email":"sylvia4gud2015@gmail.com","username":"sodo","is_blocked":"0"},{"id":"164","first_name":"Roseline","last_name":"Edeh","email":"roselineedeh97@gmail.com","username":"redeh","is_blocked":"0"},{"id":"165","first_name":"Uduak ","last_name":"Okum","email":"uduak.okum@jhpiego.org","username":"uokum","is_blocked":"0"},{"id":"166","first_name":"Osi ","last_name":"Godwin","email":"osigodwinrh@gmail.com","username":"ogodwin","is_blocked":"0"},{"id":"167","first_name":"Uche","last_name":"Nwoke ","email":"nwoke51@yahoo.com","username":"unwoke ","is_blocked":"0"},{"id":"169","first_name":"Obi","last_name":"Uche","email":"obiuchennagregory@gmail.com","username":"QWERTY","is_blocked":"0"},{"id":"170","first_name":"Tom","last_name":"Park","email":"tom.park@gatesfoundation.org","username":"tpark","is_blocked":"0"},{"id":"171","first_name":"Adeyemo ","last_name":"Oyemole","email":"Oyemole.adeyemo@mariestopes.org.ng","username":"oadeyemo","is_blocked":"0"},{"id":"172","first_name":"Olubunmi","last_name":"Popoola","email":"popesade@yahoo.com","username":"opopoola","is_blocked":"0"},{"id":"173","first_name":"Oyindamola ","last_name":"Soremekun","email":"oaksite85@yahoo.com","username":"osoremekun","is_blocked":"0"},{"id":"174","first_name":"Godwin","last_name":"Oluwadipe","email":"oluwadipogodwin@gmail.com","username":"goluwadipe","is_blocked":"0"},{"id":"190","first_name":"tester2","last_name":"tester3","email":"tester3@tester3.com","username":"tester3","is_blocked":"0"},{"id":"191","first_name":"Eniola ","last_name":"Awowiyi","email":"odunayo.awoyomi@yahoo.com","username":"eawowiyi","is_blocked":"0"},{"id":"192","first_name":"Dr. Dan ","last_name":"Gadzama","email":"dannyabuth@yahoo.com","username":"dgadzama","is_blocked":"0"},{"id":"193","first_name":"Mariam","last_name":"Momoh","email":"tomimariam@yahoo.com","username":"mmomoh","is_blocked":"0"},{"id":"194","first_name":"Victoria","last_name":"Eke","email":"victoriaibieregbo@gmail.com","username":"veke","is_blocked":"0"},{"id":"195","first_name":"FMOH2","last_name":"FMOH","email":"obigregory@techieplanetltd.com","username":"FMOH2","is_blocked":"0"},{"id":"196","first_name":"SMOH2","last_name":"SMOH","email":"sewejeolaleke@yahoo.com","username":"SMOH2","is_blocked":"0"},{"id":"197","first_name":"Partner2","last_name":"Partner","email":"john.ojetunde@techieplanetltd.com","username":"Partner2","is_blocked":"0"},{"id":"198","first_name":"LGA2","last_name":"LGA2","email":"LGA@LGA.ng","username":"LGA2","is_blocked":"0"},{"id":"209","first_name":"Brian","last_name":"Siems ","email":"brian.siems@gatesfoundation.org","username":"bsiems ","is_blocked":"0"},{"id":"210","first_name":"Kufre","last_name":"Oton","email":"kufreoton@yahoo.com","username":"koton","is_blocked":"0"},{"id":"211","first_name":"Benjamin","last_name":"Asemota","email":"BAsemota@pathfinder.org","username":"basemota","is_blocked":"0"},{"id":"212","first_name":"Emem","last_name":"Etukiren ","email":"eetukiren@pathfinder.org","username":"eetukiren","is_blocked":"0"},{"id":"213","first_name":"Racheal","last_name":"Okenyi","email":"rokenyi@pathfinder.org","username":"rokenyi","is_blocked":"0"},{"id":"214","first_name":"Hussaina ","last_name":"Abdulsalam","email":"matronhus@yahoo.com","username":"habdulsalam","is_blocked":"0"},{"id":"215","first_name":" Ahmad ","last_name":"Rufai","email":"ahmadank57@gmail.com","username":"arufai","is_blocked":"0"},{"id":"216","first_name":"Yusuf ","last_name":"Musa T\/mafa","email":"yusufmusatma@gmail.com","username":"amafa","is_blocked":"0"},{"id":"217","first_name":"Aliyu ","last_name":"Maikiyo","email":"aliyumaikiyo@yahoo.com","username":"amaikiyo","is_blocked":"0"},{"id":"218","first_name":"Jemimah ","last_name":"Menwyah","email":"jemimahmenwyah@gmail.com","username":"jmenwyah","is_blocked":"0"},{"id":"219","first_name":"Emmanuel ","last_name":"Kumba","email":"emmanuelkumba@gmail.com","username":"ekumba","is_blocked":"0"},{"id":"220","first_name":"test","last_name":"Test","email":"test@test.com","username":"test","is_blocked":"0"},{"id":"221","first_name":"Robert","last_name":"Daniel","email":"dannysept282000@yahoo.com","username":"rdaniel","is_blocked":"0"},{"id":"222","first_name":"Maryam","last_name":"Al-Mansur","email":"almansurma@yahoo.com","username":"malmansur","is_blocked":"0"},{"id":"223","first_name":"Elue ","last_name":"Dominic","email":"rhodome@yahoo.com","username":"edominic","is_blocked":"0"},{"id":"224","first_name":"Helen","last_name":"Boardman ","email":"helensco2005@yahoo.com","username":"hboardman","is_blocked":"0"},{"id":"225","first_name":"Henry","last_name":"Jumbo","email":"jumbohenry2010@yahoo.com","username":"hjumbo","is_blocked":"0"},{"id":"226","first_name":"Samuel","last_name":"Oyeniyi","email":"drsamueloyeniyi@gmail.com","username":"soyeniyi","is_blocked":"0"},{"id":"227","first_name":"Kemi","last_name":"Oluwagbohun","email":"ooluwagbohun@nurhi.org","username":"koluwagbohun","is_blocked":"0"},{"id":"228","first_name":"Kingsley","last_name":"Odogwu","email":"Kingsley.Odogwu@mariestopes.org.ng","username":"kodogwu","is_blocked":"0"},{"id":"229","first_name":"Aishat","last_name":"Ejigbo","email":"aishat_ejigbo@ng.jsi.com","username":"aejigbo","is_blocked":"0"},{"id":"230","first_name":"ABDULHAMEED","last_name":"ADEDIRAN","email":"hadediran@gmail.com","username":"hadediran","is_blocked":"0"},{"id":"231","first_name":"Hannatu","last_name":"Abdullahi","email":"hannatu.abdullahi@jhpiego.org","username":"habdullahi","is_blocked":"0"},{"id":"232","first_name":"Emmanuel","last_name":"Uqwa","email":"emmanuel.ugwa@jhpiego.org","username":"eugwa","is_blocked":"0"},{"id":"233","first_name":"Joseph","last_name":"Enne","email":"joseph.enne@jhpiego.org","username":"jenne","is_blocked":"0"},{"id":"234","first_name":"Sakina ","last_name":"Bello","email":"saminbello@pathfinder.org","username":"sbello","is_blocked":"0"},{"id":"235","first_name":"Musa","last_name":"Gimba","email":"musagee@yahoo.com","username":"mgimba","is_blocked":"0"},{"id":"241","first_name":"John","last_name":"Ojetunde","email":"johnojetunde63@gmail.com","username":"bjaypjay2012@gmail.com","is_blocked":"0"},{"id":"243","first_name":"Jide","last_name":"Akintola","email":"jj@techieplanetktd.com","username":"akinjohnson","is_blocked":"0"}]
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 08:41:21 This is the processor class Output_Json
+2016-05-11 08:41:22 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"insert":"73"}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [2] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 08:41:35 This is the processor class Output_Json
+2016-05-11 08:41:35 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [2] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 08:50:44 This is the processor class Output_Json
+2016-05-11 08:50:44 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"insert":"74"}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [2] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 08:50:55 This is the processor class Output_Json
+2016-05-11 08:50:55 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [2] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 08:51:04 This is the processor class Output_Json
+2016-05-11 08:51:04 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [2] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 08:56:37 This is the processor class Output_Json
+2016-05-11 08:56:37 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"insert":"75"}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [2] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 14:04:13 the first beginiing
+2016-05-11 14:04:13 this is after the query
+2016-05-11 14:04:13 This is after the end statement of the query
+2016-05-11 14:04:13 This is the person does not exists 4558 that e the person id
+2016-05-11 14:04:13 the first prows default if 
+2016-05-11 14:04:14 the first beginiing
+2016-05-11 14:04:14 this is after the query
+2016-05-11 14:04:14 This is after the end statement of the query
+2016-05-11 14:04:14 This is the person does not exists 4559 that e the person id
+2016-05-11 14:04:14 the first prows default if 
+2016-05-11 14:04:15 the first beginiing
+2016-05-11 14:04:15 this is after the query
+2016-05-11 14:04:15 This is after the end statement of the query
+2016-05-11 14:04:15 This is the person does not exists 4561 that e the person id
+2016-05-11 14:04:15 the first prows default if 
+2016-05-11 14:04:16 the first beginiing
+2016-05-11 14:04:16 this is after the query
+2016-05-11 14:04:16 This is after the end statement of the query
+2016-05-11 14:04:16 This is the person does not exists 4564 that e the person id
+2016-05-11 14:04:16 the first prows default if 
+2016-05-11 14:10:29 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 984 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 14:23:59 This is the processor class Output_Json
+2016-05-11 14:23:59 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 14:24:06 This is the processor class Output_Json
+2016-05-11 14:24:06 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 14:24:13 This is the processor class Output_Json
+2016-05-11 14:24:13 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 14:24:19 This is the processor class Output_Json
+2016-05-11 14:24:19 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 14:30:29 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 984 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 14:51:58 the first beginiing
+2016-05-11 14:51:58 this is after the query
+2016-05-11 14:51:58 This is after the end statement of the query
+2016-05-11 14:51:58 This is the person does not exists 4558 that e the person id
+2016-05-11 14:51:58 the first prows default if 
+2016-05-11 14:51:59 the first beginiing
+2016-05-11 14:51:59 this is after the query
+2016-05-11 14:51:59 This is after the end statement of the query
+2016-05-11 14:51:59 This is the person does not exists 4559 that e the person id
+2016-05-11 14:51:59 the first prows default if 
+2016-05-11 14:51:59 the first beginiing
+2016-05-11 14:51:59 this is after the query
+2016-05-11 14:51:59 This is after the end statement of the query
+2016-05-11 14:51:59 This is the person does not exists 4561 that e the person id
+2016-05-11 14:51:59 the first prows default if 
+2016-05-11 14:51:59 the first beginiing
+2016-05-11 14:51:59 this is after the query
+2016-05-11 14:51:59 This is after the end statement of the query
+2016-05-11 14:51:59 This is the person does not exists 4564 that e the person id
+2016-05-11 14:52:00 the first prows default if 
+2016-05-11 15:00:54 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 985 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 15:09:54 the first beginiing
+2016-05-11 15:09:54 this is after the query
+2016-05-11 15:09:55 This is after the end statement of the query
+2016-05-11 15:09:55 This is the person does not exists 4558 that e the person id
+2016-05-11 15:09:55 the first prows default if 
+2016-05-11 15:09:55 the first beginiing
+2016-05-11 15:09:55 this is after the query
+2016-05-11 15:09:55 This is after the end statement of the query
+2016-05-11 15:09:55 This is the person does not exists 4559 that e the person id
+2016-05-11 15:09:55 the first prows default if 
+2016-05-11 15:09:55 the first beginiing
+2016-05-11 15:09:55 this is after the query
+2016-05-11 15:09:55 This is after the end statement of the query
+2016-05-11 15:09:55 This is the person does not exists 4561 that e the person id
+2016-05-11 15:09:55 the first prows default if 
+2016-05-11 15:09:56 the first beginiing
+2016-05-11 15:09:56 this is after the query
+2016-05-11 15:09:56 This is after the end statement of the query
+2016-05-11 15:09:56 This is the person does not exists 4564 that e the person id
+2016-05-11 15:09:56 the first prows default if 
+2016-05-11 15:19:23 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 986 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 15:25:57 This is the processor class Output_Json
+2016-05-11 15:25:57 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 15:26:02 This is the processor class Output_Json
+2016-05-11 15:26:02 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 15:26:07 This is the processor class Output_Json
+2016-05-11 15:26:07 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 15:26:10 This is the processor class Output_Json
+2016-05-11 15:26:10 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 15:26:16 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 986 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 15:26:59 the first beginiing
+2016-05-11 15:26:59 this is after the query
+2016-05-11 15:26:59 This is after the end statement of the query
+2016-05-11 15:26:59 This is the person does not exists 4558 that e the person id
+2016-05-11 15:26:59 the first prows default if 
+2016-05-11 15:26:59 the first beginiing
+2016-05-11 15:26:59 this is after the query
+2016-05-11 15:26:59 This is after the end statement of the query
+2016-05-11 15:26:59 This is the person does not exists 4559 that e the person id
+2016-05-11 15:26:59 the first prows default if 
+2016-05-11 15:26:59 the first beginiing
+2016-05-11 15:26:59 this is after the query
+2016-05-11 15:26:59 This is after the end statement of the query
+2016-05-11 15:26:59 This is the person does not exists 4561 that e the person id
+2016-05-11 15:26:59 the first prows default if 
+2016-05-11 15:27:00 the first beginiing
+2016-05-11 15:27:00 this is after the query
+2016-05-11 15:27:00 This is after the end statement of the query
+2016-05-11 15:27:00 This is the person does not exists 4564 that e the person id
+2016-05-11 15:27:00 the first prows default if 
+2016-05-11 15:34:19 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 987 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 15:42:37 This is the processor class Output_Json
+2016-05-11 15:42:37 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 15:42:42 This is the processor class Output_Json
+2016-05-11 15:42:42 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 15:42:45 This is the processor class Output_Json
+2016-05-11 15:42:45 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 15:42:49 This is the processor class Output_Json
+2016-05-11 15:42:49 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 15:42:59 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 987 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 15:53:04 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 988 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 16:06:12 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 988 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 16:12:01 the first beginiing
+2016-05-11 16:12:01 this is after the query
+2016-05-11 16:12:01 This is after the end statement of the query
+2016-05-11 16:12:01 This is the person does not exists 3705 that e the person id
+2016-05-11 16:12:01 the first prows default if 
+2016-05-11 16:12:02 the first beginiing
+2016-05-11 16:12:02 this is after the query
+2016-05-11 16:12:02 This is after the end statement of the query
+2016-05-11 16:12:02 This is the person does not exists 3706 that e the person id
+2016-05-11 16:12:02 the first prows default if 
+2016-05-11 16:12:03 the first beginiing
+2016-05-11 16:12:03 this is after the query
+2016-05-11 16:12:03 This is after the end statement of the query
+2016-05-11 16:12:03 This is the person does not exists 5079 that e the person id
+2016-05-11 16:12:03 the first prows default if 
+2016-05-11 16:12:04 the first beginiing
+2016-05-11 16:12:04 this is after the query
+2016-05-11 16:12:04 This is after the end statement of the query
+2016-05-11 16:12:04 This is the person does not exists 5080 that e the person id
+2016-05-11 16:12:04 the first prows default if 
+2016-05-11 16:12:04 the first beginiing
+2016-05-11 16:12:04 this is after the query
+2016-05-11 16:12:04 This is after the end statement of the query
+2016-05-11 16:12:04 This is the person does not exists 3718 that e the person id
+2016-05-11 16:12:05 the first prows default if 
+2016-05-11 16:19:55 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 989 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 16:29:22 SELECT
+	`training`.*,
+	GROUP_CONCAT(tt.training_topic_phrase ORDER BY training_topic_phrase SEPARATOR ', ') AS `topics`,
+	`ptot`.`training_id`,
+	`ptot`.`certification`,
+	`too`.`training_organizer_phrase`,
+	`p`.`id`,
+	`t`.`training_title_phrase` AS `training_title`,
+	`tc`.`training_location_name`
+FROM `training`
+ INNER JOIN `person_to_training` AS `ptot` ON training.id = ptot.training_id
+ LEFT JOIN `training_organizer_option` AS `too` ON training.training_organizer_option_id = too.id
+ INNER JOIN `person` AS `p` ON p.id = ptot.person_id
+ INNER JOIN `training_title_option` AS `t` ON training_title_option_id = t.id
+ LEFT JOIN `training_to_training_topic_option` AS `ttt` ON ttt.training_id = training.id
+ LEFT JOIN `training_topic_option` AS `tt` ON tt.id = ttt.training_topic_option_id
+ INNER JOIN `training_location` AS `tc` ON training.training_location_id = tc.id
+WHERE
+	(p.id = 3718)
+	AND (training.is_deleted = 0)
+GROUP BY
+	`training`.`id`
+ORDER BY
+	`training_start_date` DESC
+2016-05-11 16:29:22 This is the processor class Output_Json
+2016-05-11 16:29:22 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => [{"id":"3718","uuid":null,"training_title_option_id":"6","has_known_participants":"1","training_start_date":"2015-01-01","training_end_date":"2015-01-08","training_length_value":null,"training_length_interval":null,"training_organizer_option_id":"16","training_location_id":"58","training_level_option_id":"3","training_method_option_id":null,"training_custom_1_option_id":null,"training_custom_2_option_id":null,"training_got_curriculum_option_id":null,"training_primary_language_option_id":null,"training_secondary_language_option_id":null,"comments":"","got_comments":"","objectives":"","is_approved":"1","is_tot":"0","is_refresher":"1","pre":null,"post":null,"modified_by":null,"created_by":"19","is_deleted":"0","timestamp_updated":"2016-05-11 00:00:00","timestamp_created":"2016-05-11 17:12:00","training_refresher_option_id":null,"course_id":null,"custom_3":null,"custom_4":null,"topics":"(n\/a)","training_id":"989","certification":"Y","training_organizer_phrase":"Federal Ministry of Health (FMOH)","training_title":"FP Education and Mobilization","training_location_name":"Federal Capital Territory"}]
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 16:43:44 SELECT
+	`training`.*,
+	GROUP_CONCAT(tt.training_topic_phrase ORDER BY training_topic_phrase SEPARATOR ', ') AS `topics`,
+	`ptot`.`training_id`,
+	`ptot`.`certification`,
+	`too`.`training_organizer_phrase`,
+	`p`.`id`,
+	`t`.`training_title_phrase` AS `training_title`,
+	`tc`.`training_location_name`
+FROM `training`
+ INNER JOIN `person_to_training` AS `ptot` ON training.id = ptot.training_id
+ LEFT JOIN `training_organizer_option` AS `too` ON training.training_organizer_option_id = too.id
+ INNER JOIN `person` AS `p` ON p.id = ptot.person_id
+ INNER JOIN `training_title_option` AS `t` ON training_title_option_id = t.id
+ LEFT JOIN `training_to_training_topic_option` AS `ttt` ON ttt.training_id = training.id
+ LEFT JOIN `training_topic_option` AS `tt` ON tt.id = ttt.training_topic_option_id
+ INNER JOIN `training_location` AS `tc` ON training.training_location_id = tc.id
+WHERE
+	(p.id = 3718)
+	AND (training.is_deleted = 0)
+GROUP BY
+	`training`.`id`
+ORDER BY
+	`training_start_date` DESC
+2016-05-11 16:43:44 This is the processor class Output_Json
+2016-05-11 16:43:44 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => [{"id":"3718","uuid":null,"training_title_option_id":"6","has_known_participants":"1","training_start_date":"2015-01-01","training_end_date":"2015-01-08","training_length_value":null,"training_length_interval":null,"training_organizer_option_id":"16","training_location_id":"58","training_level_option_id":"3","training_method_option_id":null,"training_custom_1_option_id":null,"training_custom_2_option_id":null,"training_got_curriculum_option_id":null,"training_primary_language_option_id":null,"training_secondary_language_option_id":null,"comments":"","got_comments":"","objectives":"","is_approved":"1","is_tot":"0","is_refresher":"1","pre":null,"post":null,"modified_by":null,"created_by":"19","is_deleted":"0","timestamp_updated":"2016-05-11 00:00:00","timestamp_created":"2016-05-11 17:12:00","training_refresher_option_id":null,"course_id":null,"custom_3":null,"custom_4":null,"topics":"(n\/a)","training_id":"989","certification":"Y","training_organizer_phrase":"Federal Ministry of Health (FMOH)","training_title":"FP Education and Mobilization","training_location_name":"Federal Capital Territory"}]
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 16:44:48 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 989 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 16:51:59 This is the processor class Output_Json
+2016-05-11 16:51:59 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 16:52:03 This is the processor class Output_Json
+2016-05-11 16:52:03 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 16:52:08 This is the processor class Output_Json
+2016-05-11 16:52:08 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 16:52:13 This is the processor class Output_Json
+2016-05-11 16:52:13 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 16:52:17 This is the processor class Output_Json
+2016-05-11 16:52:17 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => {"delete":1}
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-11 16:54:05 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 989 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 17:02:30 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 989 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-11 17:03:08 the first beginiing
+2016-05-11 17:03:08 this is after the query
+2016-05-11 17:03:08 This is after the end statement of the query
+2016-05-11 17:03:08 This is the person does not exists 3705 that e the person id
+2016-05-11 17:03:09 the first prows default if 
+2016-05-11 17:03:09 the first beginiing
+2016-05-11 17:03:09 this is after the query
+2016-05-11 17:03:09 This is after the end statement of the query
+2016-05-11 17:03:09 This is the person does not exists 3706 that e the person id
+2016-05-11 17:03:10 the first prows default if 
+2016-05-11 17:03:10 the first beginiing
+2016-05-11 17:03:10 this is after the query
+2016-05-11 17:03:10 This is after the end statement of the query
+2016-05-11 17:03:10 This is the person does not exists 5079 that e the person id
+2016-05-11 17:03:10 the first prows default if 
+2016-05-11 17:03:10 the first beginiing
+2016-05-11 17:03:11 this is after the query
+2016-05-11 17:03:11 This is after the end statement of the query
+2016-05-11 17:03:11 This is the person does not exists 5080 that e the person id
+2016-05-11 17:03:11 the first prows default if 
+2016-05-11 17:03:11 the first beginiing
+2016-05-11 17:03:11 this is after the query
+2016-05-11 17:03:12 This is after the end statement of the query
+2016-05-11 17:03:12 This is the person does not exists 3718 that e the person id
+2016-05-11 17:03:13 the first prows default if 
+2016-05-11 17:17:12 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 990 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-12 09:01:37 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 991 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-12 09:13:21 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 991 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-12 11:44:14 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 991 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-12 13:03:54 THe first list is workinbg
+2016-05-12 13:03:54 THe first list is workinbg
+2016-05-12 13:03:56 THe first list is workinbg
+2016-05-12 13:04:11 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 991 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-12 13:20:38 THe first list is workinbg
+2016-05-12 13:20:39 THe first list is workinbg
+2016-05-12 13:20:39 THe first list is workinbg
+2016-05-12 13:20:40 THe first list is workinbg
+2016-05-12 13:21:41 SELECT
+	`ptt`.`id`,
+	`ptt`.`person_id`,
+	`ptt`.`duration_days`,
+	`ptt`.`certification`,
+	`ptt`.`award_id`,
+	ROUND((spost.score_value - spre.score_value) / spre.score_value * 100) AS `score_percent_change`,
+	`p`.`first_name`,
+	`p`.`middle_name`,
+	`p`.`last_name`,
+	`p`.`birthdate`,
+	`f`.`facility_name`,
+	`f`.`location_id`,
+	`pq`.`qualification_phrase` AS `qualification`,
+	`pq2`.`qualification_phrase` AS `primary_qualification`,
+	`spre`.`score_value` AS `score_pre`,
+	`spost`.`score_value` AS `score_post`,
+	GROUP_CONCAT(scoreother.score_label) AS `score_other_k`,
+	GROUP_CONCAT(scoreother.score_value) AS `score_other_v`,
+	`award`.`award_phrase`,
+	`budget`.`budget_code_phrase`,
+	`viewloc`.`location_phrase`
+FROM `person_to_training` AS `ptt`
+ INNER JOIN `person` AS `p` ON p.id = ptt.person_id
+ LEFT JOIN `facility` AS `f` ON p.facility_id = f.id
+ LEFT JOIN `person_qualification_option` AS `pq` ON p.primary_qualification_option_id = pq.id
+ LEFT JOIN `person_qualification_option` AS `pq2` ON pq.parent_id = pq2.id
+ LEFT JOIN `score` AS `spre` ON spre.person_to_training_id = ptt.id AND spre.score_label = 'Pre-Test'
+ LEFT JOIN `score` AS `spost` ON spost.person_to_training_id = ptt.id AND spost.score_label = 'Post-Test'
+ LEFT JOIN `score` AS `scoreother` ON scoreother.person_to_training_id = ptt.id AND scoreother.score_label != 'Post-Test' AND scoreother.score_label != 'Pre-Test'
+ LEFT JOIN `person_to_training_award_option` AS `award` ON award.id   = award_id
+ LEFT JOIN `person_to_training_budget_option` AS `budget` ON budget.id  = budget_code_option_id
+ LEFT JOIN `person_to_training_viewing_loc_option` AS `viewloc` ON viewloc.id = viewing_location_option_id
+WHERE
+	(ptt.training_id = 991 and p.is_deleted=0 )
+GROUP BY
+	`ptt`.`id`
+ORDER BY
+	`last_name` ASC
+2016-05-12 13:32:26 This is the processor class Output_Json
+2016-05-12 13:32:26 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => [{"timestamp_updated":"2016-01-28 09:53:18","modified_by":"19","changes":{"vid":"1849","title_option_id":null,"facility_id":"0","active":"active","timestamp_created":"2016-01-28 09:53:18","modified_by":"19","is_deleted":"0","facility_name":null,"timestamp_updated":"2016-01-28 09:53:18"},"translated_keys":"Title, Active, Deleted, Facility","translated_values":", active, 0, "}]
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-12 13:32:26 SELECT
+	`training`.*,
+	GROUP_CONCAT(tt.training_topic_phrase ORDER BY training_topic_phrase SEPARATOR ', ') AS `topics`,
+	`ptot`.`training_id`,
+	`ptot`.`certification`,
+	`too`.`training_organizer_phrase`,
+	`p`.`id`,
+	`t`.`training_title_phrase` AS `training_title`,
+	`tc`.`training_location_name`
+FROM `training`
+ INNER JOIN `person_to_training` AS `ptot` ON training.id = ptot.training_id
+ LEFT JOIN `training_organizer_option` AS `too` ON training.training_organizer_option_id = too.id
+ INNER JOIN `person` AS `p` ON p.id = ptot.person_id
+ INNER JOIN `training_title_option` AS `t` ON training_title_option_id = t.id
+ LEFT JOIN `training_to_training_topic_option` AS `ttt` ON ttt.training_id = training.id
+ LEFT JOIN `training_topic_option` AS `tt` ON tt.id = ttt.training_topic_option_id
+ INNER JOIN `training_location` AS `tc` ON training.training_location_id = tc.id
+WHERE
+	(p.id = 4559)
+	AND (training.is_deleted = 0)
+GROUP BY
+	`training`.`id`
+ORDER BY
+	`training_start_date` DESC
+2016-05-12 13:32:26 This is the processor class Output_Json
+2016-05-12 13:32:26 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => [{"id":"4559","uuid":null,"training_title_option_id":"1","has_known_participants":"1","training_start_date":"2015-12-16","training_end_date":"2015-12-18","training_length_value":null,"training_length_interval":null,"training_organizer_option_id":"54","training_location_id":"63","training_level_option_id":"3","training_method_option_id":null,"training_custom_1_option_id":null,"training_custom_2_option_id":null,"training_got_curriculum_option_id":null,"training_primary_language_option_id":null,"training_secondary_language_option_id":null,"comments":"","got_comments":"","objectives":"","is_approved":"1","is_tot":"0","is_refresher":"0","pre":null,"post":null,"modified_by":"24","created_by":"19","is_deleted":"0","timestamp_updated":"2016-01-28 09:32:43","timestamp_created":"2016-01-27 18:19:12","training_refresher_option_id":"0","course_id":null,"custom_3":null,"custom_4":null,"topics":"(n\/a)","training_id":"926","certification":"Y","training_organizer_phrase":"Strengthening Health Outcomes Through The Private Sector (SHOPS)","training_title":"LARC","training_location_name":"Lagos State"},{"id":"4559","uuid":null,"training_title_option_id":"1","has_known_participants":"1","training_start_date":"2015-12-16","training_end_date":"2015-12-18","training_length_value":null,"training_length_interval":null,"training_organizer_option_id":"0","training_location_id":"63","training_level_option_id":"3","training_method_option_id":null,"training_custom_1_option_id":null,"training_custom_2_option_id":null,"training_got_curriculum_option_id":null,"training_primary_language_option_id":null,"training_secondary_language_option_id":null,"comments":"","got_comments":"","objectives":"","is_approved":"1","is_tot":"0","is_refresher":"1","pre":null,"post":null,"modified_by":null,"created_by":"19","is_deleted":"0","timestamp_updated":"2016-05-11 00:00:00","timestamp_created":"2016-05-11 15:51:58","training_refresher_option_id":null,"course_id":null,"custom_3":null,"custom_4":null,"topics":"(n\/a)","training_id":"985","certification":"Y","training_organizer_phrase":null,"training_title":"LARC","training_location_name":"Lagos State"}]
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => application/json
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-12 13:34:42 
+2016-05-12 13:39:33 This is the processor class Output_Text
+2016-05-12 13:39:33 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => 	44010	UITH	2359
+	68230	Beta Clinic	2500
+	74453	Idumuje-Ugboko Primary Health Centre	2550
+	39191	University of Nigeria Teaching Hospital ICH (Enugu North)	2135
+	65942	New Era Hospital	1901
+	60425	Patani Primary Health Centre	1904
+	40481	Ovwian Primary Health Centre	2076
+	41024	Obio Cottage Hospital	2224
+	42891	Jamma'a Clinic	2500
+A	55771	Massey Street Children Hospital	2152
+A	65999	Ofada Primary Health Centre	2149
+A	61885	Lagos Island Maternity Hospital	2152
+A	46863	Shogunle Primary Health Centre	1873
+A	57991	Ikorodu Primary Health Centre	2058
+A	47618	Lanik Clinic	2272
+A	53702	Ayo ni Primary Health Centre	1873
+A	68299	Hetta Medical Centre	1867
+A	40192	Agbado Primary Health Centre (Ifako/Ijaye)	1952
+A	69595	Obiaruku Primary Health Centre	2569
+A	44010	UITH	2359
+A	40673	Gezawa General Hospital	2533
+A	65264	Owokoniran Memorial Clinic	1928
+A	73620	Okunraye Primary Health Centre	2357
+A	49169	Ikeja Primary Health Centre	1933
+A	60152	Atan Model Primary Health Centre	1867
+A	68721	Oba Ademola Maternity Health Centre	1834
+A	41930	A.B.U Teaching Hospital TB Annex Clinic	2477
+A	64593	Mowe Health Post	2149
+A	49396	University of Maiduguri Teaching Hospital	2271
+A	43397	Ero Omo Basic Health Clinic	1985
+A	67370	Bolori Comprehensive Health Centre	2438
+A	53412	Gwarimpa General Hospital	1978
+A	43499	Unguwar Danko Health Clinic	2176
+A	62173	Bik Nursing and Maternity Home	2569
+A	38371	Agboyi Primary Health Centre	1876
+A	74724	Bisayo Maternity Home	1867
+A	60534	Ibukun Clinics	1867
+A	69496	Ibadan University College Hospital	2401
+A	59328	Sari Primary Health Centre	2072
+A	58943	Mushin General Hospital	2005
+A	57639	Ijo Primary Health Centre	2205
+A	67495	Ajikobi Cottage Hospital	2068
+A	41562	Oke-Oyinbo Family Health Centre	2272
+A	51562	Ikorodu General Hospital	2058
+A	71604	Igbogila Primary Health Centre	1986
+A	69691	Popoola Abati Hospital	2155
+A	72898	Joedan Hospital	2008
+A	65861	Igan-Okoto Health Clinic	1986
+A	59668	Somolu General Hospital	1948
+A	46155	Yarma Memorial Hospital	2199
+A	74483	Orile Agege General Hospital	2155
+Abadi	53906	Agudama-Ekpetiama General Hospital	1973
+Abagu	65528	Gondozua LG Health Centre	1889
+Abari	51562	Ikorodu General Hospital	2058
+Abasiama	57524	Mbiokporo 1 Primary Health Centre	2439
+Abass	74483	Orile Agege General Hospital	2155
+Abass	74668	Agbongbon Pimary Health Centre	2188
+Abdulkabir	73583	Ambursa Health Clinic	1999
+Abdulkadin	43397	Ero Omo Basic Health Clinic	1985
+Abdulkadir	39232	Kulende Health Centre	1985
+Abdulkadir	65800	Civil Service Hospital	1985
+Abdulkareem	54048	Unguwar Shanu Health Clinic	1913
+Abdullahi	41232	Isa South General Hospital	2389
+Abdullahi	39214	Yusuf Dantsoho General Hospital	2007
+Abdullahi	46629	Gidan Goga Primary Health Centre	2256
+Abdullahi	59424	Tanke Clinic and Maternity	1985
+Abdullalu	59424	Tanke Clinic and Maternity	1985
+Abdulsalam	48932	Lagos State University Teaching Hospital	1933
+Abdulwahab	54816	Adewole Health Centre	2068
+Abeleje	41961	Okeagbe Basic Health Centre	2539
+Abiade	45067	Sabo Primary Health Centre	2401
+Abichi	72831	Dutse Alhaji Health Centre	1995
+Abida	41243	Kanwa Health Clinic	2278
+Abidola	62772	Isuada Basic Health Centre	2102
+Abigail	51645	Gokaru Maternal and Child Health Clinic	1941
+Abigail	72863	Hale Alheri Clinic	1864
+Abigail	40280	Kabgu B Health Centre	1900
+Abigail	43955	Bukkuyum General Hospital	2087
+Abigail	44021	Okeelerin Primary Health Centre	2186
+Abimbola	54002	Idi-Ogungun Primary Health Centre	2401
+Abimbola	39739	Abeokuta State Hospital	1834
+Abimbola	73571	Sabo Agura Health Clinic	1928
+Abiodun	71393	Orile - Ilugun Health Clinic	1853
+Abiola	44856	Sango Primary Health Centre	2206
+Abiola	60089	Unita Hospital	1857
+Abiona	62973	Ring Road State Hospital	2167
+Abiori	41653	Otuasega Cottage Hospital	1940
+Abioye	51769	Alhayu Hospital	1850
+Abodunrin	74668	Agbongbon Pimary Health Centre	2188
+Abodunrin	47526	Balaro Primary Health Centre	2188
+Aboifabia	48562	Akwa Model Primary Health Centre	2160
+Abosede	71314	Ogungbade Model primary Health Centre	1914
+Abosede	64129	Majidun Primary Health Centre	2058
+Abu	70154	Jama'are Town Maternity	2282
+Abu	68101	Obagaji General Hospital	2375
+Abu	74376	Gusau Federal Medical Centre	2259
+Abu	59356	Jalingo MUGC Health Centre	1949
+Ac	59405	Abraka Government Hospital	2215
+Ada	58521	Eketube Health Centre	2378
+Ada	41215	Pambegua Rural Hospital	1947
+
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/plain
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-12 13:39:34 This is the processor class Output_Text
+2016-05-12 13:39:34 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => Joan	43513	Ganawuri Planned Parenthood of Nigeria Clinic	2231
+Joan	74715	Chikun Health Clinic	1972
+Jocelyn	49786	Mubi North Government Secondary School Health Clinic	2116
+Joel	63096	Chapkwi Primary Health Centre	2284
+Joel	63317	Ebute-Metta Comprehensive Health Centre	2172
+Joel	45739	Akinima Model Primary Health Centre	2091
+John	72549	Nembe General Hospital	2164
+John	61131	Amasiri Health Centre	2131
+John	55049	Kartyo Community Health Clinic	2201
+John	38889	Iwo Road Primary Health Centre	2046
+John	61897	Abayawo Primary Health Centre	2327
+John	54278	Ekwomibe Hospital and Maternity Home Ngwo	2111
+John	72785	St John's Catholic Hospital	2503
+Johnnie	53893	Azikoro Comprehensive Health Centre	1973
+Jokotola	53467	Iloro Basic Health Centre	2048
+Jolasinmi	45067	Sabo Primary Health Centre	2401
+Joledo	38710	Jama'are General Hospital	2282
+Joseph	42222	Byazhin Health Clinic	1995
+Joseph	70331	Elugwu Ettam Health Centre	1872
+Joseph	60502	Ukamaka Health Centre	2584
+Josephine	70972	Yala Lutheran Hospital	1848
+Josephine	62227	Onueke General Hospital	2545
+Josephine	42999	Nwadinafor Maternity	2462
+Josephine	68516	Ikot Okoro General Hospital	2541
+Josephine	65751	Eneka Primary Health Centre	2224
+Josephine	61131	Amasiri Health Centre	2131
+Josephine	70435	Onyirigbo Health Centre MDG	1964
+Josephine	50051	Doka Rural Hospital	1990
+Josephine	58886	Rara Primary Health Centre	2054
+Josephine	66624	Ikot Edibon Operational Base Primary Health Centre	2586
+Josephine	45185	Divine Favour Medical Centre	2135
+Josephine	57005	Oke Primary Health Centre	2090
+Joshua	49241	Ogboli Comprehensive Health Centre	2298
+Joshua	71573	Kiguna Health Centre	1823
+Jovita	55118	Gandi Primary Health Centre	2054
+Joy	58373	Amangwu Oboffia Health Centre	2209
+Joy	61445	Idomi Primary Health Centre	2118
+Joy	39754	Mgbalaeze Health Centre	2462
+Joy	56380	Ukpokiti Primary Health Centre	2053
+Joy	66672	Ozuoba Model Primary Health Centre	2224
+Joy	52147	Ogbo Primary Health Centre	2448
+Joy	62472	Emohua Infant Welfare Clinic	2479
+Joy	53412	Gwarimpa General Hospital	1978
+Joy	39010	Sifawa Dispensary	2337
+Joy	74110	Ebonyi Federal Teaching Hospital	1964
+Joy	74941	Oyigbo Comprehensive Health Centre	2407
+Joy	41324	University of Port-Harcourt Teaching Hospital	2224
+Joy	63954	Eyean Primary Health Centre	2090
+Joy	40351	Mbierebe Akpawat Primary Health Centre	2514
+Joy	38754	Eberi Primary Health Centre	2295
+Joy	50834	Amaeze Health Centre	1842
+Joy	46045	Effium Health centre	2146
+Joy	71770	Zurmi General Hospital	2278
+Joy	43207	Omademe Health Centre	1958
+Joyce	72831	Dutse Alhaji Health Centre	1995
+Joyce	47522	Emohua General Hospital	2479
+Joyce	49772	Bisichi Primary Health Centre	1852
+Joyce	50938	Akpajo Model Primary Health Centre	2073
+
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/plain
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-12 13:39:42 This is the processor class Output_Text
+2016-05-12 13:39:42 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => Ojaku	40200	Sapele General Hospital	2213
+Ojaruega	68676	Uvwiama Primary Health Centre	2020
+Oje	67240	Moniya General Hospital	2009
+Ojebiyi	38971	Asvon Hospital	1850
+Ojebode	54541	Tede Primary Health Centre	2425
+Ojekunle	40280	Kabgu B Health Centre	1900
+Ojeniyi	65729	Adegbite Foundation Primary Health Centre	2009
+Ojerinde	46740	Kurmi Daudu Model Primary Health Centre	1995
+Ojetunde	57639	Ijo Primary Health Centre	2205
+Ojetunde	38889	Iwo Road Primary Health Centre	2046
+Ojeunde	61897	Abayawo Primary Health Centre	2327
+Ojewunmi	58994	Ladoke Akintola Katangua Primary Health Centre	2186
+Ojewunmi	63768	Bini Dispensary	2313
+Oji	63758	Abor Health Centre (Udi)	2111
+Oji	74901	Nguzu Health Centre	2182
+Oji	43713	Amuzu Health Centre	2545
+Ojieoze	62921	Arua-Fugar Primary Health Centre	2197
+Ojiogu	62227	Onueke General Hospital	2545
+Ojo	66442	General Hospital Mopa	2488
+Ojoawo	70010	Ologuneru Health Centre	2225
+Ojobe	69496	Ibadan University College Hospital	2401
+Ojor	43492	Obubra General Hospital	2316
+Ojubanire	43955	Bukkuyum General Hospital	2087
+Ojule	41324	University of Port-Harcourt Teaching Hospital	2224
+Ojumah	59405	Abraka Government Hospital	2215
+
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/plain
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+
+2016-05-12 13:39:43 This is the processor class Output_Text
+2016-05-12 13:39:43 This is the response that is being sent Zend_Controller_Response_Http Object
+(
+    [_body:protected] => Array
+        (
+            [default] => Oje	67240	Moniya General Hospital	2009
+Ojebiyi	38971	Asvon Hospital	1850
+Ojebode	54541	Tede Primary Health Centre	2425
+Ojekunle	40280	Kabgu B Health Centre	1900
+Ojeniyi	65729	Adegbite Foundation Primary Health Centre	2009
+Ojerinde	46740	Kurmi Daudu Model Primary Health Centre	1995
+Ojetunde	57639	Ijo Primary Health Centre	2205
+Ojetunde	38889	Iwo Road Primary Health Centre	2046
+Ojeunde	61897	Abayawo Primary Health Centre	2327
+Ojewunmi	58994	Ladoke Akintola Katangua Primary Health Centre	2186
+Ojewunmi	63768	Bini Dispensary	2313
+
+        )
+
+    [_exceptions:protected] => Array
+        (
+        )
+
+    [_headers:protected] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/html; charset=utf-8
+                    [replace] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => Content-Type
+                    [value] => text/plain
+                    [replace] => 
+                )
+
+        )
+
+    [_headersRaw:protected] => Array
+        (
+        )
+
+    [_httpResponseCode:protected] => 200
+    [_isRedirect:protected] => 
+    [_renderExceptions:protected] => 
+    [headersSentThrowsException] => 1
+)
+

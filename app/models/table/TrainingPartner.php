@@ -41,6 +41,12 @@ class TrainingPartner extends ITechTable {
 	
 	}
 	
+        public function selectAllTrainingOrganizer(){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter ();
+            $tosql = "SELECT id,training_organizer_phrase FROM `training_organizer_option` WHERE is_deleted='0'";
+            $trainingorg = $db->fetchAll($tosql);
+            return $trainingorg;
+        }
 	/**
 	 * Returns a output friendly hash of rows and schema from a LIKE query
 	 * fieldname => value

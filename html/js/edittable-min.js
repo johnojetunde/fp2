@@ -92,7 +92,7 @@ function makeEditTable(labelAdd, tableData, columnDefs, noDelete, noEdit) {
         this.addRow = function() {
     
           this.myDataTable.addRow({edit:this.config.editLinks});
-alert("hello here");
+//alert("hello here");
           // Show cell editor
           numRows = this.myDataTable.getRecordSet().getLength();
           el = this.myDataTable.getTdEl({record:this.myDataTable.getRecord(--numRows), column:this.myDataTable.getColumn(0)});

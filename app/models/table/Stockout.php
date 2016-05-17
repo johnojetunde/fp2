@@ -92,7 +92,7 @@ class Stockout {
                     }
                     else if($updateMode){
                         $dataArray = array('value' => json_encode($output));
-                        $where = "'alias=$alias'";
+                        $where = "indicator_alias IN ('$alias')";
                         $cacheManager->updateIndicator($dataArray, $where);
                     }
                     else{

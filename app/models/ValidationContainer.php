@@ -109,12 +109,17 @@ class ValidationContainer {
         }
         public function dateFormatter($dateString){
              $endDates = explode("/",$dateString);
-                            $de = $endDates[0];
+                            $de = (isset($endDates[0]))?$endDates[0]:"";
                            
-                            $me = $endDates[1];
-                            $ye = $endDates[2];
+                            $me = (isset($endDates[1]))?$endDates[1]:"";
+                            $ye = (isset($endDates[2]))?$endDates[2]:"";
                             if(strlen($ye)==2){
-                                $ye = "20".$ye;
+                                if($ye>=50){
+                                  $ye = "19".$ye;  
+                                }else{
+                                  $ye = "20".$ye;  
+                                }
+                                
                             }
                             if(strlen($de)==1){
                                 $de = "0".$de;

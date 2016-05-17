@@ -56,10 +56,12 @@ class UserController extends ReportFilterHelpers {
                     $this->viewAssignEscaped("statusMessage","User\'s access can\'t be declined, this user\'s has been approved earlier");
                 }
                 else if($userData[0]['status']==-1){
+                    
                     $this->viewAssignEscaped("statusMessage","User has been declined access earlier");
                 }else{
                     $res = $reqUser->updateRequestUser("request_access", $data, $where);
                  if(!empty($res)){
+                     //-------------------------------------------------an email is sent to the user notifying the usert that his/her request has been declined--------------------------
                      $this->viewAssignEscaped("statusMessage","User's access request has been declined...");
                  }
                 }
@@ -246,6 +248,7 @@ class UserController extends ReportFilterHelpers {
                            //print_r($userRow);exit;
                             //echo $zone.' state '.$details.' lga '.$lga;exit;
                              //print_r($this->_getAllParams ());exit;
+    //----------------------------------------------------------------------------- email is sent to the user---------------------------------------------------------------
 //				if ($this->_getParam ( 'send_email' )) {
 //
 //					$view = new Zend_View ( );
