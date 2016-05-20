@@ -574,7 +574,8 @@ label {
     document.getElementById("csvid").value = 1;
                 oTable = $('.tablegrids').dataTable({
 					"bJQueryUI": true,
-					"sPaginationType": "full_numbers"
+					"sPaginationType": "full_numbers",
+                                        "aaSorting": []
 				});
                
             
@@ -648,12 +649,16 @@ label {
                                                         $this->criteria['aggregate_method'] = "aggreg_data";
                                                     }
                                                      ////echo 'This is the thing you dnt do in school '.$this->criteria['aggregate_method']; ?>
-                                                    <p style="width:88% !important; margin:0 auto !important;">
+                                                    <p style="width:100% !important; margin:0 auto !important;">
                                                     <label for="aggreg_data"><input type="radio" name="aggregate_method" onClick="check_buttons();" value="aggreg_data" id="aggreg_data" <?php if($this->criteria['aggregate_method']=="aggreg_data"){ echo "checked='checked'";} ?>/>  <span>Show aggregate data for the lowest selected geographies&nbsp;</span></label>  &nbsp;&nbsp;&nbsp;
                                                     <label for="facility_geog"> <input type="radio" name="aggregate_method" onclick="check_buttons();" id="facility_geog" value="facility_geog" <?php if($this->criteria['aggregate_method']=="facility_geog"){ echo "checked='checked'";} ?>/><span> Show facility data for selected geographies</span></label>&nbsp; &nbsp;&nbsp;  
-                                                    <label for="facility_training"> <input type="radio" name="aggregate_method" onclick="check_buttons()" value="facility_training"  id="facility_training" <?php if($this->criteria['aggregate_method']=="facility_training"){ echo "checked='checked'";} ?>/><span> Show facility data for selected training IDs &nbsp;</span></label>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <label for="facility_training"> <input type="radio" name="aggregate_method" onclick="check_buttons()" value="facility_training"  id="facility_training" <?php if($this->criteria['aggregate_method']=="facility_training"){ echo "checked='checked'";} ?>/><span> Show facility data for selected training IDs &nbsp;</span></label>      
+                                                    
                                                     </p>
-                                                 
+                                                 <div style="float:right !important;width:100px !important;" align="right">
+                                                            <input type="reset" name="reset"  value="Clear all selections" class="submitNoArrow"  />
+                                                            
+                                                        </div>
                                                 </div>
                                                        </div> 
                                         <div class="row">
@@ -705,7 +710,15 @@ label {
 							<p align="center"><?php renderFilter($this->locationsPerGeo, 3, 'region_c_id', $this->criteria['region_c_id'],'facility_id', true, false,'10'); ?></p>
 							
                                                         </div>
-                                                        <div class="col-md-2" style="min-width:200px">
+                                                        
+
+							<!-- TA:17: 09/04/2014 START-->
+<?php ?><div class="col-md-3" style="min-width:200px" >
+                                                        <p align="center">Facility</p>
+							<p align="center">
+<?php renderFilter($this->locationsPerGeo, 4, 'facility_id', $this->criteria['facility_id'],'', true, false,'10'); ?></p>
+</div>
+                                                    <div class="col-md-2" style="min-width:200px">
 							<p align="center"><?php echo t('Training ID'); ?></p>
 							
 							<p align="center"> 
@@ -714,13 +727,7 @@ label {
                                                         <div style="margin-top: 5px;" id='jqxComboBox'></div>
                                                         <input id="jqTraining" type="hidden" name="jqTraining"/>
                                                         </div>
-
-							<!-- TA:17: 09/04/2014 START-->
-<?php ?><div class="col-md-3" style="min-width:200px" >
-                                                        <p align="center">Facility</p>
-							<p align="center">
-<?php renderFilter($this->locationsPerGeo, 4, 'facility_id', $this->criteria['facility_id'],'', true, false,'10'); ?></p>
-</div></div>
+                                                    </div>
                                                     </fieldset>         
                                                   
                                             </div>
@@ -879,14 +886,15 @@ echo "<option value=''  >--choose--</option>";
                                             </div>
                                             
                                             
-                                             <div  class="col-md-11" style="border:1px solid black; padding-top:5px;margin:0 auto !important;margin-left:4.6% !important; ">
+                                               <div  class="col-md-11" style="border:1px solid black; padding-top:5px;margin:0 auto !important;margin-left:4.6% !important; ">
                                                 <div class="row">
                                                     <fieldset>
                                                         <legend style="margin-bottom:1px !important;text-align:center !important;">Select Time Period and Date Range</legend>
                                                     <div>
                                                         
                                                     <div class="col-md-3" style="min-width:200px;border-right:1px solid !important;min-height:90px !important;padding-top:15px !important;">
-							<p align="center" class="center">Time Period Display</p>
+							<br/>
+                                                        <p align="center" class="center">Time Period Display</p>
 							
                                                         <p align="center" class="center">
                                                     <p class="center"><label for="monthly">  <input type="radio" name="period" value="monthly" id="monthly" onclick="checkTimeDateRange();"> &nbsp;&nbsp;<span>Monthly</span></label>&nbsp;&nbsp;&nbsp;
@@ -896,7 +904,7 @@ echo "<option value=''  >--choose--</option>";
                                                 </p>
                                                     </div>
 							
-							<div class="col-md-6" style="min-width:200px;min-height:90px !important;padding-top:15px !important;" >
+							<div class="col-md-9" style="min-width:200px;min-height:90px !important;padding-top:15px !important;" >
                                                 <p align="center" class="center"></p>
 							
 						<p align="center" class="center">
@@ -905,44 +913,44 @@ echo "<option value=''  >--choose--</option>";
                                                    
                                                         <div id="infobutton" class="infobutton" style="padding-left:10px !important;">
                                                                                 <span class="infowrap"><i class="fa fa-info-circle"></i></span>
+                                                                                <?php
+                                                                                $timeDay = time($this->criteria['lastPullDate']);
+                                                                                $date = date("F, Y",$timeDay);
+                                                                                ?>
                                                                                 <div id="" class="infodiv" >
-                                                                                   The last month for which data is available on the dashboard is <?php echo $this->criteria['lastPullDate']; ?>
+                                                                                   The last month for which data is available on the dashboard is <?php echo $date; ?>
                                                                                 </div>
                                                                </div> 
                                                         </div>
-                                                  <div class="col-md-11">
-                                                    <p class="center">
-                                                        
-                                                        <br/>
+                                                  <div class="col-md-12">
+                                                    <p align="center">
+                                                        <p align="center">Date Range</p>
+                                                       
                                                         <label for="one_month">  <input type="radio" name="duration" value="1" id="one_month" OnClick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Last Month</span></label>&nbsp;&nbsp;&nbsp;
                                                     <label for="3_months"><input type="radio" name="duration" value="3" id="3_months" Onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Last 3 Months</span></label>&nbsp;&nbsp;&nbsp;
                                                    <label for="6_months"><input type="radio" name="duration" value="6" id="6_months" Onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Last 6 Months</span></label>&nbsp;&nbsp;&nbsp;
                                                   <label for="12_months"><input type="radio" name="duration" value="12"  id="12_months" onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Last 12 Months</span></label>
-                                                  <label for="custom"><input type="radio" name="duration" value="custom"  id="custom" onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Custom</span></label></p>
-                                                  
-                                                  
-                                                  </div>  
-                                                    </div>
-                                                </p>
-                                                
-                                                        </div>
-                                                       <div class="col-md-3" style="min-width:200px;padding-top:15px !important;">
-	
-							<p align="center" class="center">Date Range</p>
-                                                       
-<!--                                                        <p>from &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  to</p>
-							-->
-                                                        <p align="center" class="center">
-                                                            <input type="text" name="StartMonth" id="StartMonth" placeholder="mm"   Onkeyup="checkDateRange();" maxlength="2" size="2"/>&nbsp;
+                                                  <label for="custom"><input type="radio" name="duration" value="custom"  id="custom" onclick="checkTimeDateRange();"/> &nbsp;&nbsp;<span>Custom</span></label>
+                                                  &nbsp;&nbsp;
+                                                  <input type="text" name="StartMonth" id="StartMonth" placeholder="mm"   Onkeyup="checkDateRange();" maxlength="2" size="2"/>&nbsp;
                                                             <input type="text" name="StartYear" id="StartYear" placeholder="yyyy"   onkeyup="checkDateRange();" maxlength="4" size="4"/>
                                                             &nbsp;&nbsp;&nbsp;&nbsp;
 							
                                                             <span>&nbsp;&nbsp;to &nbsp;&nbsp;</span>
                                                             <input type="text" id="EndMonth" name="EndMonth" placeholder="mm" onChange="checkDateRange();"  Onkeyup="checkDateRange();" maxlength="2" size="2"/>&nbsp;
                                                             <input type="text" id="EndYear" name="EndYear" placeholder="yyyy" onChange="checkDateRange();"  onkeyup="checkDateRange();" maxlength="4" size="4"/>
-                                                        </p>                  
-                                                                            
+                                                    </p> 
+                                                  </div>  
+                                                    </div>
+
+                                                </p>
+                                                
                                                         </div>
+                                                       
+<!--                                                        <p>from &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  to</p>
+							-->
+                                                        
+                                                            
 
 							<!-- TA:17: 09/04/2014 START-->
                                                        </div>
@@ -956,9 +964,15 @@ echo "<option value=''  >--choose--</option>";
 						
 						<div class="row" style="height : 50px;">
                                                     <div class="col-md-11">
+                                                        <div style="float:right !important;width:100px !important;" align="right">
+                                                            <input type="reset" name="reset"  value="Clear all selections" class="submitNoArrow"  />
+                                                            
+                                                        </div>
 							<div  style="margin: 0 auto !important;width:50px !important;"  >
+                                                            
 								<input type="submit" name="go" id="submitAllData" value="<?php tp('Fetch');?>" class="submitNoArrow" onclick="submitAllDataForm()"/>
 							</div>
+                                                        
                                                     </div>
                                                      
 						</div>

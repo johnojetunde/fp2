@@ -11232,7 +11232,7 @@ if($this->getSanParam('go') || $this->getSanParam('download') ){
                 $criteria['consumption'] = array();
                 $quickLocation = new Location();
                 $lastPullDate = $helper->getLatestPullDate();
-                $critera['lastPullDate'] = $lastPullDate;
+                $criteria['lastPullDate'] = $lastPullDate;
 		$where = array ();
 		$display_training_partner = ( isset($this->_countrySettings['display_training_partner']) && $this->_countrySettings['display_training_partner'] == 1 ) ? true : false;
                 $trainingLocation = new TrainingLocation();
